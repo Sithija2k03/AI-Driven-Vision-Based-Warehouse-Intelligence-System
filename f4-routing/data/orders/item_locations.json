@@ -1,0 +1,26 @@
+{
+  "description": "20 SKU item-to-shelf-location mapping for the small warehouse. Simulates WMS stock report. Replace with real partner WMS data when available.",
+  "warehouse": "warehouse_small",
+  "items": [
+    {"item_code": "SKU-1001", "shelf_location": "A1-B1-L1", "task_weight": "Heavy"},
+    {"item_code": "SKU-1002", "shelf_location": "A1-B1-L3", "task_weight": "Heavy"},
+    {"item_code": "SKU-1003", "shelf_location": "A1-B2-L2", "task_weight": "Moderate"},
+    {"item_code": "SKU-1004", "shelf_location": "A1-B2-L8", "task_weight": "Moderate"},
+    {"item_code": "SKU-1005", "shelf_location": "A2-B1-L2", "task_weight": "Heavy"},
+    {"item_code": "SKU-1006", "shelf_location": "A2-B1-L7", "task_weight": "Moderate"},
+    {"item_code": "SKU-1007", "shelf_location": "A2-B2-L4", "task_weight": "Light"},
+    {"item_code": "SKU-1008", "shelf_location": "A2-B2-L9", "task_weight": "Light"},
+    {"item_code": "SKU-1009", "shelf_location": "A3-B1-L1", "task_weight": "Heavy"},
+    {"item_code": "SKU-1010", "shelf_location": "A3-B1-L6", "task_weight": "Moderate"},
+    {"item_code": "SKU-1011", "shelf_location": "A3-B2-L3", "task_weight": "Moderate"},
+    {"item_code": "SKU-1012", "shelf_location": "A3-B2-L8", "task_weight": "Light"},
+    {"item_code": "SKU-1013", "shelf_location": "A4-B1-L2", "task_weight": "Heavy"},
+    {"item_code": "SKU-1014", "shelf_location": "A4-B1-L7", "task_weight": "Moderate"},
+    {"item_code": "SKU-1015", "shelf_location": "A4-B2-L4", "task_weight": "Moderate"},
+    {"item_code": "SKU-1016", "shelf_location": "A4-B2-L9", "task_weight": "Light"},
+    {"item_code": "SKU-1017", "shelf_location": "A5-B1-L1", "task_weight": "Heavy"},
+    {"item_code": "SKU-1018", "shelf_location": "A5-B1-L5", "task_weight": "Moderate"},
+    {"item_code": "SKU-1019", "shelf_location": "A5-B2-L3", "task_weight": "Light"},
+    {"item_code": "SKU-1020", "shelf_location": "A5-B2-L8", "task_weight": "Light"}
+  ]
+}

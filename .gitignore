@@ -195,9 +195,9 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore
 #   that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#   and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#   and can be added to the global gitignore or merged into this file. However, if you prefer,
 #   you could uncomment the following to ignore the entire vscode folder
 # .vscode/
 # Temporary file for partial code execution
@@ -216,3 +216,54 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# =====================================================================
+# Function 1 (F1) — Occlusion-Aware Inventory Verification project
+# Keeps the repo to code + small text artifacts (scripts, XML, YOLO
+# .txt labels, CSVs, manifests). Raw footage, extracted frames, public
+# datasets, merged training images, and trained model weights are all
+# large binary files that should live on OneDrive/Drive, not in git.
+# =====================================================================
+
+# Raw CCTV video footage
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+
+# Extracted CCTV frames / public & merged image datasets (large, regenerable)
+extracted_frames/
+**/extracted_frames/
+dataset/
+datasets/
+merged_dataset/
+*.jpg
+*.jpeg
+*.png
+*.bmp
+# ...but DO keep small images intentionally placed for documentation/report use:
+!docs/**/*.jpg
+!docs/**/*.jpeg
+!docs/**/*.png
+!report_assets/**
+
+# CVAT export archives (keep only the extracted annotations.xml, not the zip)
+*.zip
+
+# Trained model weights / checkpoints / training run outputs (large, regenerate via scripts)
+*.pt
+*.pth
+*.onnx
+*.weights
+runs/
+weights/
+
+# NOTE: the following ARE meant to be committed (not ignored by the
+# patterns above, listed here just for clarity):
+#   annotations/raw_exports/*.xml   (CVAT annotation exports)
+#   annotations/converted/**/*.txt  (YOLO label files)
+#   annotations/converted/**/*.csv  (occlusion_labels.csv)
+#   **/*manifest*.json              (extract_manifest.json, rename_manifest.json)
+#   scripts/*.py
+#   configs/*.yaml, *.yml           (e.g. data.yaml)

@@ -27,19 +27,16 @@ Notes:
   --class-id if you ever add more classes.
 - Images with 0 boxes still get an empty .txt file (valid YOLO behavior
   for "background" images, though you shouldn't have any here).
-- Box coordinates with a "rotation" attribute are NOT rotated boxes in
-  standard YOLO format (YOLO txt has no rotation field) - this script
-  uses the axis-aligned xtl/ytl/xbr/ybr CVAT already gives, which is
-  CVAT's rotated-box bounding extent... actually CVAT stores xtl/ytl/xbr/ybr
-  as the UNROTATED box corners plus a separate rotation angle for display.
-  For YOLO training we use xtl/ytl/xbr/ybr directly (ignoring rotation),
-  which matches what you see as the box's tight axis-aligned footprint
-  in most CVAT rectangle exports. Flag any box that looks wrong after
-  conversion by spot-checking a few images with the drawn boxes.
+- Rotated boxes: CVAT stores xtl/ytl/xbr/ybr as the UNROTATED corners plus
+  a separate `rotation` angle (degrees, about the box centre). YOLO labels
+  have no rotation field, so for rotated boxes this script rotates the four
+  corners and writes the axis-aligned rectangle that encloses them. The
+  occlusion CSV uses the same rectangle, so crops match the YOLO boxes.
 """
 
 import sys
 import csv
+import math
 import argparse
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -73,6 +70,19 @@ def convert(xml_path: Path, output_folder: Path, class_id: int = 0):
             ytl = float(box_el.get("ytl"))
             xbr = float(box_el.get("xbr"))
             ybr = float(box_el.get("ybr"))
+
+            rotation = float(box_el.get("rotation", "0") or 0)
+            if rotation:
+                cx, cy = (xtl + xbr) / 2, (ytl + ybr) / 2
+                a = math.radians(rotation)
+                cos_a, sin_a = math.cos(a), math.sin(a)
+                xs, ys = [], []
+                for px in (xtl, xbr):
+                    for py in (ytl, ybr):
+                        dx, dy = px - cx, py - cy
+                        xs.append(cx + dx * cos_a - dy * sin_a)
+                        ys.append(cy + dx * sin_a + dy * cos_a)
+                xtl, xbr, ytl, ybr = min(xs), max(xs), min(ys), max(ys)
 
             # clip to image bounds just in case
             xtl = max(0.0, min(xtl, img_w))

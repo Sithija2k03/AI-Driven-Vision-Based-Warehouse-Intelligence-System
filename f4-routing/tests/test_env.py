@@ -10,7 +10,7 @@ import os
 # __file__ = f4-routing/tests/test_env.py
 # So f4-routing root = one level up from tests/
 F4_ROOT    = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-GRAPH_PATH = os.path.join(F4_ROOT, "data", "graphs", "warehouse_small.json")
+GRAPH_PATH = os.path.join(F4_ROOT, "data", "graphs", "warehouse_large.json")
 ORDERS_PATH = os.path.join(F4_ROOT, "data", "orders", "orders.json")
 
 # Add paths so imports resolve correctly

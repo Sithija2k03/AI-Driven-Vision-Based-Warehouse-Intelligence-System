@@ -1,0 +1,10 @@
+F3 YOLO MODEL COMPARISON RESULTS
+Warehouse Intelligence System | J26-DS-352
+============================================================
+Model              Detection%   Avg Conf   Avg KP   Speed ms
+------------------------------------------------------------
+YOLOv8n-pose            20.1%      0.586     16.9      66.4ms
+YOLOv8s-pose            31.4%      0.596     16.9     255.2ms
+YOLOv8m-pose            50.0%      0.573     16.9     477.3ms
+YOLOv11s-pose           24.6%      0.634     16.9     131.6ms
+============================================================

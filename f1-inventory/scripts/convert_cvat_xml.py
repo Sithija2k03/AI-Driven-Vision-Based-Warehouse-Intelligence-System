@@ -27,6 +27,9 @@ Notes:
   --class-id if you ever add more classes.
 - Images with 0 boxes still get an empty .txt file (valid YOLO behavior
   for "background" images, though you shouldn't have any here).
+- Duplicate boxes: if two boxes in the same image overlap with IoU > 0.95
+  (e.g. a box pasted/propagated twice), only the first is kept. The count
+  removed is printed. Use --dedupe-iou 0 to disable.
 - Rotated boxes: CVAT stores xtl/ytl/xbr/ybr as the UNROTATED corners plus
   a separate `rotation` angle (degrees, about the box centre). YOLO labels
   have no rotation field, so for rotated boxes this script rotates the four
@@ -42,7 +45,17 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-def convert(xml_path: Path, output_folder: Path, class_id: int = 0):
+def iou(a, b):
+    iw = min(a[2], b[2]) - max(a[0], b[0])
+    ih = min(a[3], b[3]) - max(a[1], b[1])
+    if iw <= 0 or ih <= 0:
+        return 0.0
+    inter = iw * ih
+    union = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter
+    return inter / union if union > 0 else 0.0
+
+
+def convert(xml_path: Path, output_folder: Path, class_id: int = 0, dedupe_iou: float = 0.95):
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
@@ -54,6 +67,7 @@ def convert(xml_path: Path, output_folder: Path, class_id: int = 0):
 
     n_images = 0
     n_boxes = 0
+    n_dupes = 0
     occ_counts = {"low": 0, "medium": 0, "high": 0, "unknown": 0}
 
     for image_el in root.findall("image"):
@@ -64,8 +78,8 @@ def convert(xml_path: Path, output_folder: Path, class_id: int = 0):
         stem = Path(img_name).stem
 
         yolo_lines = []
-        for box_idx, box_el in enumerate(image_el.findall("box")):
-            n_boxes += 1
+        kept_rects = []
+        for box_el in image_el.findall("box"):
             xtl = float(box_el.get("xtl"))
             ytl = float(box_el.get("ytl"))
             xbr = float(box_el.get("xbr"))
@@ -89,6 +103,15 @@ def convert(xml_path: Path, output_folder: Path, class_id: int = 0):
             xbr = max(0.0, min(xbr, img_w))
             ytl = max(0.0, min(ytl, img_h))
             ybr = max(0.0, min(ybr, img_h))
+
+            # drop exact/near-exact duplicate boxes (e.g. from propagate/copy-paste)
+            rect = (xtl, ytl, xbr, ybr)
+            if dedupe_iou and any(iou(rect, k) > dedupe_iou for k in kept_rects):
+                n_dupes += 1
+                continue
+            kept_rects.append(rect)
+            n_boxes += 1
+            box_idx = len(kept_rects) - 1
 
             box_w = xbr - xtl
             box_h = ybr - ytl
@@ -136,6 +159,8 @@ def convert(xml_path: Path, output_folder: Path, class_id: int = 0):
         writer.writerows(csv_rows)
 
     print(f"Converted {n_images} images, {n_boxes} boxes.")
+    if dedupe_iou:
+        print(f"Removed {n_dupes} duplicate boxes (IoU > {dedupe_iou} with another box in the same image).")
     print(f"YOLO labels written to: {labels_dir}")
     print(f"Occlusion CSV written to: {csv_path}")
     print(f"Occlusion level counts: {occ_counts}")
@@ -148,6 +173,9 @@ def main():
     parser.add_argument("xml_path", help="Path to CVAT 'for images 1.1' annotations.xml")
     parser.add_argument("output_folder", help="Where labels/ and occlusion_labels.csv will be written")
     parser.add_argument("--class-id", type=int, default=0, help="YOLO class id to use (default 0 = product)")
+    parser.add_argument("--dedupe-iou", type=float, default=0.95,
+                        help="Drop a box if it overlaps an earlier box in the same image with IoU above this "
+                             "(default 0.95; use 0 to keep everything)")
     args = parser.parse_args()
 
     xml_path = Path(args.xml_path)
@@ -157,7 +185,7 @@ def main():
         print(f"XML file not found: {xml_path}")
         sys.exit(1)
 
-    convert(xml_path, output_folder, args.class_id)
+    convert(xml_path, output_folder, args.class_id, args.dedupe_iou)
 
 
 if __name__ == "__main__":

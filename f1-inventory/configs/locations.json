@@ -7,6 +7,18 @@
         { "location_id": "X5-FLOOR",      "region": [0.3, 0.0, 0.7, 1.0] },
         { "location_id": "X5-RIGHT-RACK", "region": [0.7, 0.0, 1.0, 1.0] }
       ]
+    },
+    "G_H": {
+      "reference_frame": "D:/Research/research camera data/05-09-2026/_LOCATION__G___H_DVR1_STORE_20260918110921/extracted_frames/cam10__frame_00038.jpg",
+      "locations": [
+        { "location_id": "GH-ALL", "region": [0.0, 0.0, 1.0, 1.0] }
+      ]
+    },
+    "CP2": {
+      "reference_frame": "D:/Research/research camera data/05-09-2026/CHAKING_PART_2_DVR1_STORE_20260918110918/extracted_frames/cam11__frame_00005.jpg",
+      "locations": [
+        { "location_id": "CP2-ALL", "region": [0.0, 0.0, 1.0, 1.0] }
+      ]
     }
   }
 }

@@ -1,0 +1,7378 @@
+{
+  "metadata": {
+    "description": "Fine Enterprises Warehouse — F4 RL routing graph",
+    "scale": "0.0698 m/px (canvas 860×780 px ≈ 60m×55m)",
+    "stair_penalty_m": 12.0,
+    "node_count": 291,
+    "edge_count": 594,
+    "edge_types": {
+      "loc_step": "Adjacent shelf position within same rack block (≈0.3m)",
+      "block_step": "Adjacent rack bay within same aisle (≈1.5m)",
+      "aisle_step": "Between aisles on same floor (Euclidean, varies)",
+      "stair_step": "Ground↔Mezzanine via staircase (fixed 12.0m penalty)",
+      "entrance_exit": "Virtual ENTRANCE/EXIT connection (0.5m)"
+    },
+    "avg_edge_weight_m": 1.61,
+    "virtual_nodes": [
+      "ENTRANCE",
+      "EXIT"
+    ]
+  },
+  "nodes": {
+    "A03-B01-L04": {
+      "node_id": "A03-B01-L04",
+      "aisle_id": "A03",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 566
+    },
+    "A03-B04-L03": {
+      "node_id": "A03-B04-L03",
+      "aisle_id": "A03",
+      "block": 4,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 17,
+      "total_qty": 769
+    },
+    "A03-B05-L02": {
+      "node_id": "A03-B05-L02",
+      "aisle_id": "A03",
+      "block": 5,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 34,
+      "total_qty": 748
+    },
+    "A03-B04-L04": {
+      "node_id": "A03-B04-L04",
+      "aisle_id": "A03",
+      "block": 4,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 22,
+      "total_qty": 4207
+    },
+    "A03-B04-L01": {
+      "node_id": "A03-B04-L01",
+      "aisle_id": "A03",
+      "block": 4,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 25,
+      "total_qty": 4675
+    },
+    "A03-B01-L02": {
+      "node_id": "A03-B01-L02",
+      "aisle_id": "A03",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 2240
+    },
+    "A03-B01-L01": {
+      "node_id": "A03-B01-L01",
+      "aisle_id": "A03",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 60
+    },
+    "A03-B05-L01": {
+      "node_id": "A03-B05-L01",
+      "aisle_id": "A03",
+      "block": 5,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 343
+    },
+    "A03-B02-L01": {
+      "node_id": "A03-B02-L01",
+      "aisle_id": "A03",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 23,
+      "total_qty": 652
+    },
+    "M01-B01-L01": {
+      "node_id": "M01-B01-L01",
+      "aisle_id": "M01",
+      "block": 1,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 38,
+      "total_qty": 486
+    },
+    "M01-B01-L02": {
+      "node_id": "M01-B01-L02",
+      "aisle_id": "M01",
+      "block": 1,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 46,
+      "total_qty": 5526
+    },
+    "A03-B01-L03": {
+      "node_id": "A03-B01-L03",
+      "aisle_id": "A03",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 879
+    },
+    "A09-B01-L03": {
+      "node_id": "A09-B01-L03",
+      "aisle_id": "A09",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 590,
+      "sku_count": 35,
+      "total_qty": 2189
+    },
+    "A03-B02-L04": {
+      "node_id": "A03-B02-L04",
+      "aisle_id": "A03",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 13,
+      "total_qty": 8015
+    },
+    "A03-B04-L02": {
+      "node_id": "A03-B04-L02",
+      "aisle_id": "A03",
+      "block": 4,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 1108
+    },
+    "M01-B02-L01": {
+      "node_id": "M01-B02-L01",
+      "aisle_id": "M01",
+      "block": 2,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 35,
+      "total_qty": 9361
+    },
+    "A03-B02-L06": {
+      "node_id": "A03-B02-L06",
+      "aisle_id": "A03",
+      "block": 2,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 205
+    },
+    "A09-B02-L02": {
+      "node_id": "A09-B02-L02",
+      "aisle_id": "A09",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 415,
+      "y_approx": 730,
+      "sku_count": 29,
+      "total_qty": 13061
+    },
+    "A08-B01-L02": {
+      "node_id": "A08-B01-L02",
+      "aisle_id": "A08",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 27,
+      "total_qty": 705
+    },
+    "A05-B03-L01": {
+      "node_id": "A05-B03-L01",
+      "aisle_id": "A05",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 146,
+      "total_qty": 12276
+    },
+    "A09-B03-L02": {
+      "node_id": "A09-B03-L02",
+      "aisle_id": "A09",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 270
+    },
+    "A02-B01-L02": {
+      "node_id": "A02-B01-L02",
+      "aisle_id": "A02",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 1079
+    },
+    "A05-B05-L01": {
+      "node_id": "A05-B05-L01",
+      "aisle_id": "A05",
+      "block": 5,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 73,
+      "total_qty": 3019
+    },
+    "A07-B02-L06": {
+      "node_id": "A07-B02-L06",
+      "aisle_id": "A07",
+      "block": 2,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 6,
+      "total_qty": 1980
+    },
+    "A06-B03-L03": {
+      "node_id": "A06-B03-L03",
+      "aisle_id": "A06",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 59,
+      "total_qty": 17834
+    },
+    "A09-B02-L04": {
+      "node_id": "A09-B02-L04",
+      "aisle_id": "A09",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 5,
+      "total_qty": 76
+    },
+    "A03-B04-L05": {
+      "node_id": "A03-B04-L05",
+      "aisle_id": "A03",
+      "block": 4,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 23,
+      "total_qty": 1456
+    },
+    "M01-B02-L02": {
+      "node_id": "M01-B02-L02",
+      "aisle_id": "M01",
+      "block": 2,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 23,
+      "total_qty": 354
+    },
+    "A06-B03-L02": {
+      "node_id": "A06-B03-L02",
+      "aisle_id": "A06",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 57,
+      "total_qty": 52620
+    },
+    "A07-B03-L01": {
+      "node_id": "A07-B03-L01",
+      "aisle_id": "A07",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 10,
+      "total_qty": 215
+    },
+    "A03-B03-L04": {
+      "node_id": "A03-B03-L04",
+      "aisle_id": "A03",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 1583
+    },
+    "A03-B05-L03": {
+      "node_id": "A03-B05-L03",
+      "aisle_id": "A03",
+      "block": 5,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 19,
+      "total_qty": 890
+    },
+    "A03-B03-L06": {
+      "node_id": "A03-B03-L06",
+      "aisle_id": "A03",
+      "block": 3,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 326
+    },
+    "A03-B02-L05": {
+      "node_id": "A03-B02-L05",
+      "aisle_id": "A03",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 292
+    },
+    "A03-B03-L01": {
+      "node_id": "A03-B03-L01",
+      "aisle_id": "A03",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 962
+    },
+    "A03-B03-L05": {
+      "node_id": "A03-B03-L05",
+      "aisle_id": "A03",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 13,
+      "total_qty": 1606
+    },
+    "A05-B01-L01": {
+      "node_id": "A05-B01-L01",
+      "aisle_id": "A05",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 74,
+      "total_qty": 12882
+    },
+    "A03-B03-L03": {
+      "node_id": "A03-B03-L03",
+      "aisle_id": "A03",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 474
+    },
+    "M02-B07-L04": {
+      "node_id": "M02-B07-L04",
+      "aisle_id": "M02",
+      "block": 7,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 32,
+      "total_qty": 2395
+    },
+    "A06-B01-L04": {
+      "node_id": "A06-B01-L04",
+      "aisle_id": "A06",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 33,
+      "total_qty": 13407
+    },
+    "A06-B02-L05": {
+      "node_id": "A06-B02-L05",
+      "aisle_id": "A06",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 35
+    },
+    "A08-B02-L02": {
+      "node_id": "A08-B02-L02",
+      "aisle_id": "A08",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 15,
+      "total_qty": 545
+    },
+    "A04-B01-L01": {
+      "node_id": "A04-B01-L01",
+      "aisle_id": "A04",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 265,
+      "sku_count": 32,
+      "total_qty": 1326
+    },
+    "M02-B07-L03": {
+      "node_id": "M02-B07-L03",
+      "aisle_id": "M02",
+      "block": 7,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 168
+    },
+    "A02-B01-L06": {
+      "node_id": "A02-B01-L06",
+      "aisle_id": "A02",
+      "block": 1,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 151
+    },
+    "A02-B01-L01": {
+      "node_id": "A02-B01-L01",
+      "aisle_id": "A02",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 207
+    },
+    "A02-B01-L03": {
+      "node_id": "A02-B01-L03",
+      "aisle_id": "A02",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 389
+    },
+    "M02-B07-L02": {
+      "node_id": "M02-B07-L02",
+      "aisle_id": "M02",
+      "block": 7,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 298
+    },
+    "A02-B02-L06": {
+      "node_id": "A02-B02-L06",
+      "aisle_id": "A02",
+      "block": 2,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 16,
+      "total_qty": 645
+    },
+    "A02-B02-L05": {
+      "node_id": "A02-B02-L05",
+      "aisle_id": "A02",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 2172
+    },
+    "A02-B05-L06": {
+      "node_id": "A02-B05-L06",
+      "aisle_id": "A02",
+      "block": 5,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 18,
+      "total_qty": 444
+    },
+    "A02-B05-L03": {
+      "node_id": "A02-B05-L03",
+      "aisle_id": "A02",
+      "block": 5,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 247
+    },
+    "A02-B03-L03": {
+      "node_id": "A02-B03-L03",
+      "aisle_id": "A02",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 1549
+    },
+    "A05-B06-L01": {
+      "node_id": "A05-B06-L01",
+      "aisle_id": "A05",
+      "block": 6,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 24,
+      "total_qty": 3739
+    },
+    "A05-B02-L01": {
+      "node_id": "A05-B02-L01",
+      "aisle_id": "A05",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 75,
+      "total_qty": 2079
+    },
+    "A02-B02-L03": {
+      "node_id": "A02-B02-L03",
+      "aisle_id": "A02",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 13,
+      "total_qty": 981
+    },
+    "A02-B01-L05": {
+      "node_id": "A02-B01-L05",
+      "aisle_id": "A02",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 14,
+      "total_qty": 1340
+    },
+    "M02-B04-L05": {
+      "node_id": "M02-B04-L05",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 335
+    },
+    "M02-B03-L02": {
+      "node_id": "M02-B03-L02",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 5,
+      "total_qty": 83
+    },
+    "A02-B05-L05": {
+      "node_id": "A02-B05-L05",
+      "aisle_id": "A02",
+      "block": 5,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 19,
+      "total_qty": 253
+    },
+    "A02-B05-L04": {
+      "node_id": "A02-B05-L04",
+      "aisle_id": "A02",
+      "block": 5,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 382
+    },
+    "A02-B05-L02": {
+      "node_id": "A02-B05-L02",
+      "aisle_id": "A02",
+      "block": 5,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 14,
+      "total_qty": 1153
+    },
+    "A03-B06-L01": {
+      "node_id": "A03-B06-L01",
+      "aisle_id": "A03",
+      "block": 6,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 1427
+    },
+    "A03-B06-L02": {
+      "node_id": "A03-B06-L02",
+      "aisle_id": "A03",
+      "block": 6,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 2338
+    },
+    "A03-B05-L06": {
+      "node_id": "A03-B05-L06",
+      "aisle_id": "A03",
+      "block": 5,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 1821
+    },
+    "A01-B06-L01": {
+      "node_id": "A01-B06-L01",
+      "aisle_id": "A01",
+      "block": 6,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 20,
+      "total_qty": 1955
+    },
+    "A08-B02-L01": {
+      "node_id": "A08-B02-L01",
+      "aisle_id": "A08",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 14,
+      "total_qty": 465
+    },
+    "A08-B01-L05": {
+      "node_id": "A08-B01-L05",
+      "aisle_id": "A08",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 480,
+      "sku_count": 11,
+      "total_qty": 462
+    },
+    "A02-B03-L02": {
+      "node_id": "A02-B03-L02",
+      "aisle_id": "A02",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 14,
+      "total_qty": 1143
+    },
+    "A02-B04-L05": {
+      "node_id": "A02-B04-L05",
+      "aisle_id": "A02",
+      "block": 4,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 544
+    },
+    "A02-B04-L04": {
+      "node_id": "A02-B04-L04",
+      "aisle_id": "A02",
+      "block": 4,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 27,
+      "total_qty": 1143
+    },
+    "A02-B03-L05": {
+      "node_id": "A02-B03-L05",
+      "aisle_id": "A02",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 449
+    },
+    "A02-B03-L04": {
+      "node_id": "A02-B03-L04",
+      "aisle_id": "A02",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 662
+    },
+    "A02-B04-L01": {
+      "node_id": "A02-B04-L01",
+      "aisle_id": "A02",
+      "block": 4,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 677
+    },
+    "A02-B03-L06": {
+      "node_id": "A02-B03-L06",
+      "aisle_id": "A02",
+      "block": 3,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 23,
+      "total_qty": 862
+    },
+    "A02-B02-L02": {
+      "node_id": "A02-B02-L02",
+      "aisle_id": "A02",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 13,
+      "total_qty": 1987
+    },
+    "A09-B01-L01": {
+      "node_id": "A09-B01-L01",
+      "aisle_id": "A09",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 590,
+      "sku_count": 44,
+      "total_qty": 23161
+    },
+    "A02-B05-L01": {
+      "node_id": "A02-B05-L01",
+      "aisle_id": "A02",
+      "block": 5,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 629
+    },
+    "M02-B06-L08": {
+      "node_id": "M02-B06-L08",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 8,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 10,
+      "total_qty": 126
+    },
+    "A09-B01-L02": {
+      "node_id": "A09-B01-L02",
+      "aisle_id": "A09",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 415,
+      "y_approx": 730,
+      "sku_count": 29,
+      "total_qty": 12837
+    },
+    "A09-B02-L01": {
+      "node_id": "A09-B02-L01",
+      "aisle_id": "A09",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 415,
+      "y_approx": 730,
+      "sku_count": 35,
+      "total_qty": 110405
+    },
+    "A09-B01-L04": {
+      "node_id": "A09-B01-L04",
+      "aisle_id": "A09",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 9,
+      "total_qty": 379
+    },
+    "A06-B03-L04": {
+      "node_id": "A06-B03-L04",
+      "aisle_id": "A06",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 295,
+      "sku_count": 49,
+      "total_qty": 34641
+    },
+    "M01-B03-L02": {
+      "node_id": "M01-B03-L02",
+      "aisle_id": "M01",
+      "block": 3,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 360,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 245
+    },
+    "A03-B01-L06": {
+      "node_id": "A03-B01-L06",
+      "aisle_id": "A03",
+      "block": 1,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 14,
+      "total_qty": 856
+    },
+    "A03-B01-L05": {
+      "node_id": "A03-B01-L05",
+      "aisle_id": "A03",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 899
+    },
+    "A03-B02-L03": {
+      "node_id": "A03-B02-L03",
+      "aisle_id": "A03",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 835
+    },
+    "A03-B05-L04": {
+      "node_id": "A03-B05-L04",
+      "aisle_id": "A03",
+      "block": 5,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 162
+    },
+    "A03-B05-L05": {
+      "node_id": "A03-B05-L05",
+      "aisle_id": "A03",
+      "block": 5,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 375
+    },
+    "A05-B04-L01": {
+      "node_id": "A05-B04-L01",
+      "aisle_id": "A05",
+      "block": 4,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 43,
+      "total_qty": 1773
+    },
+    "A02-B04-L02": {
+      "node_id": "A02-B04-L02",
+      "aisle_id": "A02",
+      "block": 4,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 29,
+      "total_qty": 2536
+    },
+    "A02-B04-L06": {
+      "node_id": "A02-B04-L06",
+      "aisle_id": "A02",
+      "block": 4,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 17,
+      "total_qty": 280
+    },
+    "A07-B03-L04": {
+      "node_id": "A07-B03-L04",
+      "aisle_id": "A07",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 8,
+      "total_qty": 407
+    },
+    "A06-B01-L02": {
+      "node_id": "A06-B01-L02",
+      "aisle_id": "A06",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 175,
+      "sku_count": 62,
+      "total_qty": 3155
+    },
+    "A06-B03-L01": {
+      "node_id": "A06-B03-L01",
+      "aisle_id": "A06",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 175,
+      "sku_count": 33,
+      "total_qty": 10049
+    },
+    "A08-B01-L04": {
+      "node_id": "A08-B01-L04",
+      "aisle_id": "A08",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 31,
+      "total_qty": 1354
+    },
+    "A04-B01-L02": {
+      "node_id": "A04-B01-L02",
+      "aisle_id": "A04",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 190,
+      "sku_count": 39,
+      "total_qty": 1241
+    },
+    "A04-B01-L03": {
+      "node_id": "A04-B01-L03",
+      "aisle_id": "A04",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 190,
+      "sku_count": 47,
+      "total_qty": 3324
+    },
+    "M01-B01-L03": {
+      "node_id": "M01-B01-L03",
+      "aisle_id": "M01",
+      "block": 1,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 360,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 557
+    },
+    "M01-B02-L03": {
+      "node_id": "M01-B02-L03",
+      "aisle_id": "M01",
+      "block": 2,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 360,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 225
+    },
+    "A02-B02-L01": {
+      "node_id": "A02-B02-L01",
+      "aisle_id": "A02",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 30,
+      "total_qty": 2694
+    },
+    "M02-B01-L02": {
+      "node_id": "M02-B01-L02",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 11,
+      "total_qty": 1538
+    },
+    "M02-B01-L05": {
+      "node_id": "M02-B01-L05",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 7,
+      "total_qty": 1247
+    },
+    "A06-B02-L04": {
+      "node_id": "A06-B02-L04",
+      "aisle_id": "A06",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 175,
+      "sku_count": 41,
+      "total_qty": 22749
+    },
+    "A07-B01-L06": {
+      "node_id": "A07-B01-L06",
+      "aisle_id": "A07",
+      "block": 1,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 7,
+      "total_qty": 2159
+    },
+    "A01-B06-L06": {
+      "node_id": "A01-B06-L06",
+      "aisle_id": "A01",
+      "block": 6,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 1116
+    },
+    "A06-B01-L03": {
+      "node_id": "A06-B01-L03",
+      "aisle_id": "A06",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 295,
+      "sku_count": 36,
+      "total_qty": 88476
+    },
+    "A09-B03-L03": {
+      "node_id": "A09-B03-L03",
+      "aisle_id": "A09",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 1,
+      "total_qty": 461
+    },
+    "M02-B02-L04": {
+      "node_id": "M02-B02-L04",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 839
+    },
+    "A04-B02-L02": {
+      "node_id": "A04-B02-L02",
+      "aisle_id": "A04",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 73
+    },
+    "A04-B03-L02": {
+      "node_id": "A04-B03-L02",
+      "aisle_id": "A04",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 514
+    },
+    "A04-B02-L03": {
+      "node_id": "A04-B02-L03",
+      "aisle_id": "A04",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 265,
+      "sku_count": 7,
+      "total_qty": 49
+    },
+    "A01-B04-L04": {
+      "node_id": "A01-B04-L04",
+      "aisle_id": "A01",
+      "block": 4,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 808
+    },
+    "A01-B05-L01": {
+      "node_id": "A01-B05-L01",
+      "aisle_id": "A01",
+      "block": 5,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 1010
+    },
+    "A09-B02-L03": {
+      "node_id": "A09-B02-L03",
+      "aisle_id": "A09",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 415,
+      "y_approx": 730,
+      "sku_count": 29,
+      "total_qty": 2168
+    },
+    "M02-B02-L06": {
+      "node_id": "M02-B02-L06",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 9,
+      "total_qty": 1653
+    },
+    "M02-B02-L03": {
+      "node_id": "M02-B02-L03",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 9,
+      "total_qty": 447
+    },
+    "M02-B01-L06": {
+      "node_id": "M02-B01-L06",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 1084
+    },
+    "M02-B01-L08": {
+      "node_id": "M02-B01-L08",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 8,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 1761
+    },
+    "M02-B01-L03": {
+      "node_id": "M02-B01-L03",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 2789
+    },
+    "A01-B05-L05": {
+      "node_id": "A01-B05-L05",
+      "aisle_id": "A01",
+      "block": 5,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 334
+    },
+    "M02-B01-L01": {
+      "node_id": "M02-B01-L01",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 369
+    },
+    "A02-B02-L04": {
+      "node_id": "A02-B02-L04",
+      "aisle_id": "A02",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 22,
+      "total_qty": 1715
+    },
+    "A07-B01-L04": {
+      "node_id": "A07-B01-L04",
+      "aisle_id": "A07",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 4,
+      "total_qty": 98
+    },
+    "M02-B01-L04": {
+      "node_id": "M02-B01-L04",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 7,
+      "total_qty": 322
+    },
+    "M02-B01-L07": {
+      "node_id": "M02-B01-L07",
+      "aisle_id": "M02",
+      "block": 1,
+      "loc": 7,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 7,
+      "total_qty": 964
+    },
+    "M02-B02-L08": {
+      "node_id": "M02-B02-L08",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 8,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 5,
+      "total_qty": 216
+    },
+    "M02-B07-L01": {
+      "node_id": "M02-B07-L01",
+      "aisle_id": "M02",
+      "block": 7,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 5,
+      "total_qty": 161
+    },
+    "A09-B01-L05": {
+      "node_id": "A09-B01-L05",
+      "aisle_id": "A09",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 3,
+      "total_qty": 392
+    },
+    "A09-B03-L01": {
+      "node_id": "A09-B03-L01",
+      "aisle_id": "A09",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 294
+    },
+    "A09-B02-L05": {
+      "node_id": "A09-B02-L05",
+      "aisle_id": "A09",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 1,
+      "total_qty": 16
+    },
+    "A02-B06-L02": {
+      "node_id": "A02-B06-L02",
+      "aisle_id": "A02",
+      "block": 6,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 865
+    },
+    "A04-B01-L04": {
+      "node_id": "A04-B01-L04",
+      "aisle_id": "A04",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 265,
+      "sku_count": 9,
+      "total_qty": 273
+    },
+    "M02-B05-L07": {
+      "node_id": "M02-B05-L07",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 7,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 3,
+      "total_qty": 416
+    },
+    "A08-B01-L01": {
+      "node_id": "A08-B01-L01",
+      "aisle_id": "A08",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 27,
+      "total_qty": 4197
+    },
+    "A01-B01-L04": {
+      "node_id": "A01-B01-L04",
+      "aisle_id": "A01",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 212
+    },
+    "A01-B02-L03": {
+      "node_id": "A01-B02-L03",
+      "aisle_id": "A01",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 1158
+    },
+    "A01-B03-L02": {
+      "node_id": "A01-B03-L02",
+      "aisle_id": "A01",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 94
+    },
+    "A08-B01-L03": {
+      "node_id": "A08-B01-L03",
+      "aisle_id": "A08",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 36,
+      "total_qty": 22521
+    },
+    "M01-B03-L03": {
+      "node_id": "M01-B03-L03",
+      "aisle_id": "M01",
+      "block": 3,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 360,
+      "y_approx": 0,
+      "sku_count": 16,
+      "total_qty": 252
+    },
+    "M02-B03-L01": {
+      "node_id": "M02-B03-L01",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 13,
+      "total_qty": 1482
+    },
+    "A07-B05-L05": {
+      "node_id": "A07-B05-L05",
+      "aisle_id": "A07",
+      "block": 5,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 8,
+      "total_qty": 83
+    },
+    "A07-B05-L04": {
+      "node_id": "A07-B05-L04",
+      "aisle_id": "A07",
+      "block": 5,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 6,
+      "total_qty": 247
+    },
+    "A06-B02-L02": {
+      "node_id": "A06-B02-L02",
+      "aisle_id": "A06",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 295,
+      "sku_count": 41,
+      "total_qty": 3036
+    },
+    "A05-B09-L01": {
+      "node_id": "A05-B09-L01",
+      "aisle_id": "A05",
+      "block": 9,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 38,
+      "total_qty": 55606
+    },
+    "M03-B03-L01": {
+      "node_id": "M03-B03-L01",
+      "aisle_id": "M03",
+      "block": 3,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 446
+    },
+    "M03-B03-L04": {
+      "node_id": "M03-B03-L04",
+      "aisle_id": "M03",
+      "block": 3,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 427
+    },
+    "M02-B04-L06": {
+      "node_id": "M02-B04-L06",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 10,
+      "total_qty": 36
+    },
+    "A07-B03-L06": {
+      "node_id": "A07-B03-L06",
+      "aisle_id": "A07",
+      "block": 3,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 10,
+      "total_qty": 10781
+    },
+    "A04-B03-L05": {
+      "node_id": "A04-B03-L05",
+      "aisle_id": "A04",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 331
+    },
+    "A04-B03-L03": {
+      "node_id": "A04-B03-L03",
+      "aisle_id": "A04",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 199
+    },
+    "A06-B02-L03": {
+      "node_id": "A06-B02-L03",
+      "aisle_id": "A06",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 175,
+      "sku_count": 51,
+      "total_qty": 31751
+    },
+    "M02-B06-L01": {
+      "node_id": "M02-B06-L01",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 18,
+      "total_qty": 200
+    },
+    "M02-B03-L08": {
+      "node_id": "M02-B03-L08",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 8,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 3,
+      "total_qty": 5
+    },
+    "M02-B05-L04": {
+      "node_id": "M02-B05-L04",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 67
+    },
+    "M02-B05-L01": {
+      "node_id": "M02-B05-L01",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 3,
+      "total_qty": 30
+    },
+    "M02-B04-L03": {
+      "node_id": "M02-B04-L03",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 5,
+      "total_qty": 39
+    },
+    "A01-B06-L02": {
+      "node_id": "A01-B06-L02",
+      "aisle_id": "A01",
+      "block": 6,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 238
+    },
+    "A07-B05-L01": {
+      "node_id": "A07-B05-L01",
+      "aisle_id": "A07",
+      "block": 5,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 5,
+      "total_qty": 89
+    },
+    "M02-B05-L08": {
+      "node_id": "M02-B05-L08",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 8,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 28,
+      "total_qty": 4079
+    },
+    "A06-B01-L01": {
+      "node_id": "A06-B01-L01",
+      "aisle_id": "A06",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 720,
+      "y_approx": 295,
+      "sku_count": 28,
+      "total_qty": 22787
+    },
+    "A07-B02-L02": {
+      "node_id": "A07-B02-L02",
+      "aisle_id": "A07",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 3,
+      "total_qty": 62
+    },
+    "M02-B02-L05": {
+      "node_id": "M02-B02-L05",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 1246
+    },
+    "A01-B01-L03": {
+      "node_id": "A01-B01-L03",
+      "aisle_id": "A01",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 70
+    },
+    "A01-B02-L02": {
+      "node_id": "A01-B02-L02",
+      "aisle_id": "A01",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 1,
+      "total_qty": 26
+    },
+    "A01-B01-L02": {
+      "node_id": "A01-B01-L02",
+      "aisle_id": "A01",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 44
+    },
+    "A01-B02-L01": {
+      "node_id": "A01-B02-L01",
+      "aisle_id": "A01",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 43
+    },
+    "M02-B04-L08": {
+      "node_id": "M02-B04-L08",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 8,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 947
+    },
+    "M02-B05-L06": {
+      "node_id": "M02-B05-L06",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 148
+    },
+    "M02-B04-L04": {
+      "node_id": "M02-B04-L04",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 11,
+      "total_qty": 5870
+    },
+    "M02-B05-L03": {
+      "node_id": "M02-B05-L03",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 152
+    },
+    "A03-B06-L03": {
+      "node_id": "A03-B06-L03",
+      "aisle_id": "A03",
+      "block": 6,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 1110
+    },
+    "A03-B02-L02": {
+      "node_id": "A03-B02-L02",
+      "aisle_id": "A03",
+      "block": 2,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 656
+    },
+    "A07-B02-L03": {
+      "node_id": "A07-B02-L03",
+      "aisle_id": "A07",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 5,
+      "total_qty": 750
+    },
+    "A07-B01-L05": {
+      "node_id": "A07-B01-L05",
+      "aisle_id": "A07",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 5,
+      "total_qty": 34
+    },
+    "M02-B02-L02": {
+      "node_id": "M02-B02-L02",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 465
+    },
+    "M02-B04-L01": {
+      "node_id": "M02-B04-L01",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 1017
+    },
+    "A01-B02-L05": {
+      "node_id": "A01-B02-L05",
+      "aisle_id": "A01",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 86
+    },
+    "A02-B04-L03": {
+      "node_id": "A02-B04-L03",
+      "aisle_id": "A02",
+      "block": 4,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 195,
+      "y_approx": 0,
+      "sku_count": 35,
+      "total_qty": 4250
+    },
+    "A02-B06-L04": {
+      "node_id": "A02-B06-L04",
+      "aisle_id": "A02",
+      "block": 6,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 1294
+    },
+    "A03-B04-L06": {
+      "node_id": "A03-B04-L06",
+      "aisle_id": "A03",
+      "block": 4,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 235,
+      "y_approx": 0,
+      "sku_count": 13,
+      "total_qty": 702
+    },
+    "A02-B03-L01": {
+      "node_id": "A02-B03-L01",
+      "aisle_id": "A02",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 1077
+    },
+    "A01-B05-L06": {
+      "node_id": "A01-B05-L06",
+      "aisle_id": "A01",
+      "block": 5,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 1541
+    },
+    "A02-B06-L01": {
+      "node_id": "A02-B06-L01",
+      "aisle_id": "A02",
+      "block": 6,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 1094
+    },
+    "A01-B05-L04": {
+      "node_id": "A01-B05-L04",
+      "aisle_id": "A01",
+      "block": 5,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 345
+    },
+    "A07-B04-L01": {
+      "node_id": "A07-B04-L01",
+      "aisle_id": "A07",
+      "block": 4,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 6,
+      "total_qty": 175
+    },
+    "A07-B04-L04": {
+      "node_id": "A07-B04-L04",
+      "aisle_id": "A07",
+      "block": 4,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 7,
+      "total_qty": 5658
+    },
+    "M02-B02-L01": {
+      "node_id": "M02-B02-L01",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 10
+    },
+    "A08-B02-L03": {
+      "node_id": "A08-B02-L03",
+      "aisle_id": "A08",
+      "block": 2,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 12,
+      "total_qty": 3369
+    },
+    "A08-B02-L04": {
+      "node_id": "A08-B02-L04",
+      "aisle_id": "A08",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 385,
+      "sku_count": 8,
+      "total_qty": 1877
+    },
+    "A07-B01-L03": {
+      "node_id": "A07-B01-L03",
+      "aisle_id": "A07",
+      "block": 1,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 4,
+      "total_qty": 331
+    },
+    "A07-B04-L03": {
+      "node_id": "A07-B04-L03",
+      "aisle_id": "A07",
+      "block": 4,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 3,
+      "total_qty": 2106
+    },
+    "A07-B03-L02": {
+      "node_id": "A07-B03-L02",
+      "aisle_id": "A07",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 5,
+      "total_qty": 413
+    },
+    "A07-B03-L03": {
+      "node_id": "A07-B03-L03",
+      "aisle_id": "A07",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 6,
+      "total_qty": 17367
+    },
+    "A07-B04-L06": {
+      "node_id": "A07-B04-L06",
+      "aisle_id": "A07",
+      "block": 4,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 3,
+      "total_qty": 834
+    },
+    "A01-B06-L03": {
+      "node_id": "A01-B06-L03",
+      "aisle_id": "A01",
+      "block": 6,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 16,
+      "total_qty": 1474
+    },
+    "A03-B03-L02": {
+      "node_id": "A03-B03-L02",
+      "aisle_id": "A03",
+      "block": 3,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 325,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 378
+    },
+    "A09-B03-L04": {
+      "node_id": "A09-B03-L04",
+      "aisle_id": "A09",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 1,
+      "total_qty": 63
+    },
+    "A06-B02-L06": {
+      "node_id": "A06-B02-L06",
+      "aisle_id": "A06",
+      "block": 2,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 894
+    },
+    "A09-B03-L05": {
+      "node_id": "A09-B03-L05",
+      "aisle_id": "A09",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 2,
+      "total_qty": 167
+    },
+    "A02-B01-L04": {
+      "node_id": "A02-B01-L04",
+      "aisle_id": "A02",
+      "block": 1,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 105,
+      "y_approx": 0,
+      "sku_count": 16,
+      "total_qty": 1604
+    },
+    "A04-B03-L01": {
+      "node_id": "A04-B03-L01",
+      "aisle_id": "A04",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 68
+    },
+    "A01-B03-L03": {
+      "node_id": "A01-B03-L03",
+      "aisle_id": "A01",
+      "block": 3,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 500
+    },
+    "A01-B03-L04": {
+      "node_id": "A01-B03-L04",
+      "aisle_id": "A01",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 228
+    },
+    "A01-B04-L01": {
+      "node_id": "A01-B04-L01",
+      "aisle_id": "A01",
+      "block": 4,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 104
+    },
+    "A06-B03-L05": {
+      "node_id": "A06-B03-L05",
+      "aisle_id": "A06",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 279
+    },
+    "A06-B01-L05": {
+      "node_id": "A06-B01-L05",
+      "aisle_id": "A06",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 1030
+    },
+    "A06-B02-L01": {
+      "node_id": "A06-B02-L01",
+      "aisle_id": "A06",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 26,
+      "total_qty": 13146
+    },
+    "A01-B06-L05": {
+      "node_id": "A01-B06-L05",
+      "aisle_id": "A01",
+      "block": 6,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 15,
+      "total_qty": 1330
+    },
+    "M01-B03-L01": {
+      "node_id": "M01-B03-L01",
+      "aisle_id": "M01",
+      "block": 3,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC1",
+      "x_approx": 360,
+      "y_approx": 0,
+      "sku_count": 17,
+      "total_qty": 548
+    },
+    "M03-B03-L03": {
+      "node_id": "M03-B03-L03",
+      "aisle_id": "M03",
+      "block": 3,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 307
+    },
+    "M03-B03-L06": {
+      "node_id": "M03-B03-L06",
+      "aisle_id": "M03",
+      "block": 3,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 397
+    },
+    "M02-B05-L05": {
+      "node_id": "M02-B05-L05",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 1078
+    },
+    "M02-B05-L02": {
+      "node_id": "M02-B05-L02",
+      "aisle_id": "M02",
+      "block": 5,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 858
+    },
+    "M02-B04-L07": {
+      "node_id": "M02-B04-L07",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 7,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 7,
+      "total_qty": 713
+    },
+    "A01-B02-L06": {
+      "node_id": "A01-B02-L06",
+      "aisle_id": "A01",
+      "block": 2,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 2,
+      "total_qty": 32
+    },
+    "A01-B06-L04": {
+      "node_id": "A01-B06-L04",
+      "aisle_id": "A01",
+      "block": 6,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 221
+    },
+    "A01-B05-L03": {
+      "node_id": "A01-B05-L03",
+      "aisle_id": "A01",
+      "block": 5,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 938
+    },
+    "A01-B01-L06": {
+      "node_id": "A01-B01-L06",
+      "aisle_id": "A01",
+      "block": 1,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 236
+    },
+    "A01-B04-L05": {
+      "node_id": "A01-B04-L05",
+      "aisle_id": "A01",
+      "block": 4,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 13,
+      "total_qty": 1346
+    },
+    "A04-B02-L05": {
+      "node_id": "A04-B02-L05",
+      "aisle_id": "A04",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 201
+    },
+    "A04-B01-L05": {
+      "node_id": "A04-B01-L05",
+      "aisle_id": "A04",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 23
+    },
+    "A04-B01-L06": {
+      "node_id": "A04-B01-L06",
+      "aisle_id": "A04",
+      "block": 1,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 1
+    },
+    "A04-B02-L06": {
+      "node_id": "A04-B02-L06",
+      "aisle_id": "A04",
+      "block": 2,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 77
+    },
+    "A04-B03-L06": {
+      "node_id": "A04-B03-L06",
+      "aisle_id": "A04",
+      "block": 3,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 18
+    },
+    "A04-B03-L04": {
+      "node_id": "A04-B03-L04",
+      "aisle_id": "A04",
+      "block": 3,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 191
+    },
+    "A04-B02-L04": {
+      "node_id": "A04-B02-L04",
+      "aisle_id": "A04",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 53
+    },
+    "M03-B01-L03": {
+      "node_id": "M03-B01-L03",
+      "aisle_id": "M03",
+      "block": 1,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 12,
+      "total_qty": 1479
+    },
+    "A04-B02-L01": {
+      "node_id": "A04-B02-L01",
+      "aisle_id": "A04",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 370,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 369
+    },
+    "A01-B05-L02": {
+      "node_id": "A01-B05-L02",
+      "aisle_id": "A01",
+      "block": 5,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 9,
+      "total_qty": 2054
+    },
+    "M02-B02-L07": {
+      "node_id": "M02-B02-L07",
+      "aisle_id": "M02",
+      "block": 2,
+      "loc": 7,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 9,
+      "total_qty": 1678
+    },
+    "M02-B06-L05": {
+      "node_id": "M02-B06-L05",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 305
+    },
+    "M02-B06-L06": {
+      "node_id": "M02-B06-L06",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 383
+    },
+    "A08-B02-L05": {
+      "node_id": "A08-B02-L05",
+      "aisle_id": "A08",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 375,
+      "y_approx": 480,
+      "sku_count": 5,
+      "total_qty": 189
+    },
+    "M02-B06-L07": {
+      "node_id": "M02-B06-L07",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 7,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 6472
+    },
+    "M02-B06-L02": {
+      "node_id": "M02-B06-L02",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 8,
+      "total_qty": 399
+    },
+    "M02-B06-L03": {
+      "node_id": "M02-B06-L03",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 7,
+      "total_qty": 829
+    },
+    "A07-B02-L05": {
+      "node_id": "A07-B02-L05",
+      "aisle_id": "A07",
+      "block": 2,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 2,
+      "total_qty": 3
+    },
+    "M02-B03-L06": {
+      "node_id": "M02-B03-L06",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 26
+    },
+    "A07-B05-L03": {
+      "node_id": "A07-B05-L03",
+      "aisle_id": "A07",
+      "block": 5,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 8,
+      "total_qty": 6560
+    },
+    "A07-B03-L05": {
+      "node_id": "A07-B03-L05",
+      "aisle_id": "A07",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 12,
+      "total_qty": 1233
+    },
+    "M03-B01-L06": {
+      "node_id": "M03-B01-L06",
+      "aisle_id": "M03",
+      "block": 1,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 5165
+    },
+    "M03-B05-L02": {
+      "node_id": "M03-B05-L02",
+      "aisle_id": "M03",
+      "block": 5,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 1300
+    },
+    "M03-B05-L03": {
+      "node_id": "M03-B05-L03",
+      "aisle_id": "M03",
+      "block": 5,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 191
+    },
+    "M03-B02-L04": {
+      "node_id": "M03-B02-L04",
+      "aisle_id": "M03",
+      "block": 2,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 404
+    },
+    "M03-B02-L01": {
+      "node_id": "M03-B02-L01",
+      "aisle_id": "M03",
+      "block": 2,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 304
+    },
+    "M03-B01-L04": {
+      "node_id": "M03-B01-L04",
+      "aisle_id": "M03",
+      "block": 1,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 323
+    },
+    "M03-B04-L03": {
+      "node_id": "M03-B04-L03",
+      "aisle_id": "M03",
+      "block": 4,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 664
+    },
+    "M03-B04-L06": {
+      "node_id": "M03-B04-L06",
+      "aisle_id": "M03",
+      "block": 4,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 296
+    },
+    "M03-B04-L05": {
+      "node_id": "M03-B04-L05",
+      "aisle_id": "M03",
+      "block": 4,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 469
+    },
+    "M03-B04-L02": {
+      "node_id": "M03-B04-L02",
+      "aisle_id": "M03",
+      "block": 4,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 491
+    },
+    "M03-B02-L03": {
+      "node_id": "M03-B02-L03",
+      "aisle_id": "M03",
+      "block": 2,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 130
+    },
+    "M03-B02-L06": {
+      "node_id": "M03-B02-L06",
+      "aisle_id": "M03",
+      "block": 2,
+      "loc": 6,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 530
+    },
+    "M03-B03-L05": {
+      "node_id": "M03-B03-L05",
+      "aisle_id": "M03",
+      "block": 3,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 435
+    },
+    "M03-B02-L02": {
+      "node_id": "M03-B02-L02",
+      "aisle_id": "M03",
+      "block": 2,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 722
+    },
+    "M03-B01-L05": {
+      "node_id": "M03-B01-L05",
+      "aisle_id": "M03",
+      "block": 1,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 194
+    },
+    "M03-B01-L02": {
+      "node_id": "M03-B01-L02",
+      "aisle_id": "M03",
+      "block": 1,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 316
+    },
+    "M03-B05-L01": {
+      "node_id": "M03-B05-L01",
+      "aisle_id": "M03",
+      "block": 5,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 11,
+      "total_qty": 1432
+    },
+    "M03-B03-L02": {
+      "node_id": "M03-B03-L02",
+      "aisle_id": "M03",
+      "block": 3,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 489
+    },
+    "M03-B01-L01": {
+      "node_id": "M03-B01-L01",
+      "aisle_id": "M03",
+      "block": 1,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 249
+    },
+    "M03-B02-L05": {
+      "node_id": "M03-B02-L05",
+      "aisle_id": "M03",
+      "block": 2,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 539
+    },
+    "M03-B04-L01": {
+      "node_id": "M03-B04-L01",
+      "aisle_id": "M03",
+      "block": 4,
+      "loc": 1,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 10,
+      "total_qty": 162
+    },
+    "M03-B04-L04": {
+      "node_id": "M03-B04-L04",
+      "aisle_id": "M03",
+      "block": 4,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC3",
+      "x_approx": 810,
+      "y_approx": 0,
+      "sku_count": 4,
+      "total_qty": 0
+    },
+    "A07-B02-L04": {
+      "node_id": "A07-B02-L04",
+      "aisle_id": "A07",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 5,
+      "total_qty": 94
+    },
+    "A07-B02-L01": {
+      "node_id": "A07-B02-L01",
+      "aisle_id": "A07",
+      "block": 2,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 4,
+      "total_qty": 159
+    },
+    "A07-B01-L01": {
+      "node_id": "A07-B01-L01",
+      "aisle_id": "A07",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 6,
+      "total_qty": 153
+    },
+    "A07-B01-L02": {
+      "node_id": "A07-B01-L02",
+      "aisle_id": "A07",
+      "block": 1,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 3,
+      "total_qty": 50
+    },
+    "A01-B02-L04": {
+      "node_id": "A01-B02-L04",
+      "aisle_id": "A01",
+      "block": 2,
+      "loc": 4,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 1
+    },
+    "A01-B03-L05": {
+      "node_id": "A01-B03-L05",
+      "aisle_id": "A01",
+      "block": 3,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 1036
+    },
+    "A01-B01-L01": {
+      "node_id": "A01-B01-L01",
+      "aisle_id": "A01",
+      "block": 1,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 296
+    },
+    "A01-B01-L05": {
+      "node_id": "A01-B01-L05",
+      "aisle_id": "A01",
+      "block": 1,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 113
+    },
+    "A01-B03-L06": {
+      "node_id": "A01-B03-L06",
+      "aisle_id": "A01",
+      "block": 3,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 7,
+      "total_qty": 674
+    },
+    "A01-B04-L03": {
+      "node_id": "A01-B04-L03",
+      "aisle_id": "A01",
+      "block": 4,
+      "loc": 3,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 6,
+      "total_qty": 296
+    },
+    "A01-B04-L06": {
+      "node_id": "A01-B04-L06",
+      "aisle_id": "A01",
+      "block": 4,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 8,
+      "total_qty": 269
+    },
+    "A01-B04-L02": {
+      "node_id": "A01-B04-L02",
+      "aisle_id": "A01",
+      "block": 4,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 5,
+      "total_qty": 860
+    },
+    "A05-B08-L01": {
+      "node_id": "A05-B08-L01",
+      "aisle_id": "A05",
+      "block": 8,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 31,
+      "total_qty": 28891
+    },
+    "A07-B05-L02": {
+      "node_id": "A07-B05-L02",
+      "aisle_id": "A07",
+      "block": 5,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 13,
+      "total_qty": 3838
+    },
+    "M02-B03-L05": {
+      "node_id": "M02-B03-L05",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 5,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 6,
+      "total_qty": 90
+    },
+    "M02-B06-L04": {
+      "node_id": "M02-B06-L04",
+      "aisle_id": "M02",
+      "block": 6,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 19,
+      "total_qty": 16750
+    },
+    "A05-B07-L01": {
+      "node_id": "A05-B07-L01",
+      "aisle_id": "A05",
+      "block": 7,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 470,
+      "y_approx": 0,
+      "sku_count": 22,
+      "total_qty": 19118
+    },
+    "A06-B01-L06": {
+      "node_id": "A06-B01-L06",
+      "aisle_id": "A06",
+      "block": 1,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 665,
+      "y_approx": 0,
+      "sku_count": 28,
+      "total_qty": 632
+    },
+    "M02-B03-L03": {
+      "node_id": "M02-B03-L03",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 3,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 5,
+      "total_qty": 7027
+    },
+    "M02-B03-L04": {
+      "node_id": "M02-B03-L04",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 4,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 3,
+      "total_qty": 3569
+    },
+    "M02-B04-L02": {
+      "node_id": "M02-B04-L02",
+      "aisle_id": "M02",
+      "block": 4,
+      "loc": 2,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 4,
+      "total_qty": 1606
+    },
+    "M02-B03-L07": {
+      "node_id": "M02-B03-L07",
+      "aisle_id": "M02",
+      "block": 3,
+      "loc": 7,
+      "floor": "M",
+      "is_mezzanine": true,
+      "staircase": "SC2",
+      "x_approx": 65,
+      "y_approx": 730,
+      "sku_count": 3,
+      "total_qty": 1608
+    },
+    "A07-B04-L02": {
+      "node_id": "A07-B04-L02",
+      "aisle_id": "A07",
+      "block": 4,
+      "loc": 2,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 11,
+      "total_qty": 1550
+    },
+    "A07-B04-L05": {
+      "node_id": "A07-B04-L05",
+      "aisle_id": "A07",
+      "block": 4,
+      "loc": 5,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 9,
+      "total_qty": 744
+    },
+    "A07-B05-L06": {
+      "node_id": "A07-B05-L06",
+      "aisle_id": "A07",
+      "block": 5,
+      "loc": 6,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 185,
+      "y_approx": 385,
+      "sku_count": 4,
+      "total_qty": 347
+    },
+    "A01-B03-L01": {
+      "node_id": "A01-B03-L01",
+      "aisle_id": "A01",
+      "block": 3,
+      "loc": 1,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 65,
+      "y_approx": 0,
+      "sku_count": 3,
+      "total_qty": 118
+    },
+    "ENTRANCE": {
+      "node_id": "ENTRANCE",
+      "aisle_id": "ENTRANCE",
+      "block": 0,
+      "loc": 0,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 0,
+      "y_approx": 362,
+      "sku_count": 0,
+      "total_qty": 0
+    },
+    "EXIT": {
+      "node_id": "EXIT",
+      "aisle_id": "EXIT",
+      "block": 0,
+      "loc": 0,
+      "floor": "G",
+      "is_mezzanine": false,
+      "staircase": null,
+      "x_approx": 642,
+      "y_approx": 0,
+      "sku_count": 0,
+      "total_qty": 0
+    }
+  },
+  "edges": [
+    {
+      "from": "A03-B01-L01",
+      "to": "A03-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L02",
+      "to": "A03-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L03",
+      "to": "A03-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L04",
+      "to": "A03-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L05",
+      "to": "A03-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L01",
+      "to": "A03-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L02",
+      "to": "A03-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L03",
+      "to": "A03-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L04",
+      "to": "A03-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L05",
+      "to": "A03-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L01",
+      "to": "A03-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L02",
+      "to": "A03-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L03",
+      "to": "A03-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L04",
+      "to": "A03-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L05",
+      "to": "A03-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L01",
+      "to": "A03-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L02",
+      "to": "A03-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L03",
+      "to": "A03-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L04",
+      "to": "A03-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L05",
+      "to": "A03-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L01",
+      "to": "A03-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L02",
+      "to": "A03-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L03",
+      "to": "A03-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L04",
+      "to": "A03-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L05",
+      "to": "A03-B05-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B06-L01",
+      "to": "A03-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B06-L02",
+      "to": "A03-B06-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L01",
+      "to": "A03-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B02-L01",
+      "to": "A03-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B03-L01",
+      "to": "A03-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B04-L01",
+      "to": "A03-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B05-L01",
+      "to": "A03-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M01-B01-L01",
+      "to": "M01-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B01-L02",
+      "to": "M01-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B02-L01",
+      "to": "M01-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B02-L02",
+      "to": "M01-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B03-L01",
+      "to": "M01-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B03-L02",
+      "to": "M01-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B01-L01",
+      "to": "M01-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M01-B02-L01",
+      "to": "M01-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A09-B01-L01",
+      "to": "A09-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L02",
+      "to": "A09-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L03",
+      "to": "A09-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L04",
+      "to": "A09-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L01",
+      "to": "A09-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L02",
+      "to": "A09-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L03",
+      "to": "A09-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L04",
+      "to": "A09-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L01",
+      "to": "A09-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L02",
+      "to": "A09-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L03",
+      "to": "A09-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L04",
+      "to": "A09-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L01",
+      "to": "A09-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A09-B02-L01",
+      "to": "A09-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A08-B01-L01",
+      "to": "A08-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L02",
+      "to": "A08-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L03",
+      "to": "A08-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L04",
+      "to": "A08-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L01",
+      "to": "A08-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L02",
+      "to": "A08-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L03",
+      "to": "A08-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L04",
+      "to": "A08-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L01",
+      "to": "A08-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B01-L01",
+      "to": "A05-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B02-L01",
+      "to": "A05-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B03-L01",
+      "to": "A05-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B04-L01",
+      "to": "A05-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B05-L01",
+      "to": "A05-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B06-L01",
+      "to": "A05-B07-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B07-L01",
+      "to": "A05-B08-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B08-L01",
+      "to": "A05-B09-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B01-L01",
+      "to": "A02-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L02",
+      "to": "A02-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L03",
+      "to": "A02-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L04",
+      "to": "A02-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L05",
+      "to": "A02-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L01",
+      "to": "A02-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L02",
+      "to": "A02-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L03",
+      "to": "A02-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L04",
+      "to": "A02-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L05",
+      "to": "A02-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L01",
+      "to": "A02-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L02",
+      "to": "A02-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L03",
+      "to": "A02-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L04",
+      "to": "A02-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L05",
+      "to": "A02-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L01",
+      "to": "A02-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L02",
+      "to": "A02-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L03",
+      "to": "A02-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L04",
+      "to": "A02-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L05",
+      "to": "A02-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L01",
+      "to": "A02-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L02",
+      "to": "A02-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L03",
+      "to": "A02-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L04",
+      "to": "A02-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L05",
+      "to": "A02-B05-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B06-L01",
+      "to": "A02-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B06-L02",
+      "to": "A02-B06-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L01",
+      "to": "A02-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B02-L01",
+      "to": "A02-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B03-L01",
+      "to": "A02-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B04-L01",
+      "to": "A02-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B05-L01",
+      "to": "A02-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A07-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L02",
+      "to": "A07-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L03",
+      "to": "A07-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L04",
+      "to": "A07-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L05",
+      "to": "A07-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L01",
+      "to": "A07-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L02",
+      "to": "A07-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L03",
+      "to": "A07-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L04",
+      "to": "A07-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L05",
+      "to": "A07-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L01",
+      "to": "A07-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L02",
+      "to": "A07-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L03",
+      "to": "A07-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L04",
+      "to": "A07-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L05",
+      "to": "A07-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L01",
+      "to": "A07-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L02",
+      "to": "A07-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L03",
+      "to": "A07-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L04",
+      "to": "A07-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L05",
+      "to": "A07-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L01",
+      "to": "A07-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L02",
+      "to": "A07-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L03",
+      "to": "A07-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L04",
+      "to": "A07-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L05",
+      "to": "A07-B05-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A07-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B02-L01",
+      "to": "A07-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B03-L01",
+      "to": "A07-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B04-L01",
+      "to": "A07-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A06-B01-L01",
+      "to": "A06-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L02",
+      "to": "A06-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L03",
+      "to": "A06-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L04",
+      "to": "A06-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L05",
+      "to": "A06-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L01",
+      "to": "A06-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L02",
+      "to": "A06-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L03",
+      "to": "A06-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L04",
+      "to": "A06-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L05",
+      "to": "A06-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L01",
+      "to": "A06-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L02",
+      "to": "A06-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L03",
+      "to": "A06-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L04",
+      "to": "A06-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L01",
+      "to": "A06-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A06-B02-L01",
+      "to": "A06-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B01-L01",
+      "to": "M02-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L02",
+      "to": "M02-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L03",
+      "to": "M02-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L04",
+      "to": "M02-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L05",
+      "to": "M02-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L06",
+      "to": "M02-B01-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L07",
+      "to": "M02-B01-L08",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L01",
+      "to": "M02-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L02",
+      "to": "M02-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L03",
+      "to": "M02-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L04",
+      "to": "M02-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L05",
+      "to": "M02-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L06",
+      "to": "M02-B02-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L07",
+      "to": "M02-B02-L08",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L01",
+      "to": "M02-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L02",
+      "to": "M02-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L03",
+      "to": "M02-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L04",
+      "to": "M02-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L05",
+      "to": "M02-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L06",
+      "to": "M02-B03-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L07",
+      "to": "M02-B03-L08",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L01",
+      "to": "M02-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L02",
+      "to": "M02-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L03",
+      "to": "M02-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L04",
+      "to": "M02-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L05",
+      "to": "M02-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L06",
+      "to": "M02-B04-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L07",
+      "to": "M02-B04-L08",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L01",
+      "to": "M02-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L02",
+      "to": "M02-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L03",
+      "to": "M02-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L04",
+      "to": "M02-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L05",
+      "to": "M02-B05-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L06",
+      "to": "M02-B05-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L07",
+      "to": "M02-B05-L08",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L01",
+      "to": "M02-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L02",
+      "to": "M02-B06-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L03",
+      "to": "M02-B06-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L04",
+      "to": "M02-B06-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L05",
+      "to": "M02-B06-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L06",
+      "to": "M02-B06-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L07",
+      "to": "M02-B06-L08",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B07-L01",
+      "to": "M02-B07-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B07-L02",
+      "to": "M02-B07-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B07-L03",
+      "to": "M02-B07-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L01",
+      "to": "M02-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B02-L01",
+      "to": "M02-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B03-L01",
+      "to": "M02-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B04-L01",
+      "to": "M02-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B05-L01",
+      "to": "M02-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B06-L01",
+      "to": "M02-B07-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A04-B01-L01",
+      "to": "A04-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L02",
+      "to": "A04-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L03",
+      "to": "A04-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L04",
+      "to": "A04-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L05",
+      "to": "A04-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L01",
+      "to": "A04-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L02",
+      "to": "A04-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L03",
+      "to": "A04-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L04",
+      "to": "A04-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L05",
+      "to": "A04-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L01",
+      "to": "A04-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L02",
+      "to": "A04-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L03",
+      "to": "A04-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L04",
+      "to": "A04-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L05",
+      "to": "A04-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L01",
+      "to": "A04-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A04-B02-L01",
+      "to": "A04-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B01-L01",
+      "to": "A01-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L02",
+      "to": "A01-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L03",
+      "to": "A01-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L04",
+      "to": "A01-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L05",
+      "to": "A01-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L01",
+      "to": "A01-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L02",
+      "to": "A01-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L03",
+      "to": "A01-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L04",
+      "to": "A01-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L05",
+      "to": "A01-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L01",
+      "to": "A01-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L02",
+      "to": "A01-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L03",
+      "to": "A01-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L04",
+      "to": "A01-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L05",
+      "to": "A01-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L01",
+      "to": "A01-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L02",
+      "to": "A01-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L03",
+      "to": "A01-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L04",
+      "to": "A01-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L05",
+      "to": "A01-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L01",
+      "to": "A01-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L02",
+      "to": "A01-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L03",
+      "to": "A01-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L04",
+      "to": "A01-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L05",
+      "to": "A01-B05-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L01",
+      "to": "A01-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L02",
+      "to": "A01-B06-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L03",
+      "to": "A01-B06-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L04",
+      "to": "A01-B06-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L05",
+      "to": "A01-B06-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L01",
+      "to": "A01-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B02-L01",
+      "to": "A01-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B03-L01",
+      "to": "A01-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B04-L01",
+      "to": "A01-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B05-L01",
+      "to": "A01-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B01-L01",
+      "to": "M03-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L02",
+      "to": "M03-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L03",
+      "to": "M03-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L04",
+      "to": "M03-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L05",
+      "to": "M03-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L01",
+      "to": "M03-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L02",
+      "to": "M03-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L03",
+      "to": "M03-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L04",
+      "to": "M03-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L05",
+      "to": "M03-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L01",
+      "to": "M03-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L02",
+      "to": "M03-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L03",
+      "to": "M03-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L04",
+      "to": "M03-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L05",
+      "to": "M03-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L01",
+      "to": "M03-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L02",
+      "to": "M03-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L03",
+      "to": "M03-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L04",
+      "to": "M03-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L05",
+      "to": "M03-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B05-L01",
+      "to": "M03-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B05-L02",
+      "to": "M03-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L01",
+      "to": "M03-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B02-L01",
+      "to": "M03-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B03-L01",
+      "to": "M03-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B04-L01",
+      "to": "M03-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B01-L01",
+      "to": "A02-B01-L01",
+      "type": "aisle_step",
+      "weight": 9.07
+    },
+    {
+      "from": "A01-B01-L01",
+      "to": "A07-B01-L01",
+      "type": "aisle_step",
+      "weight": 28.13
+    },
+    {
+      "from": "A02-B01-L01",
+      "to": "A03-B01-L01",
+      "type": "aisle_step",
+      "weight": 9.07
+    },
+    {
+      "from": "A03-B01-L01",
+      "to": "A04-B01-L01",
+      "type": "aisle_step",
+      "weight": 18.75
+    },
+    {
+      "from": "A04-B01-L01",
+      "to": "A05-B01-L01",
+      "type": "aisle_step",
+      "weight": 19.76
+    },
+    {
+      "from": "A05-B01-L01",
+      "to": "A06-B01-L01",
+      "type": "aisle_step",
+      "weight": 26.98
+    },
+    {
+      "from": "A06-B01-L01",
+      "to": "A07-B01-L01",
+      "type": "aisle_step",
+      "weight": 37.85
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A08-B01-L01",
+      "type": "aisle_step",
+      "weight": 13.26
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A09-B01-L01",
+      "type": "aisle_step",
+      "weight": 16.57
+    },
+    {
+      "from": "A08-B01-L01",
+      "to": "A09-B01-L01",
+      "type": "aisle_step",
+      "weight": 25.93
+    },
+    {
+      "from": "A08-B01-L01",
+      "to": "A05-B01-L01",
+      "type": "aisle_step",
+      "weight": 27.67
+    },
+    {
+      "from": "A02-B01-L01",
+      "to": "A07-B01-L01",
+      "type": "aisle_step",
+      "weight": 26.87
+    },
+    {
+      "from": "A03-B01-L01",
+      "to": "A08-B01-L01",
+      "type": "aisle_step",
+      "weight": 27.09
+    },
+    {
+      "from": "A04-B01-L01",
+      "to": "A07-B01-L01",
+      "type": "aisle_step",
+      "weight": 15.38
+    },
+    {
+      "from": "A02-B01-L01",
+      "to": "M01-B01-L01",
+      "type": "stair_step",
+      "weight": 12.0,
+      "staircase": "SC1"
+    },
+    {
+      "from": "A01-B01-L01",
+      "to": "M02-B01-L01",
+      "type": "stair_step",
+      "weight": 12.0,
+      "staircase": "SC2"
+    },
+    {
+      "from": "A05-B01-L01",
+      "to": "M03-B01-L01",
+      "type": "stair_step",
+      "weight": 12.0,
+      "staircase": "SC3"
+    },
+    {
+      "from": "ENTRANCE",
+      "to": "A01-B06-L01",
+      "type": "entrance_exit",
+      "weight": 0.5
+    },
+    {
+      "from": "EXIT",
+      "to": "A05-B03-L01",
+      "type": "entrance_exit",
+      "weight": 0.5
+    },
+    {
+      "from": "EXIT",
+      "to": "A06-B03-L03",
+      "type": "entrance_exit",
+      "weight": 0.5
+    },
+    {
+      "from": "A03-B01-L02",
+      "to": "A03-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L03",
+      "to": "A03-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L04",
+      "to": "A03-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L05",
+      "to": "A03-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B01-L06",
+      "to": "A03-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L02",
+      "to": "A03-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L03",
+      "to": "A03-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L04",
+      "to": "A03-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L05",
+      "to": "A03-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L06",
+      "to": "A03-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L02",
+      "to": "A03-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L03",
+      "to": "A03-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L04",
+      "to": "A03-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L05",
+      "to": "A03-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B03-L06",
+      "to": "A03-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L02",
+      "to": "A03-B04-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L03",
+      "to": "A03-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L04",
+      "to": "A03-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L05",
+      "to": "A03-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B04-L06",
+      "to": "A03-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L02",
+      "to": "A03-B05-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L03",
+      "to": "A03-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L04",
+      "to": "A03-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L05",
+      "to": "A03-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B05-L06",
+      "to": "A03-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B06-L02",
+      "to": "A03-B06-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B06-L03",
+      "to": "A03-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A03-B02-L01",
+      "to": "A03-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B03-L01",
+      "to": "A03-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B04-L01",
+      "to": "A03-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B05-L01",
+      "to": "A03-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A03-B06-L01",
+      "to": "A03-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M01-B01-L02",
+      "to": "M01-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B01-L03",
+      "to": "M01-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B02-L02",
+      "to": "M01-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B02-L03",
+      "to": "M01-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B03-L02",
+      "to": "M01-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B03-L03",
+      "to": "M01-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M01-B02-L01",
+      "to": "M01-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M01-B03-L01",
+      "to": "M01-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A09-B01-L02",
+      "to": "A09-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L03",
+      "to": "A09-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L04",
+      "to": "A09-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B01-L05",
+      "to": "A09-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L02",
+      "to": "A09-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L03",
+      "to": "A09-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L04",
+      "to": "A09-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L05",
+      "to": "A09-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L02",
+      "to": "A09-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L03",
+      "to": "A09-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L04",
+      "to": "A09-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B03-L05",
+      "to": "A09-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A09-B02-L01",
+      "to": "A09-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A09-B03-L01",
+      "to": "A09-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A08-B01-L02",
+      "to": "A08-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L03",
+      "to": "A08-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L04",
+      "to": "A08-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B01-L05",
+      "to": "A08-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L02",
+      "to": "A08-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L03",
+      "to": "A08-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L04",
+      "to": "A08-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L05",
+      "to": "A08-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A08-B02-L01",
+      "to": "A08-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B02-L01",
+      "to": "A05-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B03-L01",
+      "to": "A05-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B04-L01",
+      "to": "A05-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B05-L01",
+      "to": "A05-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B06-L01",
+      "to": "A05-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B07-L01",
+      "to": "A05-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B08-L01",
+      "to": "A05-B07-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A05-B09-L01",
+      "to": "A05-B08-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B01-L02",
+      "to": "A02-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L03",
+      "to": "A02-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L04",
+      "to": "A02-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L05",
+      "to": "A02-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B01-L06",
+      "to": "A02-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L02",
+      "to": "A02-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L03",
+      "to": "A02-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L04",
+      "to": "A02-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L05",
+      "to": "A02-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L06",
+      "to": "A02-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L02",
+      "to": "A02-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L03",
+      "to": "A02-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L04",
+      "to": "A02-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L05",
+      "to": "A02-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B03-L06",
+      "to": "A02-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L02",
+      "to": "A02-B04-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L03",
+      "to": "A02-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L04",
+      "to": "A02-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L05",
+      "to": "A02-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B04-L06",
+      "to": "A02-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L02",
+      "to": "A02-B05-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L03",
+      "to": "A02-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L04",
+      "to": "A02-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L05",
+      "to": "A02-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B05-L06",
+      "to": "A02-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B06-L02",
+      "to": "A02-B06-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B06-L04",
+      "to": "A02-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A02-B02-L01",
+      "to": "A02-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B03-L01",
+      "to": "A02-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B04-L01",
+      "to": "A02-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B05-L01",
+      "to": "A02-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B06-L01",
+      "to": "A02-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B01-L02",
+      "to": "A07-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L03",
+      "to": "A07-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L04",
+      "to": "A07-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L05",
+      "to": "A07-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B01-L06",
+      "to": "A07-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L02",
+      "to": "A07-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L03",
+      "to": "A07-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L04",
+      "to": "A07-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L05",
+      "to": "A07-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L06",
+      "to": "A07-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L02",
+      "to": "A07-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L03",
+      "to": "A07-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L04",
+      "to": "A07-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L05",
+      "to": "A07-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B03-L06",
+      "to": "A07-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L02",
+      "to": "A07-B04-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L03",
+      "to": "A07-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L04",
+      "to": "A07-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L05",
+      "to": "A07-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B04-L06",
+      "to": "A07-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L02",
+      "to": "A07-B05-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L03",
+      "to": "A07-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L04",
+      "to": "A07-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L05",
+      "to": "A07-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B05-L06",
+      "to": "A07-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A07-B02-L01",
+      "to": "A07-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B03-L01",
+      "to": "A07-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B04-L01",
+      "to": "A07-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A07-B05-L01",
+      "to": "A07-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A06-B01-L02",
+      "to": "A06-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L03",
+      "to": "A06-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L04",
+      "to": "A06-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L05",
+      "to": "A06-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B01-L06",
+      "to": "A06-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L02",
+      "to": "A06-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L03",
+      "to": "A06-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L04",
+      "to": "A06-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L05",
+      "to": "A06-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L06",
+      "to": "A06-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L02",
+      "to": "A06-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L03",
+      "to": "A06-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L04",
+      "to": "A06-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B03-L05",
+      "to": "A06-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A06-B02-L01",
+      "to": "A06-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A06-B03-L01",
+      "to": "A06-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B01-L02",
+      "to": "M02-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L03",
+      "to": "M02-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L04",
+      "to": "M02-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L05",
+      "to": "M02-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L06",
+      "to": "M02-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L07",
+      "to": "M02-B01-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B01-L08",
+      "to": "M02-B01-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L02",
+      "to": "M02-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L03",
+      "to": "M02-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L04",
+      "to": "M02-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L05",
+      "to": "M02-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L06",
+      "to": "M02-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L07",
+      "to": "M02-B02-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L08",
+      "to": "M02-B02-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L02",
+      "to": "M02-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L03",
+      "to": "M02-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L04",
+      "to": "M02-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L05",
+      "to": "M02-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L06",
+      "to": "M02-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L07",
+      "to": "M02-B03-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B03-L08",
+      "to": "M02-B03-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L02",
+      "to": "M02-B04-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L03",
+      "to": "M02-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L04",
+      "to": "M02-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L05",
+      "to": "M02-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L06",
+      "to": "M02-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L07",
+      "to": "M02-B04-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B04-L08",
+      "to": "M02-B04-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L02",
+      "to": "M02-B05-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L03",
+      "to": "M02-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L04",
+      "to": "M02-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L05",
+      "to": "M02-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L06",
+      "to": "M02-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L07",
+      "to": "M02-B05-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B05-L08",
+      "to": "M02-B05-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L02",
+      "to": "M02-B06-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L03",
+      "to": "M02-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L04",
+      "to": "M02-B06-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L05",
+      "to": "M02-B06-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L06",
+      "to": "M02-B06-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L07",
+      "to": "M02-B06-L06",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B06-L08",
+      "to": "M02-B06-L07",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B07-L02",
+      "to": "M02-B07-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B07-L03",
+      "to": "M02-B07-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B07-L04",
+      "to": "M02-B07-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M02-B02-L01",
+      "to": "M02-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B03-L01",
+      "to": "M02-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B04-L01",
+      "to": "M02-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B05-L01",
+      "to": "M02-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B06-L01",
+      "to": "M02-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M02-B07-L01",
+      "to": "M02-B06-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A04-B01-L02",
+      "to": "A04-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L03",
+      "to": "A04-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L04",
+      "to": "A04-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L05",
+      "to": "A04-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B01-L06",
+      "to": "A04-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L02",
+      "to": "A04-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L03",
+      "to": "A04-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L04",
+      "to": "A04-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L05",
+      "to": "A04-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L06",
+      "to": "A04-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L02",
+      "to": "A04-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L03",
+      "to": "A04-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L04",
+      "to": "A04-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L05",
+      "to": "A04-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B03-L06",
+      "to": "A04-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A04-B02-L01",
+      "to": "A04-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A04-B03-L01",
+      "to": "A04-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B01-L02",
+      "to": "A01-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L03",
+      "to": "A01-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L04",
+      "to": "A01-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L05",
+      "to": "A01-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B01-L06",
+      "to": "A01-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L02",
+      "to": "A01-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L03",
+      "to": "A01-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L04",
+      "to": "A01-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L05",
+      "to": "A01-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L06",
+      "to": "A01-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L02",
+      "to": "A01-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L03",
+      "to": "A01-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L04",
+      "to": "A01-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L05",
+      "to": "A01-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B03-L06",
+      "to": "A01-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L02",
+      "to": "A01-B04-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L03",
+      "to": "A01-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L04",
+      "to": "A01-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L05",
+      "to": "A01-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B04-L06",
+      "to": "A01-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L02",
+      "to": "A01-B05-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L03",
+      "to": "A01-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L04",
+      "to": "A01-B05-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L05",
+      "to": "A01-B05-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B05-L06",
+      "to": "A01-B05-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L02",
+      "to": "A01-B06-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L03",
+      "to": "A01-B06-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L04",
+      "to": "A01-B06-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L05",
+      "to": "A01-B06-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B06-L06",
+      "to": "A01-B06-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "A01-B02-L01",
+      "to": "A01-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B03-L01",
+      "to": "A01-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B04-L01",
+      "to": "A01-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B05-L01",
+      "to": "A01-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A01-B06-L01",
+      "to": "A01-B05-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B01-L02",
+      "to": "M03-B01-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L03",
+      "to": "M03-B01-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L04",
+      "to": "M03-B01-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L05",
+      "to": "M03-B01-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B01-L06",
+      "to": "M03-B01-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L02",
+      "to": "M03-B02-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L03",
+      "to": "M03-B02-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L04",
+      "to": "M03-B02-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L05",
+      "to": "M03-B02-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L06",
+      "to": "M03-B02-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L02",
+      "to": "M03-B03-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L03",
+      "to": "M03-B03-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L04",
+      "to": "M03-B03-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L05",
+      "to": "M03-B03-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B03-L06",
+      "to": "M03-B03-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L02",
+      "to": "M03-B04-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L03",
+      "to": "M03-B04-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L04",
+      "to": "M03-B04-L03",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L05",
+      "to": "M03-B04-L04",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B04-L06",
+      "to": "M03-B04-L05",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B05-L02",
+      "to": "M03-B05-L01",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B05-L03",
+      "to": "M03-B05-L02",
+      "type": "loc_step",
+      "weight": 0.3
+    },
+    {
+      "from": "M03-B02-L01",
+      "to": "M03-B01-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B03-L01",
+      "to": "M03-B02-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B04-L01",
+      "to": "M03-B03-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "M03-B05-L01",
+      "to": "M03-B04-L01",
+      "type": "block_step",
+      "weight": 1.5
+    },
+    {
+      "from": "A02-B01-L01",
+      "to": "A01-B01-L01",
+      "type": "aisle_step",
+      "weight": 9.07
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A01-B01-L01",
+      "type": "aisle_step",
+      "weight": 28.13
+    },
+    {
+      "from": "A03-B01-L01",
+      "to": "A02-B01-L01",
+      "type": "aisle_step",
+      "weight": 9.07
+    },
+    {
+      "from": "A04-B01-L01",
+      "to": "A03-B01-L01",
+      "type": "aisle_step",
+      "weight": 18.75
+    },
+    {
+      "from": "A05-B01-L01",
+      "to": "A04-B01-L01",
+      "type": "aisle_step",
+      "weight": 19.76
+    },
+    {
+      "from": "A06-B01-L01",
+      "to": "A05-B01-L01",
+      "type": "aisle_step",
+      "weight": 26.98
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A06-B01-L01",
+      "type": "aisle_step",
+      "weight": 37.85
+    },
+    {
+      "from": "A08-B01-L01",
+      "to": "A07-B01-L01",
+      "type": "aisle_step",
+      "weight": 13.26
+    },
+    {
+      "from": "A09-B01-L01",
+      "to": "A07-B01-L01",
+      "type": "aisle_step",
+      "weight": 16.57
+    },
+    {
+      "from": "A09-B01-L01",
+      "to": "A08-B01-L01",
+      "type": "aisle_step",
+      "weight": 25.93
+    },
+    {
+      "from": "A05-B01-L01",
+      "to": "A08-B01-L01",
+      "type": "aisle_step",
+      "weight": 27.67
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A02-B01-L01",
+      "type": "aisle_step",
+      "weight": 26.87
+    },
+    {
+      "from": "A08-B01-L01",
+      "to": "A03-B01-L01",
+      "type": "aisle_step",
+      "weight": 27.09
+    },
+    {
+      "from": "A07-B01-L01",
+      "to": "A04-B01-L01",
+      "type": "aisle_step",
+      "weight": 15.38
+    },
+    {
+      "from": "M01-B01-L01",
+      "to": "A02-B01-L01",
+      "type": "stair_step",
+      "weight": 12.0,
+      "staircase": "SC1"
+    },
+    {
+      "from": "M02-B01-L01",
+      "to": "A01-B01-L01",
+      "type": "stair_step",
+      "weight": 12.0,
+      "staircase": "SC2"
+    },
+    {
+      "from": "M03-B01-L01",
+      "to": "A05-B01-L01",
+      "type": "stair_step",
+      "weight": 12.0,
+      "staircase": "SC3"
+    },
+    {
+      "from": "A01-B06-L01",
+      "to": "ENTRANCE",
+      "type": "entrance_exit",
+      "weight": 0.5
+    },
+    {
+      "from": "A05-B03-L01",
+      "to": "EXIT",
+      "type": "entrance_exit",
+      "weight": 0.5
+    },
+    {
+      "from": "A06-B03-L03",
+      "to": "EXIT",
+      "type": "entrance_exit",
+      "weight": 0.5
+    }
+  ]
+}

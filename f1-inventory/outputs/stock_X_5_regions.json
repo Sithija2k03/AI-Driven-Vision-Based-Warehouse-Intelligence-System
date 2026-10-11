@@ -1,0 +1,80 @@
+[
+  {
+    "schema_version": "0.1-draft",
+    "location_id": "X5-LEFT-RACK",
+    "camera_id": "X_5",
+    "frame": "cam12__frame_00009.jpg",
+    "timestamp": "2026-10-11T16:01:35+00:00",
+    "count": 99,
+    "reference_count": 100,
+    "ratio_to_reference": 0.99,
+    "status": "IN STOCK",
+    "trust": null,
+    "verify_manually": null
+  },
+  {
+    "schema_version": "0.1-draft",
+    "location_id": "X5-FLOOR",
+    "camera_id": "X_5",
+    "frame": "cam12__frame_00009.jpg",
+    "timestamp": "2026-10-11T16:01:35+00:00",
+    "count": 95,
+    "reference_count": 115,
+    "ratio_to_reference": 0.826,
+    "status": "IN STOCK",
+    "trust": null,
+    "verify_manually": null
+  },
+  {
+    "schema_version": "0.1-draft",
+    "location_id": "X5-RIGHT-RACK",
+    "camera_id": "X_5",
+    "frame": "cam12__frame_00009.jpg",
+    "timestamp": "2026-10-11T16:01:35+00:00",
+    "count": 92,
+    "reference_count": 95,
+    "ratio_to_reference": 0.968,
+    "status": "IN STOCK",
+    "trust": null,
+    "verify_manually": null
+  },
+  {
+    "schema_version": "0.1-draft",
+    "location_id": "X5-LEFT-RACK",
+    "camera_id": "X_5",
+    "frame": "cam12__frame_00015.jpg",
+    "timestamp": "2026-10-11T16:01:35+00:00",
+    "count": 101,
+    "reference_count": 100,
+    "ratio_to_reference": 1.01,
+    "status": "IN STOCK",
+    "trust": null,
+    "verify_manually": null
+  },
+  {
+    "schema_version": "0.1-draft",
+    "location_id": "X5-FLOOR",
+    "camera_id": "X_5",
+    "frame": "cam12__frame_00015.jpg",
+    "timestamp": "2026-10-11T16:01:35+00:00",
+    "count": 120,
+    "reference_count": 115,
+    "ratio_to_reference": 1.043,
+    "status": "IN STOCK",
+    "trust": null,
+    "verify_manually": null
+  },
+  {
+    "schema_version": "0.1-draft",
+    "location_id": "X5-RIGHT-RACK",
+    "camera_id": "X_5",
+    "frame": "cam12__frame_00015.jpg",
+    "timestamp": "2026-10-11T16:01:35+00:00",
+    "count": 95,
+    "reference_count": 95,
+    "ratio_to_reference": 1.0,
+    "status": "IN STOCK",
+    "trust": null,
+    "verify_manually": null
+  }
+]

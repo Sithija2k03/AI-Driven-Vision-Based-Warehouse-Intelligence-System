@@ -1,0 +1,6 @@
+f2_env/
+proxy_videos/
+outputs/
+__pycache__/
+*.mp4
+*.zip

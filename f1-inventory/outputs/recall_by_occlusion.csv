@@ -1,0 +1,13 @@
+batch,occlusion_level,found,total,recall,ci95_low,ci95_high
+location_G_H_b2,low,340,482,0.705,0.663,0.744
+location_G_H_b2,medium,515,945,0.545,0.513,0.576
+location_G_H_b2,high,350,1034,0.338,0.31,0.368
+location_X_5_b2,low,340,510,0.667,0.625,0.706
+location_X_5_b2,medium,906,1673,0.542,0.518,0.565
+location_X_5_b2,high,475,1152,0.412,0.384,0.441
+location_checkingPart_2_b2,low,170,297,0.572,0.516,0.627
+location_checkingPart_2_b2,medium,899,1438,0.625,0.6,0.65
+location_checkingPart_2_b2,high,624,1315,0.475,0.448,0.502
+ALL,low,850,1289,0.659,0.633,0.685
+ALL,medium,2320,4056,0.572,0.557,0.587
+ALL,high,1449,3501,0.414,0.398,0.43

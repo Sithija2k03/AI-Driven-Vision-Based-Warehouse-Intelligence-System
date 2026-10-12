@@ -1,0 +1,120 @@
+{
+  "n_val": 2120,
+  "n_test": 7950,
+  "val_macro_f1_by_weight": {
+    "0.0": 0.5169,
+    "0.1": 0.5122,
+    "0.2": 0.5006,
+    "0.3": 0.4987,
+    "0.4": 0.491,
+    "0.5": 0.5075,
+    "0.6": 0.5039,
+    "0.7": 0.5013,
+    "0.8": 0.5049,
+    "0.9": 0.5126,
+    "1.0": 0.5196
+  },
+  "chosen_weight_cnn": 1.0,
+  "test": {
+    "CNN only (ResNet18)": {
+      "accuracy": 0.5753,
+      "macro_f1": 0.5611,
+      "cohen_kappa": 0.3356,
+      "quadratic_weighted_kappa": 0.4603,
+      "within_one_accuracy": 0.9458,
+      "low_vs_high_confusions": 431,
+      "confusion_matrix_rows_true_cols_pred": [
+        [
+          749,
+          359,
+          181
+        ],
+        [
+          784,
+          1854,
+          989
+        ],
+        [
+          250,
+          813,
+          1971
+        ]
+      ]
+    },
+    "Geometry only (random forest)": {
+      "accuracy": 0.5752,
+      "macro_f1": 0.559,
+      "cohen_kappa": 0.3191,
+      "quadratic_weighted_kappa": 0.4624,
+      "within_one_accuracy": 0.9591,
+      "low_vs_high_confusions": 325,
+      "confusion_matrix_rows_true_cols_pred": [
+        [
+          639,
+          414,
+          236
+        ],
+        [
+          588,
+          1930,
+          1109
+        ],
+        [
+          89,
+          941,
+          2004
+        ]
+      ]
+    },
+    "Fusion 50/50": {
+      "accuracy": 0.6048,
+      "macro_f1": 0.5894,
+      "cohen_kappa": 0.3755,
+      "quadratic_weighted_kappa": 0.5062,
+      "within_one_accuracy": 0.9574,
+      "low_vs_high_confusions": 339,
+      "confusion_matrix_rows_true_cols_pred": [
+        [
+          743,
+          362,
+          184
+        ],
+        [
+          688,
+          1975,
+          964
+        ],
+        [
+          155,
+          789,
+          2090
+        ]
+      ]
+    },
+    "Fusion w=1.0 (chosen on val)": {
+      "accuracy": 0.5753,
+      "macro_f1": 0.5611,
+      "cohen_kappa": 0.3356,
+      "quadratic_weighted_kappa": 0.4603,
+      "within_one_accuracy": 0.9458,
+      "low_vs_high_confusions": 431,
+      "confusion_matrix_rows_true_cols_pred": [
+        [
+          749,
+          359,
+          181
+        ],
+        [
+          784,
+          1854,
+          989
+        ],
+        [
+          250,
+          813,
+          1971
+        ]
+      ]
+    }
+  }
+}

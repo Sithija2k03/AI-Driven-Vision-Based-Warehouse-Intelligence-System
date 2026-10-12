@@ -1,0 +1,135 @@
+{
+  "classes": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "best_val_macro_f1": 0.4832,
+  "val": {
+    "accuracy": 0.4887,
+    "cohen_kappa": 0.2322,
+    "quadratic_weighted_kappa": 0.2981,
+    "macro_f1": 0.4832,
+    "within_one_accuracy": 0.8816,
+    "low_vs_high_confusions": 251,
+    "mae_expected_level": 0.5965,
+    "confusion_matrix_rows_true_cols_pred": [
+      [
+        239,
+        179,
+        100
+      ],
+      [
+        219,
+        377,
+        332
+      ],
+      [
+        151,
+        103,
+        420
+      ]
+    ]
+  },
+  "test": {
+    "accuracy": 0.555,
+    "cohen_kappa": 0.3102,
+    "quadratic_weighted_kappa": 0.4283,
+    "macro_f1": 0.5382,
+    "within_one_accuracy": 0.9345,
+    "low_vs_high_confusions": 521,
+    "mae_expected_level": 0.5161,
+    "confusion_matrix_rows_true_cols_pred": [
+      [
+        724,
+        343,
+        222
+      ],
+      [
+        867,
+        1659,
+        1101
+      ],
+      [
+        299,
+        706,
+        2029
+      ]
+    ]
+  },
+  "test_majority_baseline": {
+    "predicts": "medium",
+    "accuracy": 0.4562,
+    "macro_f1": 0.2089
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0743,
+      "val_acc": 0.4236,
+      "val_macro_f1": 0.4242
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.0132,
+      "val_acc": 0.4316,
+      "val_macro_f1": 0.433
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6941,
+      "val_acc": 0.4741,
+      "val_macro_f1": 0.4745
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.4145,
+      "val_acc": 0.4887,
+      "val_macro_f1": 0.4832
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.3627,
+      "val_acc": 0.4542,
+      "val_macro_f1": 0.4507
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.3482,
+      "val_acc": 0.4528,
+      "val_macro_f1": 0.4506
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.3379,
+      "val_acc": 0.459,
+      "val_macro_f1": 0.4496
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.3332,
+      "val_acc": 0.4368,
+      "val_macro_f1": 0.4322
+    }
+  ],
+  "settings": {
+    "data": "/content/f1_occlusion_crops",
+    "out": "/content/drive/MyDrive/f1_runs/occlusion_effb0_reg",
+    "arch": "efficientnet_b0",
+    "epochs": 15,
+    "size": 128,
+    "bs": 128,
+    "lr": 0.0003,
+    "workers": 2,
+    "seed": 0,
+    "label_smoothing": 0.1,
+    "freeze_epochs": 2,
+    "patience": 4
+  },
+  "test_accuracy_per_batch": {
+    "location_G_H_b2": 0.6058,
+    "location_X_5_b2": 0.584,
+    "location_checkingPart_2_b2": 0.4856
+  },
+  "ms_per_crop_cuda": 0.45
+}

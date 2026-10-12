@@ -42,3 +42,83 @@ Limits
 - About 41% of highly occluded cartons are not found even with the looser match (against about 23% of low ones).
 - Caveat: at IoU 0.3 in dense scenes a prediction can occasionally match a neighbouring carton, so these values are
   an upper bound on recall.
+
+## Step 2. Occlusion classifier (low / medium / high per carton crop)
+
+Method: `scripts/make_occlusion_crops.py` cuts every annotated carton (+25% surrounding context, padded to a square,
+128x128 px; boxes under 6 px skipped). Split by whole batch: train = 5 day-1 batches (12,603 crops),
+val = camera_18 day 1 (2,120), test = 3 day-2 batches (7,950). `scripts/train_occlusion.py` fine-tunes an
+ImageNet-pretrained CNN with class-weighted cross-entropy; best epoch chosen on val macro-F1; test reported once.
+
+| Run | Model | Training data | Settings | Test acc | Macro-F1 | Kappa | QWK | Within-one | Low<->high errors |
+|---|---|---|---|---|---|---|---|---|---|
+| Baseline | always "medium" | - | - | 0.456 | 0.209 | 0 | - | - | - |
+| v1 | ResNet18 | all crops (12,603) | none | 0.542 | 0.529 | 0.29 | 0.39 | 0.929 | 564 |
+| A | ResNet18 | de-duplicated (1,074) | LS 0.1, frozen 2 ep, early stop | 0.529 | 0.514 | 0.25 | 0.38 | 0.946 | 429 |
+| **B (selected)** | **ResNet18** | all crops (12,603) | LS 0.1, frozen 2 ep, early stop | **0.575** | **0.561** | **0.34** | **0.46** | **0.946** | **431** |
+| C | EfficientNet-B0 | all crops (12,603) | same as B | 0.555 | 0.538 | 0.31 | 0.43 | 0.935 | 521 |
+
+LS = label smoothing; QWK = quadratic-weighted kappa (penalises low<->high more than one-level errors).
+
+Selected model: ResNet18, run B. Per-class F1: low 0.49, medium 0.56, high 0.64.
+Per-camera accuracy: G_H 0.63, X_5 0.61, checkingPart_2 0.50. Speed 0.37 ms per crop (T4 GPU).
+
+Findings
+- All CNN runs clearly beat the majority baseline (macro-F1 0.51-0.56 vs 0.21); about 95% of predictions are within one level.
+- v1 over-fitted: training loss fell to ~0.005 while validation peaked at epoch 3. Cause: propagated annotations repeat
+  the same carton in 10-15 frames (de-duplication showed only 1,074 unique cartons in training).
+- Regularisation (label smoothing, frozen-backbone warm-up, early stopping) fixed this and improved every metric (run B).
+- Keeping the repeated crops (B) beat de-duplicating (A): the repeats differ slightly (lighting, people), and A had too little data.
+- EfficientNet-B0 under identical conditions was slightly worse and slower than ResNet18, so ResNet18 was kept.
+- Medium is the hardest class (often confused with both neighbours), as expected for an in-between, subjective level.
+
+Limits
+- One training run (seed) per setting; differences of 1-2 points may be chance.
+- Labels come from one annotator; the classifier cannot be more consistent than the labels (agreement check pending).
+- Classifier is trained on annotated boxes; on live frames it will see detector boxes, which are less precise.
+
+### Step 2c. Geometry-based alternative (random forest on box layout)
+
+`scripts/geometry_occlusion_rf.py`: each box is described only by its geometry relative to the other boxes in the same
+frame (size, aspect, position, size relative to neighbours and to the frame median, overlaps, cover by boxes in front,
+crowding). Random forest (400 trees, balanced class weights). Identical split, filtering and test set (7,950 boxes).
+
+| Model | Input | Test acc | Macro-F1 | Kappa | QWK | Within-one | Low<->high errors | G_H | X_5 | checkingPart_2 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| ResNet18 (run B) | crop pixels | 0.575 | 0.561 | 0.34 | 0.46 | 0.946 | 431 | 0.63 | 0.61 | 0.50 |
+| Random forest | box geometry | 0.575 | 0.559 | 0.32 | 0.46 | **0.959** | **325** | 0.57 | 0.59 | **0.56** |
+
+Findings
+- Same overall accuracy (0.575) from completely different information: appearance vs layout.
+- The geometry model makes fewer extreme errors (low<->high 325 vs 431) and is much better on checkingPart_2 (0.56 vs 0.50);
+  the CNN is better on G_H. The two models make different mistakes, so combining them is a promising next step.
+- Most useful features: box size relative to its neighbours and to the frame median, horizontal position, aspect ratio,
+  crowding. Occluded cartons tend to appear smaller and more oddly shaped than their neighbours (the annotations mark the
+  visible part). Horizontal position being important suggests some camera-layout learning, which may not transfer to new cameras.
+
+Important caveat for deployment
+- Here the geometry features were computed from the annotated boxes. On live frames they must come from detector boxes,
+  and the detector misses about 40-60% of medium/high cartons, so "neighbours" and relative sizes will look different.
+  The CNN only needs each box's own crop, so it is less affected. Geometry features must be re-tested on detector output.
+
+### Step 2d. Combining the CNN and the geometry model (probability averaging)
+
+`scripts/fuse_occlusion_models.py`: p = w * p_CNN + (1 - w) * p_geometry. Two variants were defined before testing:
+an untuned equal-weight average (w = 0.5) and w chosen on the validation set.
+
+| Model | Test acc | Macro-F1 | Kappa | QWK | Within-one | Low<->high errors |
+|---|---|---|---|---|---|---|
+| CNN only (ResNet18) | 0.575 | 0.561 | 0.336 | 0.460 | 0.946 | 431 |
+| Geometry only (random forest) | 0.575 | 0.559 | 0.319 | 0.462 | 0.959 | 325 |
+| **Equal-weight fusion (w = 0.5)** | **0.605** | **0.589** | **0.376** | **0.506** | 0.957 | 339 |
+| Fusion, w chosen on val (w = 1.0 = CNN only) | 0.575 | 0.561 | 0.336 | 0.460 | 0.946 | 431 |
+
+Findings
+- Equal-weight fusion beats both single models on every agreement measure (+3 points accuracy and macro-F1,
+  kappa 0.34 -> 0.38), and keeps the geometry model's low rate of low<->high errors.
+- Choosing w on the validation set did not work: val macro-F1 was flat and noisy across all weights (0.49-0.52),
+  and the same val set had already been used to pick the CNN's best epoch, which biases it towards w = 1.0.
+- Decision: use the untuned equal-weight fusion. Because the 0.5 weight is a standard default and was not tuned on test,
+  the test result remains a fair estimate; a better weight should later be chosen with leave-one-batch-out validation.
+- Caveat (same as 2c): geometry features here come from annotated boxes; on live frames they come from detector boxes.
+  The end-to-end check on detector boxes is done in step 3.

@@ -1,0 +1,362 @@
+[
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "C",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 2,
+    "reference_count": 2,
+    "ratio_to_reference": 1.0,
+    "status": "UNKNOWN",
+    "status_note": "reference has only 2 cartons (< 5); too few to judge",
+    "occlusion_mix": {
+      "low": 0,
+      "medium": 2,
+      "high": 0
+    },
+    "trust": 0.864,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "B",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 1,
+    "reference_count": 2,
+    "ratio_to_reference": 0.5,
+    "status": "UNKNOWN",
+    "status_note": "reference has only 2 cartons (< 5); too few to judge",
+    "occlusion_mix": {
+      "low": 0,
+      "medium": 1,
+      "high": 0
+    },
+    "trust": 0.872,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "V1-V3",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 6,
+    "reference_count": 17,
+    "ratio_to_reference": 0.353,
+    "status": "LOW",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 1,
+      "medium": 2,
+      "high": 3
+    },
+    "trust": 0.802,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "A",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 0,
+    "reference_count": 1,
+    "ratio_to_reference": 0.0,
+    "status": "UNKNOWN",
+    "status_note": "reference has only 1 cartons (< 5); too few to judge",
+    "occlusion_mix": {
+      "low": 0,
+      "medium": 0,
+      "high": 0
+    },
+    "trust": null,
+    "verify_manually": null
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "D",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 8,
+    "reference_count": 14,
+    "ratio_to_reference": 0.571,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 3,
+      "medium": 5,
+      "high": 0
+    },
+    "trust": 0.88,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "H",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 20,
+    "reference_count": 23,
+    "ratio_to_reference": 0.87,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 2,
+      "medium": 11,
+      "high": 7
+    },
+    "trust": 0.803,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "V4",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 27,
+    "reference_count": 31,
+    "ratio_to_reference": 0.871,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 9,
+      "medium": 1,
+      "high": 17
+    },
+    "trust": 0.779,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "G-22..G-24",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 38,
+    "reference_count": 36,
+    "ratio_to_reference": 1.056,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 2,
+      "medium": 5,
+      "high": 31
+    },
+    "trust": 0.721,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "G-19..G-21",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 11,
+    "reference_count": 12,
+    "ratio_to_reference": 0.917,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 2,
+      "medium": 1,
+      "high": 8
+    },
+    "trust": 0.748,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "C",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 2,
+    "reference_count": 2,
+    "ratio_to_reference": 1.0,
+    "status": "UNKNOWN",
+    "status_note": "reference has only 2 cartons (< 5); too few to judge",
+    "occlusion_mix": {
+      "low": 0,
+      "medium": 2,
+      "high": 0
+    },
+    "trust": 0.871,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "B",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 2,
+    "reference_count": 2,
+    "ratio_to_reference": 1.0,
+    "status": "UNKNOWN",
+    "status_note": "reference has only 2 cartons (< 5); too few to judge",
+    "occlusion_mix": {
+      "low": 0,
+      "medium": 2,
+      "high": 0
+    },
+    "trust": 0.839,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "V1-V3",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 13,
+    "reference_count": 17,
+    "ratio_to_reference": 0.765,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 4,
+      "medium": 0,
+      "high": 9
+    },
+    "trust": 0.782,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "A",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 1,
+    "reference_count": 1,
+    "ratio_to_reference": 1.0,
+    "status": "UNKNOWN",
+    "status_note": "reference has only 1 cartons (< 5); too few to judge",
+    "occlusion_mix": {
+      "low": 0,
+      "medium": 0,
+      "high": 1
+    },
+    "trust": 0.656,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "D",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 14,
+    "reference_count": 14,
+    "ratio_to_reference": 1.0,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 6,
+      "medium": 6,
+      "high": 2
+    },
+    "trust": 0.878,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "H",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 22,
+    "reference_count": 23,
+    "ratio_to_reference": 0.957,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 2,
+      "medium": 14,
+      "high": 6
+    },
+    "trust": 0.823,
+    "verify_manually": false
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "V4",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 28,
+    "reference_count": 31,
+    "ratio_to_reference": 0.903,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 8,
+      "medium": 1,
+      "high": 19
+    },
+    "trust": 0.776,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "G-22..G-24",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 34,
+    "reference_count": 36,
+    "ratio_to_reference": 0.944,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 4,
+      "medium": 4,
+      "high": 26
+    },
+    "trust": 0.721,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.3-draft",
+    "location_id": "G-19..G-21",
+    "f4_slots": [],
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-13T07:36:29+00:00",
+    "count": 13,
+    "reference_count": 12,
+    "ratio_to_reference": 1.083,
+    "status": "IN STOCK",
+    "status_note": null,
+    "occlusion_mix": {
+      "low": 1,
+      "medium": 2,
+      "high": 10
+    },
+    "trust": 0.73,
+    "verify_manually": true
+  }
+]

@@ -8,3 +8,9 @@
    G_H,V4,V4,top,part,stacked on top of G rack
    G_H,G-22..G-24,G-22;G-23;G-24,front,full,left bay of G rack
    G_H,G-19..G-21,G-19;G-20;G-21,front,full,right bay of G rack
+
+   X_5,W,W,side,part,left shelving
+   X_5,X2,X2,front,part,far back - too far for detector
+   X_5,X5,X5,top,full,floor stock
+   X_5,S,S,side,part,upper right shelving
+   X_5,P..R,P;Q;R,side,part,lower right rack sections

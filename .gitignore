@@ -267,3 +267,4 @@ weights/
 #   **/*manifest*.json              (extract_manifest.json, rename_manifest.json)
 #   scripts/*.py
 #   configs/*.yaml, *.yml           (e.g. data.yaml)
+*.bak

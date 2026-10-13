@@ -122,3 +122,45 @@ Findings
   the test result remains a fair estimate; a better weight should later be chosen with leave-one-batch-out validation.
 - Caveat (same as 2c): geometry features here come from annotated boxes; on live frames they come from detector boxes.
   The end-to-end check on detector boxes is done in step 3.
+
+## Step 3 – Trust score and "verify manually" flag
+
+**Method.** Each detected box gets occlusion probabilities from the hybrid model (0.5·CNN + 0.5·geometry RF).
+Box trust = Σ p(level) · w(level), where the weights come from measured recall by occlusion level (IoU 0.5):
+low 1.00, medium 0.868 (0.572/0.659), high 0.628 (0.414/0.659).
+Location trust = mean box trust. If location trust < threshold, the location is flagged "verify manually".
+
+**Evaluation data:** day-2 test frames (G_H_b2, X_5_b2) and val (checkingPart_2_b2): 37 frames, 3 cameras.
+Each frame was split into a 3×3 grid; cells with ≥5 ground-truth boxes were kept (304 cells).
+
+### A) Occlusion accuracy on detector boxes (n = 4,619 matched boxes)
+| Model  | Acc   | Macro-F1 | Kappa | Low↔High errors |
+|--------|-------|----------|-------|-----------------|
+| CNN    | 0.558 | 0.560    | 0.311 | 133 |
+| Hybrid | 0.564 | 0.565    | 0.318 | 120 |
+
+### B) Does trust predict detector recall? (304 cells)
+| Trust source        | Spearman ρ with cell recall |
+|---------------------|------------------------------|
+| Hybrid (used)       | +0.351 (p = 3.2e-10) |
+| CNN only            | +0.296 |
+| True labels         | +0.311 |
+
+Mean recall by trust quartile: 0.462 → 0.483 → 0.691 → 0.613.
+Flagged at 0.80: 108/304 cells, mean recall 0.443 vs 0.628 for unflagged cells.
+
+### C) Threshold selection
+"Unreliable" cell = recall < 0.50 (124/304 cells). ROC AUC = 0.669. Youden's J optimum = 0.806.
+
+| Held-out camera | Threshold (from other cams) | Unreliable caught | False alarms | Flagged |
+|-----------------|-----------------------------|-------------------|--------------|---------|
+| G_H             | 0.804 | 60%  | 49% | 55% |
+| X_5             | 0.800 | 48%  | 19% | 33% |
+| CP2             | 0.806 | 100% | 1%  | 26% |
+
+At the chosen threshold 0.80 (all cells): 62% of unreliable cells caught, 17% false alarms, 36% of cells flagged.
+
+**Decision:** keep the hybrid and a threshold of 0.80. It matches Youden's optimum and is stable across cameras.
+
+**Limitations:** moderate AUC (0.67); the top trust quartile is not monotonic; high false alarms on the darker G_H camera;
+only 37 frames from 3 cameras. Retest after the new cameras (cam16–21) are annotated.

@@ -23,14 +23,18 @@ Status rule (thresholds are PLACEHOLDERS to tune on real frames):
   IN STOCK  otherwise
 The detector misses about half of the cartons, so absolute counts are unreliable; the
 ratio against the same location's own reference frame (same detector, same camera)
-cancels part of that bias. It does NOT remove it. Trust/occlusion fields are added by
-sub-function 2.
+cancels part of that bias. It does NOT remove it.
+
+Sub-function 2 (optional): add --occlusion-cnn weights\occlusion_r18.pt to estimate each box's occlusion level
+(low/medium/high, hybrid CNN + geometry by default) and fill "occlusion_mix", "trust" and "verify_manually"
+for every location. trust = mean expected detection weight of the location's boxes (1.0 = all clearly visible,
+0.63 = all heavily occluded); verify_manually = trust < --trust-threshold.
 """
-import argparse, csv, json
+import argparse, csv, json, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-SCHEMA_VERSION = "0.1-draft"
+SCHEMA_VERSION = "0.2-draft"
 
 
 def assign_boxes(boxes, locations, w, h):
@@ -59,9 +63,10 @@ def stock_status(count, reference, low_ratio=0.5, out_ratio=0.1):
     return "IN STOCK", ratio
 
 
-def build_records(camera_id, frame_name, per_loc, references, low_ratio, out_ratio, timestamp):
+def build_records(camera_id, frame_name, per_loc, references, low_ratio, out_ratio, timestamp, occ=None):
     recs = []
     for loc_id, bx in per_loc.items():
+        o = (occ or {}).get(loc_id, {})
         count = len(bx)
         ref = references.get(loc_id)
         status, ratio = stock_status(count, ref, low_ratio, out_ratio)
@@ -75,8 +80,9 @@ def build_records(camera_id, frame_name, per_loc, references, low_ratio, out_rat
             "reference_count": ref,
             "ratio_to_reference": None if ratio is None else round(ratio, 3),
             "status": status,
-            "trust": None,              # filled by sub-function 2 (occlusion)
-            "verify_manually": None,    # filled by sub-function 2
+            "occlusion_mix": o.get("occlusion_mix"),
+            "trust": o.get("trust"),                  # sub-function 2 (None if occlusion not run)
+            "verify_manually": o.get("verify_manually"),
         })
     return recs
 
@@ -109,12 +115,16 @@ def detect(model, path, conf, imgsz, max_det, iou=0.7):
     return boxes, w, h
 
 
-def draw_overlay(path, boxes, locations, out_path, recs):
+LEVEL_COLOURS = [(0, 200, 0), (0, 165, 255), (0, 0, 255)]   # low green, medium orange, high red (BGR)
+
+
+def draw_overlay(path, boxes, locations, out_path, recs, levels=None):
     import cv2
     img = cv2.imread(str(path))
     h, w = img.shape[:2]
-    for b in boxes:
-        cv2.rectangle(img, (int(b[0]), int(b[1])), (int(b[2]), int(b[3])), (0, 0, 255), 1)
+    for i, b in enumerate(boxes):
+        c = LEVEL_COLOURS[levels[i]] if levels is not None else (0, 0, 255)
+        cv2.rectangle(img, (int(b[0]), int(b[1])), (int(b[2]), int(b[3])), c, 1)
     colour = {"IN STOCK": (0, 160, 0), "LOW": (0, 165, 255), "STOCK-OUT": (0, 0, 255), "UNKNOWN": (128, 128, 128)}
     by_id = {r["location_id"]: r for r in recs}
     for loc in locations:
@@ -125,6 +135,8 @@ def draw_overlay(path, boxes, locations, out_path, recs):
         cv2.rectangle(img, (px1, py1), (px2, py2), c, 3)
         # two short label lines inside the region, on a dark background so they stay readable
         lines = [loc["location_id"], f'{r["count"]} | {r["status"]}']
+        if r.get("trust") is not None:
+            lines.append(f'trust {r["trust"]:.2f}' + (" | VERIFY" if r["verify_manually"] else ""))
         fs, th = 0.45, 1
         for i, txt in enumerate(lines):
             (tw, tht), _ = cv2.getTextSize(txt, cv2.FONT_HERSHEY_SIMPLEX, fs, th)
@@ -149,6 +161,11 @@ def main():
     ap.add_argument("--max-det", type=int, default=1000)
     ap.add_argument("--iou", type=float, default=0.7, help="NMS IoU; lower (e.g. 0.5) removes more overlapping duplicate boxes")
     ap.add_argument("--labels-dir", default=None, help="optional folder of YOLO .txt labels to print annotated counts next to detected counts")
+    ap.add_argument("--occlusion-cnn", default=None, help="CNN weights, e.g. weights\\occlusion_r18.pt (enables sub-function 2)")
+    ap.add_argument("--occlusion-mode", default="hybrid", choices=["hybrid", "cnn"])
+    ap.add_argument("--rf-model", default="weights/occlusion_geometry_rf.joblib")
+    ap.add_argument("--converted", default="annotations/converted", help="used once to train the geometry model")
+    ap.add_argument("--trust-threshold", type=float, default=0.80)
     ap.add_argument("--low-ratio", type=float, default=0.5)
     ap.add_argument("--out-ratio", type=float, default=0.1)
     a = ap.parse_args()
@@ -159,6 +176,11 @@ def main():
 
     from ultralytics import YOLO
     model = YOLO(a.weights)
+    occ_model = None
+    if a.occlusion_cnn:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from occlusion_model import OcclusionEstimator, location_summary
+        occ_model = OcclusionEstimator(a.occlusion_cnn, mode=a.occlusion_mode, rf_path=a.rf_model, converted=a.converted)
 
     # reference counts: given in config, else counted on the camera's reference frame
     references = {l["location_id"]: l.get("reference_count") for l in locations}
@@ -177,14 +199,23 @@ def main():
     for fp in a.frames:
         boxes, w, h = detect(model, fp, a.conf, a.imgsz, a.max_det, a.iou)
         per_loc = assign_boxes(boxes, locations, w, h)
-        recs = build_records(a.camera_id, Path(fp).name, per_loc, references, a.low_ratio, a.out_ratio, ts)
+        occ, levels = None, None
+        if occ_model is not None:
+            import cv2
+            probs = occ_model.predict(cv2.imread(str(fp)), boxes)
+            levels = probs.argmax(1) if len(probs) else None
+            index = {id(b): i for i, b in enumerate(boxes)}
+            occ = {lid: location_summary(probs[[index[id(b)] for b in bx]] if bx else probs[:0], a.trust_threshold)
+                   for lid, bx in per_loc.items()}
+        recs = build_records(a.camera_id, Path(fp).name, per_loc, references, a.low_ratio, a.out_ratio, ts, occ)
         all_recs += recs
         gt = gt_counts(a.labels_dir, fp, locations)
         for r in recs:
             extra = "" if gt is None else f'   [annotated: {gt[r["location_id"]]}]'
-            print(f'{Path(fp).name}  {r["location_id"]}: {r["count"]} (ref {r["reference_count"]}) -> {r["status"]}{extra}')
+            tr = "" if r.get("trust") is None else f'  trust {r["trust"]:.2f}{"  VERIFY MANUALLY" if r["verify_manually"] else ""}  mix {r["occlusion_mix"]}'
+            print(f'{Path(fp).name}  {r["location_id"]}: {r["count"]} (ref {r["reference_count"]}) -> {r["status"]}{extra}{tr}')
         if a.overlay_dir:
-            draw_overlay(fp, boxes, locations, Path(a.overlay_dir) / f"{Path(fp).stem}_stock.jpg", recs)
+            draw_overlay(fp, boxes, locations, Path(a.overlay_dir) / f"{Path(fp).stem}_stock.jpg", recs, levels)
 
     Path(a.out_json).parent.mkdir(parents=True, exist_ok=True)
     json.dump(all_recs, open(a.out_json, "w", encoding="utf-8"), indent=2)

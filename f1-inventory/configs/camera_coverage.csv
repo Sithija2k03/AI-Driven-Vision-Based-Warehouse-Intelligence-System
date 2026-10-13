@@ -1,16 +1,20 @@
-   camera_id,zone,shelves,view,visible,notes
-   G_H,C,C,side,part,few large cartons
-   G_H,B,B,side,part,few large cartons
-   G_H,A,A,front,part,mostly loose items not cartons
-   G_H,D,D,side,part,
-   G_H,V1-V3,V1;V2;V3,top,part,dark in afternoon
-   G_H,H,H,front,part,
-   G_H,V4,V4,top,part,stacked on top of G rack
-   G_H,G-22..G-24,G-22;G-23;G-24,front,full,left bay of G rack
-   G_H,G-19..G-21,G-19;G-20;G-21,front,full,right bay of G rack
-
-   X_5,W,W,side,part,left shelving
-   X_5,X2,X2,front,part,far back - too far for detector
-   X_5,X5,X5,top,full,floor stock
-   X_5,S,S,side,part,upper right shelving
-   X_5,P..R,P;Q;R,side,part,lower right rack sections
+camera_id,zone,shelves,view,visible,notes
+G_H,C,C,side,part,few large cartons - secondary
+G_H,B,B,side,part,few large cartons - secondary
+G_H,A,A,front,part,mostly loose items not cartons
+G_H,D,D,side,part,
+G_H,V1-V3,V1;V2;V3,top,part,dark in afternoon - secondary
+G_H,H,H,front,part,not in F4 layout
+G_H,V4,V4,top,part,stacked on top of G rack
+G_H,G-22..G-24,G-22;G-23;G-24,front,full,left bay of G rack
+G_H,G-19..G-21,G-19;G-20;G-21,front,full,right bay of G rack
+X_5,W,W,side,part,left shelving
+X_5,X2,X2,front,part,far back - too far for detector
+X_5,X5,X5,top,full,floor stock
+X_5,S,S,side,part,upper right shelving
+X_5,P..R,P;Q;R,side,part,lower right rack sections
+CP2,C,C,side,part,upper left shelving - primary
+CP2,B,B,side,part,lower left shelving - primary
+CP2,V1-V3,V1;V2;V3,top,part,floor stack in aisle - primary
+CP2,F,F,side,part,upper right shelving - not in F4 layout
+CP2,E,E,side,part,lower right shelving

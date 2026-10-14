@@ -1,0 +1,38 @@
+[
+  {
+    "schema_version": "0.2-draft",
+    "location_id": "GH-ALL",
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00007.jpg",
+    "timestamp": "2026-10-12T17:06:25+00:00",
+    "count": 126,
+    "reference_count": 154,
+    "ratio_to_reference": 0.818,
+    "status": "IN STOCK",
+    "occlusion_mix": {
+      "low": 21,
+      "medium": 31,
+      "high": 74
+    },
+    "trust": 0.773,
+    "verify_manually": true
+  },
+  {
+    "schema_version": "0.2-draft",
+    "location_id": "GH-ALL",
+    "camera_id": "G_H",
+    "frame": "cam10__frame_00025.jpg",
+    "timestamp": "2026-10-12T17:06:25+00:00",
+    "count": 148,
+    "reference_count": 154,
+    "ratio_to_reference": 0.961,
+    "status": "IN STOCK",
+    "occlusion_mix": {
+      "low": 28,
+      "medium": 38,
+      "high": 82
+    },
+    "trust": 0.78,
+    "verify_manually": true
+  }
+]

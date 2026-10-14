@@ -1,0 +1,106 @@
+{
+  "A_occlusion_on_detector_boxes": {
+    "cnn": {
+      "n": 4619,
+      "accuracy": 0.5581,
+      "macro_f1": 0.5597,
+      "cohen_kappa": 0.3107,
+      "low_vs_high_confusions": 133
+    },
+    "hybrid": {
+      "n": 4619,
+      "accuracy": 0.5638,
+      "macro_f1": 0.5651,
+      "cohen_kappa": 0.3178,
+      "low_vs_high_confusions": 120
+    }
+  },
+  "B_trust_vs_recall": {
+    "n_cells": 304,
+    "trust_hybrid": {
+      "spearman_rho": 0.351,
+      "p_value": 3.219092162506828e-10
+    },
+    "trust_cnn": {
+      "spearman_rho": 0.296,
+      "p_value": 1.4722865292920386e-07
+    },
+    "trust_true_labels": {
+      "spearman_rho": 0.311,
+      "p_value": 3.176573895099763e-08
+    },
+    "quartile_bins": [
+      {
+        "trust_from": 0.696,
+        "trust_to": 0.783,
+        "cells": 76,
+        "mean_recall": 0.462
+      },
+      {
+        "trust_from": 0.783,
+        "trust_to": 0.818,
+        "cells": 76,
+        "mean_recall": 0.483
+      },
+      {
+        "trust_from": 0.818,
+        "trust_to": 0.839,
+        "cells": 76,
+        "mean_recall": 0.691
+      },
+      {
+        "trust_from": 0.839,
+        "trust_to": 0.921,
+        "cells": 76,
+        "mean_recall": 0.613
+      }
+    ],
+    "verify_flag": {
+      "threshold": 0.8,
+      "flagged_cells": 108,
+      "mean_recall_flagged": 0.443,
+      "mean_recall_not_flagged": 0.628
+    }
+  },
+  "C_threshold_choice": {
+    "unreliable_recall_definition": 0.5,
+    "n_unreliable": 124,
+    "auc_trust_detects_unreliable": 0.669,
+    "youden_threshold_all": 0.806,
+    "leave_one_camera_out": [
+      {
+        "held_out": "location_G_H_b2",
+        "threshold_from_others": 0.804,
+        "unreliable_caught": 0.604,
+        "false_alarms": 0.489,
+        "share_flagged": 0.548
+      },
+      {
+        "held_out": "location_X_5_b2",
+        "threshold_from_others": 0.8,
+        "unreliable_caught": 0.48,
+        "false_alarms": 0.193,
+        "share_flagged": 0.327
+      },
+      {
+        "held_out": "location_checkingPart_2_b2",
+        "threshold_from_others": 0.806,
+        "unreliable_caught": 1.0,
+        "false_alarms": 0.013,
+        "share_flagged": 0.26
+      }
+    ],
+    "at_starting_value": {
+      "threshold": 0.8,
+      "unreliable_caught": 0.621,
+      "false_alarms": 0.172,
+      "share_flagged": 0.355
+    },
+    "at_data_chosen": {
+      "threshold": 0.806,
+      "unreliable_caught": 0.661,
+      "false_alarms": 0.189,
+      "share_flagged": 0.382
+    }
+  }
+}

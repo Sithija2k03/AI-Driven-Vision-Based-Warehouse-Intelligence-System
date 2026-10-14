@@ -38,7 +38,7 @@ import argparse, csv, json, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-SCHEMA_VERSION = "0.3-draft"
+SCHEMA_VERSION = "0.4-draft"
 
 
 def loc_polygon(loc):
@@ -155,6 +155,63 @@ def build_records(camera_id, frame_name, per_loc, references, low_ratio, out_rat
     return recs
 
 
+def pct_unreliable(x, ref):
+    """Share of the camera's reference cells that look MORE reliable than x (mid-rank). 1 = worst seen."""
+    import numpy as np
+    ref = np.asarray(ref, float)
+    return float(((ref > x).sum() + 0.5 * (ref == x).sum()) / len(ref))
+
+
+def load_camera_calibration(path, camera_id):
+    """Returns (camera calibration dict, verify threshold, source label) or (None, None, None)."""
+    if not path or not Path(path).exists():
+        return None, None, None
+    cal = json.load(open(path, encoding="utf-8"))
+    thr = cal["reliability"]["verify_threshold"]
+    if camera_id in cal["cameras"]:
+        return cal["cameras"][camera_id], thr, "camera"
+    cams = list(cal["cameras"].values())          # camera never calibrated: pool the calibrated cameras
+    pooled = {k: sum((c[k] for c in cams), []) for k in ("ref_conf", "ref_trust", "ref_ypos")}
+    pooled["count_factor"] = round(sum(c["count_factor"] for c in cams) / len(cams), 3)
+    floors = [c["empty_floor"] for c in cams if "empty_floor" in c]
+    if floors:
+        pooled["empty_floor"] = round(sum(floors) / len(floors), 3)
+    return pooled, thr, "pooled (camera not calibrated)"
+
+
+def apply_calibration(recs, zone_stats, camcal, thr, source, low_ratio, out_ratio):
+    """Adds the three research improvements to each record:
+    1) reliability = combined score of detector confidence + occlusion trust + position (verify if below threshold)
+    2) adjusted ratio / status with the empty-shelf floor removed (real background only)
+    3) estimated true count with the camera's count factor (precision / recall)."""
+    for r in recs:
+        z = zone_stats.get(r["location_id"], {})
+        r["calibration"] = source
+        r["mean_confidence"] = None if z.get("conf") is None else round(z["conf"], 3)
+        r["position_y"] = round(z.get("ypos", 0.5), 3)
+        r["estimated_true_count"] = round(r["count"] * camcal["count_factor"])
+        # empty-shelf correction
+        floor = camcal.get("empty_floor", 0.0)
+        r["raw_status"] = r["status"]
+        if r["ratio_to_reference"] is not None:
+            adj = max(0.0, (r["ratio_to_reference"] - floor) / (1 - floor))
+            r["adjusted_ratio"] = round(adj, 3)
+            if r["status"] != "UNKNOWN":
+                r["status"] = ("STOCK-OUT" if r["count"] == 0 or adj < out_ratio else "LOW" if adj < low_ratio else "IN STOCK")
+        else:
+            r["adjusted_ratio"] = None
+        # combined reliability
+        if r.get("trust") is not None and z.get("conf") is not None:
+            unrel = (pct_unreliable(z["conf"], camcal["ref_conf"]) + pct_unreliable(r["trust"], camcal["ref_trust"])
+                     + pct_unreliable(z.get("ypos", 0.5), camcal["ref_ypos"])) / 3
+            r["reliability"] = round(1 - unrel, 3)
+            r["verify_manually"] = bool(unrel >= thr)
+            r["verify_rule"] = f"combined score (confidence + occlusion + position), verify if reliability < {1 - thr:.2f}"
+        else:
+            r["reliability"] = None
+    return recs
+
+
 def gt_counts(labels_dir, frame_path, locations, anchor="center"):
     """Annotated (ground-truth) count per location from a YOLO label file, or None if missing."""
     if not labels_dir:
@@ -205,16 +262,19 @@ def draw_overlay(path, boxes, locations, out_path, recs, levels=None, unassigned
         if compact:
             # one short line at the shape's centre: "G-22 12 IN .78 V"  (V = verify manually)
             txt = f'{loc["location_id"]} {r["count"]} {short.get(r["status"], "?")}'
-            if r.get("trust") is not None:
-                txt += f' {r["trust"]:.2f}'.replace("0.", ".") + (" V" if r["verify_manually"] else "")
+            score = r.get("reliability") if r.get("reliability") is not None else r.get("trust")
+            if score is not None:
+                txt += f' {score:.2f}'.replace("0.", ".") + (" V" if r["verify_manually"] else "")
             lines, fs = [txt], 0.38
             px1, py1 = int(pts[:, 0].mean()), int(pts[:, 1].mean())
             (tw, _), _ = cv2.getTextSize(txt, cv2.FONT_HERSHEY_SIMPLEX, fs, 1)
             px1, py1, px2 = max(0, px1 - tw // 2 - 5), max(0, py1 - 18), w
         else:
             lines = [loc["location_id"], f'{r["count"]} | {r["status"]}']
-            if r.get("trust") is not None:
-                lines.append(f'trust {r["trust"]:.2f}' + (" | VERIFY" if r["verify_manually"] else ""))
+            score = r.get("reliability") if r.get("reliability") is not None else r.get("trust")
+            if score is not None:
+                lines.append(f'{"rel" if r.get("reliability") is not None else "trust"} {score:.2f}'
+                             + (" | VERIFY" if r["verify_manually"] else ""))
             fs = 0.45
             px1, py1, px2 = int(pts[:, 0].min()), int(pts[:, 1].min()), int(pts[:, 0].max())
         for i, txt in enumerate(lines):
@@ -251,6 +311,9 @@ def main():
                     help="locations whose reference frame shows fewer cartons than this get status UNKNOWN")
     ap.add_argument("--anchor", default="center", choices=["center", "bottom"],
                     help="box point used to pick its location; 'bottom' = where the carton stands (good for stacked shelf levels)")
+    ap.add_argument("--calibration", default="configs/calibration.json",
+                    help="from build_calibration.py; adds combined reliability, empty-shelf and count corrections")
+    ap.add_argument("--no-calibration", action="store_true", help="old behaviour (trust-only verify, raw ratio)")
     a = ap.parse_args()
 
     cfg = json.load(open(a.config, encoding="utf-8"))
@@ -276,6 +339,12 @@ def main():
             if v is None:
                 references[k] = len(ref_assigned[k])
     print("Reference counts:", references)
+    camcal, cal_thr, cal_src = (None, None, None) if a.no_calibration else load_camera_calibration(a.calibration, a.camera_id)
+    if camcal is not None and a.occlusion_cnn:
+        print(f"Calibration: {cal_src}; count factor {camcal['count_factor']}, empty-shelf floor {camcal.get('empty_floor', 0)}, "
+              f"verify if reliability < {1 - cal_thr:.2f}")
+    elif a.occlusion_cnn:
+        print("Calibration: none (trust-only verify, raw ratio)")
 
     ts = datetime.now(timezone.utc).isoformat(timespec="seconds")
     all_recs = []
@@ -293,12 +362,30 @@ def main():
                    for lid, bx in per_loc.items()}
         recs = build_records(a.camera_id, Path(fp).name, per_loc, references, a.low_ratio, a.out_ratio, ts, occ,
                              {l["location_id"]: l.get("slots", []) for l in locations}, a.min_ref)
+        if camcal is not None and occ_model is not None:
+            zone_stats = {}
+            for loc in locations:
+                bx = per_loc[loc["location_id"]]
+                ys = [p[1] for p in loc_polygon(loc)]
+                zone_stats[loc["location_id"]] = {"conf": (sum(b[4] for b in bx) / len(bx)) if bx else None,
+                                                  "ypos": sum(ys) / len(ys)}
+            apply_calibration(recs, zone_stats, camcal, cal_thr, cal_src, a.low_ratio, a.out_ratio)
         all_recs += recs
         gt = gt_counts(a.labels_dir, fp, locations, a.anchor)
         for r in recs:
             extra = "" if gt is None else f'   [annotated: {gt[r["location_id"]]}]'
-            tr = "" if r.get("trust") is None else f'  trust {r["trust"]:.2f}{"  VERIFY MANUALLY" if r["verify_manually"] else ""}  mix {r["occlusion_mix"]}'
-            print(f'{Path(fp).name}  {r["location_id"]}: {r["count"]} (ref {r["reference_count"]}) -> {r["status"]}{extra}{tr}')
+            if r.get("reliability") is not None:
+                tr = (f'  reliability {r["reliability"]:.2f}{"  VERIFY MANUALLY" if r["verify_manually"] else ""}'
+                      f'  (trust {r["trust"]:.2f}, conf {r["mean_confidence"]:.2f})')
+            elif r.get("trust") is not None:
+                tr = f'  trust {r["trust"]:.2f}{"  VERIFY MANUALLY" if r["verify_manually"] else ""}'
+            else:
+                tr = ""
+            cal_txt = ""
+            if "estimated_true_count" in r:
+                adj = "" if r.get("adjusted_ratio") is None else f', adj ratio {r["adjusted_ratio"]:.2f}'
+                cal_txt = f'  [est. true count {r["estimated_true_count"]}{adj}]'
+            print(f'{Path(fp).name}  {r["location_id"]}: {r["count"]} (ref {r["reference_count"]}) -> {r["status"]}{cal_txt}{extra}{tr}')
         if loose:
             print(f'{Path(fp).name}  (not on any location: {len(loose)} boxes, e.g. aisle/floor; shown white in the overlay)')
         if a.overlay_dir:
@@ -308,7 +395,7 @@ def main():
     json.dump(all_recs, open(a.out_json, "w", encoding="utf-8"), indent=2)
     if a.out_csv:
         with open(a.out_csv, "w", newline="", encoding="utf-8") as f:
-            wr = csv.DictWriter(f, fieldnames=list(all_recs[0].keys()))
+            wr = csv.DictWriter(f, fieldnames=list(all_recs[0].keys()), extrasaction="ignore")
             wr.writeheader(); wr.writerows(all_recs)
     print(f"Wrote {len(all_recs)} records to {a.out_json}")
 

@@ -1,9 +1,0 @@
-{
-  "frame": "cam12__frame_00009.jpg",
-  "location": "X5-RIGHT-RACK",
-  "seed": 1,
-  "boxes_in_location_before": 88,
-  "removed": 22,
-  "boxes_in_location_after": 66,
-  "image": "cam12__frame_00009__SIMULATED_REMOVE_X5-RIGHT-RACK_25.jpg"
-}

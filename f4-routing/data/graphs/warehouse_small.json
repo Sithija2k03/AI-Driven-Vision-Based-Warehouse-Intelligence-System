@@ -1,0 +1,2688 @@
+{
+  "warehouse_id": "warehouse_small",
+  "description": "Roodbergen & De Koster (2001) benchmark \u2014 2 blocks, 5 aisles, 10 locations per segment",
+  "reference": "Roodbergen, K.J. and De Koster, R. (2001a). Routing methods for warehouses with multiple cross aisles. International Journal of Production Research 39(9), 1865-1883.",
+  "dimensions": {
+    "num_blocks": 2,
+    "num_aisles": 5,
+    "locations_per_segment": 10,
+    "total_pick_locations": 100,
+    "aisle_width_m": 3.0,
+    "location_depth_m": 1.0,
+    "cross_aisle_width_m": 3.0,
+    "total_warehouse_width_m": 12.0,
+    "total_warehouse_depth_m": 29.0
+  },
+  "nodes": [
+    {
+      "id": "A1-B1-L1",
+      "aisle": 1,
+      "block": 1,
+      "location": 1,
+      "x": 0.0,
+      "y": 0.0,
+      "task_weight": "Heavy",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L2",
+      "aisle": 1,
+      "block": 1,
+      "location": 2,
+      "x": 0.0,
+      "y": 1.0,
+      "task_weight": "Heavy",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L3",
+      "aisle": 1,
+      "block": 1,
+      "location": 3,
+      "x": 0.0,
+      "y": 2.0,
+      "task_weight": "Heavy",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L4",
+      "aisle": 1,
+      "block": 1,
+      "location": 4,
+      "x": 0.0,
+      "y": 3.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L5",
+      "aisle": 1,
+      "block": 1,
+      "location": 5,
+      "x": 0.0,
+      "y": 4.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L6",
+      "aisle": 1,
+      "block": 1,
+      "location": 6,
+      "x": 0.0,
+      "y": 5.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L7",
+      "aisle": 1,
+      "block": 1,
+      "location": 7,
+      "x": 0.0,
+      "y": 6.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L8",
+      "aisle": 1,
+      "block": 1,
+      "location": 8,
+      "x": 0.0,
+      "y": 7.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L9",
+      "aisle": 1,
+      "block": 1,
+      "location": 9,
+      "x": 0.0,
+      "y": 8.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B1-L10",
+      "aisle": 1,
+      "block": 1,
+      "location": 10,
+      "x": 0.0,
+      "y": 9.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L1",
+      "aisle": 1,
+      "block": 2,
+      "location": 1,
+      "x": 0.0,
+      "y": 13.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L2",
+      "aisle": 1,
+      "block": 2,
+      "location": 2,
+      "x": 0.0,
+      "y": 14.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L3",
+      "aisle": 1,
+      "block": 2,
+      "location": 3,
+      "x": 0.0,
+      "y": 15.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L4",
+      "aisle": 1,
+      "block": 2,
+      "location": 4,
+      "x": 0.0,
+      "y": 16.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L5",
+      "aisle": 1,
+      "block": 2,
+      "location": 5,
+      "x": 0.0,
+      "y": 17.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L6",
+      "aisle": 1,
+      "block": 2,
+      "location": 6,
+      "x": 0.0,
+      "y": 18.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L7",
+      "aisle": 1,
+      "block": 2,
+      "location": 7,
+      "x": 0.0,
+      "y": 19.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L8",
+      "aisle": 1,
+      "block": 2,
+      "location": 8,
+      "x": 0.0,
+      "y": 20.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L9",
+      "aisle": 1,
+      "block": 2,
+      "location": 9,
+      "x": 0.0,
+      "y": 21.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A1-B2-L10",
+      "aisle": 1,
+      "block": 2,
+      "location": 10,
+      "x": 0.0,
+      "y": 22.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A2-B1-L1",
+      "aisle": 2,
+      "block": 1,
+      "location": 1,
+      "x": 3.0,
+      "y": 0.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L2",
+      "aisle": 2,
+      "block": 1,
+      "location": 2,
+      "x": 3.0,
+      "y": 1.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L3",
+      "aisle": 2,
+      "block": 1,
+      "location": 3,
+      "x": 3.0,
+      "y": 2.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L4",
+      "aisle": 2,
+      "block": 1,
+      "location": 4,
+      "x": 3.0,
+      "y": 3.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L5",
+      "aisle": 2,
+      "block": 1,
+      "location": 5,
+      "x": 3.0,
+      "y": 4.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L6",
+      "aisle": 2,
+      "block": 1,
+      "location": 6,
+      "x": 3.0,
+      "y": 5.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L7",
+      "aisle": 2,
+      "block": 1,
+      "location": 7,
+      "x": 3.0,
+      "y": 6.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L8",
+      "aisle": 2,
+      "block": 1,
+      "location": 8,
+      "x": 3.0,
+      "y": 7.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L9",
+      "aisle": 2,
+      "block": 1,
+      "location": 9,
+      "x": 3.0,
+      "y": 8.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B1-L10",
+      "aisle": 2,
+      "block": 1,
+      "location": 10,
+      "x": 3.0,
+      "y": 9.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L1",
+      "aisle": 2,
+      "block": 2,
+      "location": 1,
+      "x": 3.0,
+      "y": 13.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L2",
+      "aisle": 2,
+      "block": 2,
+      "location": 2,
+      "x": 3.0,
+      "y": 14.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L3",
+      "aisle": 2,
+      "block": 2,
+      "location": 3,
+      "x": 3.0,
+      "y": 15.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L4",
+      "aisle": 2,
+      "block": 2,
+      "location": 4,
+      "x": 3.0,
+      "y": 16.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L5",
+      "aisle": 2,
+      "block": 2,
+      "location": 5,
+      "x": 3.0,
+      "y": 17.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L6",
+      "aisle": 2,
+      "block": 2,
+      "location": 6,
+      "x": 3.0,
+      "y": 18.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L7",
+      "aisle": 2,
+      "block": 2,
+      "location": 7,
+      "x": 3.0,
+      "y": 19.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L8",
+      "aisle": 2,
+      "block": 2,
+      "location": 8,
+      "x": 3.0,
+      "y": 20.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L9",
+      "aisle": 2,
+      "block": 2,
+      "location": 9,
+      "x": 3.0,
+      "y": 21.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A2-B2-L10",
+      "aisle": 2,
+      "block": 2,
+      "location": 10,
+      "x": 3.0,
+      "y": 22.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L1",
+      "aisle": 3,
+      "block": 1,
+      "location": 1,
+      "x": 6.0,
+      "y": 0.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L2",
+      "aisle": 3,
+      "block": 1,
+      "location": 2,
+      "x": 6.0,
+      "y": 1.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L3",
+      "aisle": 3,
+      "block": 1,
+      "location": 3,
+      "x": 6.0,
+      "y": 2.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L4",
+      "aisle": 3,
+      "block": 1,
+      "location": 4,
+      "x": 6.0,
+      "y": 3.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L5",
+      "aisle": 3,
+      "block": 1,
+      "location": 5,
+      "x": 6.0,
+      "y": 4.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L6",
+      "aisle": 3,
+      "block": 1,
+      "location": 6,
+      "x": 6.0,
+      "y": 5.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L7",
+      "aisle": 3,
+      "block": 1,
+      "location": 7,
+      "x": 6.0,
+      "y": 6.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L8",
+      "aisle": 3,
+      "block": 1,
+      "location": 8,
+      "x": 6.0,
+      "y": 7.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L9",
+      "aisle": 3,
+      "block": 1,
+      "location": 9,
+      "x": 6.0,
+      "y": 8.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B1-L10",
+      "aisle": 3,
+      "block": 1,
+      "location": 10,
+      "x": 6.0,
+      "y": 9.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L1",
+      "aisle": 3,
+      "block": 2,
+      "location": 1,
+      "x": 6.0,
+      "y": 13.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L2",
+      "aisle": 3,
+      "block": 2,
+      "location": 2,
+      "x": 6.0,
+      "y": 14.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L3",
+      "aisle": 3,
+      "block": 2,
+      "location": 3,
+      "x": 6.0,
+      "y": 15.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L4",
+      "aisle": 3,
+      "block": 2,
+      "location": 4,
+      "x": 6.0,
+      "y": 16.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L5",
+      "aisle": 3,
+      "block": 2,
+      "location": 5,
+      "x": 6.0,
+      "y": 17.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L6",
+      "aisle": 3,
+      "block": 2,
+      "location": 6,
+      "x": 6.0,
+      "y": 18.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L7",
+      "aisle": 3,
+      "block": 2,
+      "location": 7,
+      "x": 6.0,
+      "y": 19.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L8",
+      "aisle": 3,
+      "block": 2,
+      "location": 8,
+      "x": 6.0,
+      "y": 20.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L9",
+      "aisle": 3,
+      "block": 2,
+      "location": 9,
+      "x": 6.0,
+      "y": 21.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A3-B2-L10",
+      "aisle": 3,
+      "block": 2,
+      "location": 10,
+      "x": 6.0,
+      "y": 22.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L1",
+      "aisle": 4,
+      "block": 1,
+      "location": 1,
+      "x": 9.0,
+      "y": 0.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L2",
+      "aisle": 4,
+      "block": 1,
+      "location": 2,
+      "x": 9.0,
+      "y": 1.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L3",
+      "aisle": 4,
+      "block": 1,
+      "location": 3,
+      "x": 9.0,
+      "y": 2.0,
+      "task_weight": "Heavy",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L4",
+      "aisle": 4,
+      "block": 1,
+      "location": 4,
+      "x": 9.0,
+      "y": 3.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L5",
+      "aisle": 4,
+      "block": 1,
+      "location": 5,
+      "x": 9.0,
+      "y": 4.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L6",
+      "aisle": 4,
+      "block": 1,
+      "location": 6,
+      "x": 9.0,
+      "y": 5.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L7",
+      "aisle": 4,
+      "block": 1,
+      "location": 7,
+      "x": 9.0,
+      "y": 6.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L8",
+      "aisle": 4,
+      "block": 1,
+      "location": 8,
+      "x": 9.0,
+      "y": 7.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L9",
+      "aisle": 4,
+      "block": 1,
+      "location": 9,
+      "x": 9.0,
+      "y": 8.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B1-L10",
+      "aisle": 4,
+      "block": 1,
+      "location": 10,
+      "x": 9.0,
+      "y": 9.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L1",
+      "aisle": 4,
+      "block": 2,
+      "location": 1,
+      "x": 9.0,
+      "y": 13.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L2",
+      "aisle": 4,
+      "block": 2,
+      "location": 2,
+      "x": 9.0,
+      "y": 14.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L3",
+      "aisle": 4,
+      "block": 2,
+      "location": 3,
+      "x": 9.0,
+      "y": 15.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L4",
+      "aisle": 4,
+      "block": 2,
+      "location": 4,
+      "x": 9.0,
+      "y": 16.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L5",
+      "aisle": 4,
+      "block": 2,
+      "location": 5,
+      "x": 9.0,
+      "y": 17.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L6",
+      "aisle": 4,
+      "block": 2,
+      "location": 6,
+      "x": 9.0,
+      "y": 18.0,
+      "task_weight": "Moderate",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L7",
+      "aisle": 4,
+      "block": 2,
+      "location": 7,
+      "x": 9.0,
+      "y": 19.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L8",
+      "aisle": 4,
+      "block": 2,
+      "location": 8,
+      "x": 9.0,
+      "y": 20.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L9",
+      "aisle": 4,
+      "block": 2,
+      "location": 9,
+      "x": 9.0,
+      "y": 21.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A4-B2-L10",
+      "aisle": 4,
+      "block": 2,
+      "location": 10,
+      "x": 9.0,
+      "y": 22.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "A5-B1-L1",
+      "aisle": 5,
+      "block": 1,
+      "location": 1,
+      "x": 12.0,
+      "y": 0.0,
+      "task_weight": "Heavy",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L2",
+      "aisle": 5,
+      "block": 1,
+      "location": 2,
+      "x": 12.0,
+      "y": 1.0,
+      "task_weight": "Heavy",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L3",
+      "aisle": 5,
+      "block": 1,
+      "location": 3,
+      "x": 12.0,
+      "y": 2.0,
+      "task_weight": "Heavy",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L4",
+      "aisle": 5,
+      "block": 1,
+      "location": 4,
+      "x": 12.0,
+      "y": 3.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L5",
+      "aisle": 5,
+      "block": 1,
+      "location": 5,
+      "x": 12.0,
+      "y": 4.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L6",
+      "aisle": 5,
+      "block": 1,
+      "location": 6,
+      "x": 12.0,
+      "y": 5.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L7",
+      "aisle": 5,
+      "block": 1,
+      "location": 7,
+      "x": 12.0,
+      "y": 6.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L8",
+      "aisle": 5,
+      "block": 1,
+      "location": 8,
+      "x": 12.0,
+      "y": 7.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L9",
+      "aisle": 5,
+      "block": 1,
+      "location": 9,
+      "x": 12.0,
+      "y": 8.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B1-L10",
+      "aisle": 5,
+      "block": 1,
+      "location": 10,
+      "x": 12.0,
+      "y": 9.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L1",
+      "aisle": 5,
+      "block": 2,
+      "location": 1,
+      "x": 12.0,
+      "y": 13.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L2",
+      "aisle": 5,
+      "block": 2,
+      "location": 2,
+      "x": 12.0,
+      "y": 14.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L3",
+      "aisle": 5,
+      "block": 2,
+      "location": 3,
+      "x": 12.0,
+      "y": 15.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L4",
+      "aisle": 5,
+      "block": 2,
+      "location": 4,
+      "x": 12.0,
+      "y": 16.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L5",
+      "aisle": 5,
+      "block": 2,
+      "location": 5,
+      "x": 12.0,
+      "y": 17.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L6",
+      "aisle": 5,
+      "block": 2,
+      "location": 6,
+      "x": 12.0,
+      "y": 18.0,
+      "task_weight": "Moderate",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L7",
+      "aisle": 5,
+      "block": 2,
+      "location": 7,
+      "x": 12.0,
+      "y": 19.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L8",
+      "aisle": 5,
+      "block": 2,
+      "location": 8,
+      "x": 12.0,
+      "y": 20.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L9",
+      "aisle": 5,
+      "block": 2,
+      "location": 9,
+      "x": 12.0,
+      "y": 21.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "A5-B2-L10",
+      "aisle": 5,
+      "block": 2,
+      "location": 10,
+      "x": 12.0,
+      "y": 22.0,
+      "task_weight": "Light",
+      "hazard_level": "medium"
+    },
+    {
+      "id": "CA-FRONT-A1",
+      "aisle": 1,
+      "block": 0,
+      "x": 0.0,
+      "y": -3.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-1-A1",
+      "aisle": 1,
+      "block": 1,
+      "x": 0.0,
+      "y": 10.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-REAR-A1",
+      "aisle": 1,
+      "block": 3,
+      "x": 0.0,
+      "y": 26.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-FRONT-A2",
+      "aisle": 2,
+      "block": 0,
+      "x": 3.0,
+      "y": -3.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-1-A2",
+      "aisle": 2,
+      "block": 1,
+      "x": 3.0,
+      "y": 10.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-REAR-A2",
+      "aisle": 2,
+      "block": 3,
+      "x": 3.0,
+      "y": 26.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-FRONT-A3",
+      "aisle": 3,
+      "block": 0,
+      "x": 6.0,
+      "y": -3.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-1-A3",
+      "aisle": 3,
+      "block": 1,
+      "x": 6.0,
+      "y": 10.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-REAR-A3",
+      "aisle": 3,
+      "block": 3,
+      "x": 6.0,
+      "y": 26.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-FRONT-A4",
+      "aisle": 4,
+      "block": 0,
+      "x": 9.0,
+      "y": -3.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-1-A4",
+      "aisle": 4,
+      "block": 1,
+      "x": 9.0,
+      "y": 10.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-REAR-A4",
+      "aisle": 4,
+      "block": 3,
+      "x": 9.0,
+      "y": 26.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-FRONT-A5",
+      "aisle": 5,
+      "block": 0,
+      "x": 12.0,
+      "y": -3.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-1-A5",
+      "aisle": 5,
+      "block": 1,
+      "x": 12.0,
+      "y": 10.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "CA-REAR-A5",
+      "aisle": 5,
+      "block": 3,
+      "x": 12.0,
+      "y": 26.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    },
+    {
+      "id": "DEPOT",
+      "aisle": 0,
+      "block": 0,
+      "x": 0.0,
+      "y": -5.0,
+      "task_weight": "Light",
+      "hazard_level": "low"
+    }
+  ],
+  "edges": [
+    {
+      "from": "DEPOT",
+      "to": "CA-FRONT-A1",
+      "distance": 2.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A1",
+      "to": "DEPOT",
+      "distance": 2.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "DEPOT",
+      "to": "CA-FRONT-A2",
+      "distance": 3.61,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A2",
+      "to": "DEPOT",
+      "distance": 3.61,
+      "hazard_level": "low"
+    },
+    {
+      "from": "DEPOT",
+      "to": "CA-FRONT-A3",
+      "distance": 6.32,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A3",
+      "to": "DEPOT",
+      "distance": 6.32,
+      "hazard_level": "low"
+    },
+    {
+      "from": "DEPOT",
+      "to": "CA-FRONT-A4",
+      "distance": 9.22,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A4",
+      "to": "DEPOT",
+      "distance": 9.22,
+      "hazard_level": "low"
+    },
+    {
+      "from": "DEPOT",
+      "to": "CA-FRONT-A5",
+      "distance": 12.17,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A5",
+      "to": "DEPOT",
+      "distance": 12.17,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A1",
+      "to": "A1-B1-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L1",
+      "to": "CA-FRONT-A1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L10",
+      "to": "CA-1-A1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A1",
+      "to": "A1-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L1",
+      "to": "A1-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L2",
+      "to": "A1-B1-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L2",
+      "to": "A1-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L3",
+      "to": "A1-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L3",
+      "to": "A1-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L4",
+      "to": "A1-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L4",
+      "to": "A1-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L5",
+      "to": "A1-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L5",
+      "to": "A1-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L6",
+      "to": "A1-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L6",
+      "to": "A1-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L7",
+      "to": "A1-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L7",
+      "to": "A1-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L8",
+      "to": "A1-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L8",
+      "to": "A1-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L9",
+      "to": "A1-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L9",
+      "to": "A1-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B1-L10",
+      "to": "A1-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A1",
+      "to": "A1-B2-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L1",
+      "to": "CA-1-A1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L10",
+      "to": "CA-REAR-A1",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A1",
+      "to": "A1-B2-L10",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L1",
+      "to": "A1-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L2",
+      "to": "A1-B2-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L2",
+      "to": "A1-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L3",
+      "to": "A1-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L3",
+      "to": "A1-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L4",
+      "to": "A1-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L4",
+      "to": "A1-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L5",
+      "to": "A1-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L5",
+      "to": "A1-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L6",
+      "to": "A1-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L6",
+      "to": "A1-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L7",
+      "to": "A1-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L7",
+      "to": "A1-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L8",
+      "to": "A1-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L8",
+      "to": "A1-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L9",
+      "to": "A1-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L9",
+      "to": "A1-B2-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A1-B2-L10",
+      "to": "A1-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A2",
+      "to": "A2-B1-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L1",
+      "to": "CA-FRONT-A2",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L10",
+      "to": "CA-1-A2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A2",
+      "to": "A2-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L1",
+      "to": "A2-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L2",
+      "to": "A2-B1-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L2",
+      "to": "A2-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L3",
+      "to": "A2-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L3",
+      "to": "A2-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L4",
+      "to": "A2-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L4",
+      "to": "A2-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L5",
+      "to": "A2-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L5",
+      "to": "A2-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L6",
+      "to": "A2-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L6",
+      "to": "A2-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L7",
+      "to": "A2-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L7",
+      "to": "A2-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L8",
+      "to": "A2-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L8",
+      "to": "A2-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L9",
+      "to": "A2-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L9",
+      "to": "A2-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B1-L10",
+      "to": "A2-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A2",
+      "to": "A2-B2-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L1",
+      "to": "CA-1-A2",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L10",
+      "to": "CA-REAR-A2",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A2",
+      "to": "A2-B2-L10",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L1",
+      "to": "A2-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L2",
+      "to": "A2-B2-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L2",
+      "to": "A2-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L3",
+      "to": "A2-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L3",
+      "to": "A2-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L4",
+      "to": "A2-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L4",
+      "to": "A2-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L5",
+      "to": "A2-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L5",
+      "to": "A2-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L6",
+      "to": "A2-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L6",
+      "to": "A2-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L7",
+      "to": "A2-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L7",
+      "to": "A2-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L8",
+      "to": "A2-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L8",
+      "to": "A2-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L9",
+      "to": "A2-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L9",
+      "to": "A2-B2-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A2-B2-L10",
+      "to": "A2-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A3",
+      "to": "A3-B1-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L1",
+      "to": "CA-FRONT-A3",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L10",
+      "to": "CA-1-A3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A3",
+      "to": "A3-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L1",
+      "to": "A3-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L2",
+      "to": "A3-B1-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L2",
+      "to": "A3-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L3",
+      "to": "A3-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L3",
+      "to": "A3-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L4",
+      "to": "A3-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L4",
+      "to": "A3-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L5",
+      "to": "A3-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L5",
+      "to": "A3-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L6",
+      "to": "A3-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L6",
+      "to": "A3-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L7",
+      "to": "A3-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L7",
+      "to": "A3-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L8",
+      "to": "A3-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L8",
+      "to": "A3-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L9",
+      "to": "A3-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L9",
+      "to": "A3-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B1-L10",
+      "to": "A3-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A3",
+      "to": "A3-B2-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L1",
+      "to": "CA-1-A3",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L10",
+      "to": "CA-REAR-A3",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A3",
+      "to": "A3-B2-L10",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L1",
+      "to": "A3-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L2",
+      "to": "A3-B2-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L2",
+      "to": "A3-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L3",
+      "to": "A3-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L3",
+      "to": "A3-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L4",
+      "to": "A3-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L4",
+      "to": "A3-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L5",
+      "to": "A3-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L5",
+      "to": "A3-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L6",
+      "to": "A3-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L6",
+      "to": "A3-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L7",
+      "to": "A3-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L7",
+      "to": "A3-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L8",
+      "to": "A3-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L8",
+      "to": "A3-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L9",
+      "to": "A3-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L9",
+      "to": "A3-B2-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A3-B2-L10",
+      "to": "A3-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A4",
+      "to": "A4-B1-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L1",
+      "to": "CA-FRONT-A4",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L10",
+      "to": "CA-1-A4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A4",
+      "to": "A4-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L1",
+      "to": "A4-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L2",
+      "to": "A4-B1-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L2",
+      "to": "A4-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L3",
+      "to": "A4-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L3",
+      "to": "A4-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L4",
+      "to": "A4-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L4",
+      "to": "A4-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L5",
+      "to": "A4-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L5",
+      "to": "A4-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L6",
+      "to": "A4-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L6",
+      "to": "A4-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L7",
+      "to": "A4-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L7",
+      "to": "A4-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L8",
+      "to": "A4-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L8",
+      "to": "A4-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L9",
+      "to": "A4-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L9",
+      "to": "A4-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B1-L10",
+      "to": "A4-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A4",
+      "to": "A4-B2-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L1",
+      "to": "CA-1-A4",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L10",
+      "to": "CA-REAR-A4",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A4",
+      "to": "A4-B2-L10",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L1",
+      "to": "A4-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L2",
+      "to": "A4-B2-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L2",
+      "to": "A4-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L3",
+      "to": "A4-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L3",
+      "to": "A4-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L4",
+      "to": "A4-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L4",
+      "to": "A4-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L5",
+      "to": "A4-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L5",
+      "to": "A4-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L6",
+      "to": "A4-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L6",
+      "to": "A4-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L7",
+      "to": "A4-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L7",
+      "to": "A4-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L8",
+      "to": "A4-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L8",
+      "to": "A4-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L9",
+      "to": "A4-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L9",
+      "to": "A4-B2-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A4-B2-L10",
+      "to": "A4-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A5",
+      "to": "A5-B1-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L1",
+      "to": "CA-FRONT-A5",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L10",
+      "to": "CA-1-A5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A5",
+      "to": "A5-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L1",
+      "to": "A5-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L2",
+      "to": "A5-B1-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L2",
+      "to": "A5-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L3",
+      "to": "A5-B1-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L3",
+      "to": "A5-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L4",
+      "to": "A5-B1-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L4",
+      "to": "A5-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L5",
+      "to": "A5-B1-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L5",
+      "to": "A5-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L6",
+      "to": "A5-B1-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L6",
+      "to": "A5-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L7",
+      "to": "A5-B1-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L7",
+      "to": "A5-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L8",
+      "to": "A5-B1-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L8",
+      "to": "A5-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L9",
+      "to": "A5-B1-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L9",
+      "to": "A5-B1-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B1-L10",
+      "to": "A5-B1-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A5",
+      "to": "A5-B2-L1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L1",
+      "to": "CA-1-A5",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L10",
+      "to": "CA-REAR-A5",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A5",
+      "to": "A5-B2-L10",
+      "distance": 4.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L1",
+      "to": "A5-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L2",
+      "to": "A5-B2-L1",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L2",
+      "to": "A5-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L3",
+      "to": "A5-B2-L2",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L3",
+      "to": "A5-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L4",
+      "to": "A5-B2-L3",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L4",
+      "to": "A5-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L5",
+      "to": "A5-B2-L4",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L5",
+      "to": "A5-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L6",
+      "to": "A5-B2-L5",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L6",
+      "to": "A5-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L7",
+      "to": "A5-B2-L6",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L7",
+      "to": "A5-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L8",
+      "to": "A5-B2-L7",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L8",
+      "to": "A5-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L9",
+      "to": "A5-B2-L8",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L9",
+      "to": "A5-B2-L10",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "A5-B2-L10",
+      "to": "A5-B2-L9",
+      "distance": 1.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A1",
+      "to": "CA-FRONT-A2",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A2",
+      "to": "CA-FRONT-A1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A2",
+      "to": "CA-FRONT-A3",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A3",
+      "to": "CA-FRONT-A2",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A3",
+      "to": "CA-FRONT-A4",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A4",
+      "to": "CA-FRONT-A3",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A4",
+      "to": "CA-FRONT-A5",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-FRONT-A5",
+      "to": "CA-FRONT-A4",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A1",
+      "to": "CA-REAR-A2",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A2",
+      "to": "CA-REAR-A1",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A2",
+      "to": "CA-REAR-A3",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A3",
+      "to": "CA-REAR-A2",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A3",
+      "to": "CA-REAR-A4",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A4",
+      "to": "CA-REAR-A3",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A4",
+      "to": "CA-REAR-A5",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-REAR-A5",
+      "to": "CA-REAR-A4",
+      "distance": 3.0,
+      "hazard_level": "low"
+    },
+    {
+      "from": "CA-1-A1",
+      "to": "CA-1-A2",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A2",
+      "to": "CA-1-A1",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A2",
+      "to": "CA-1-A3",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A3",
+      "to": "CA-1-A2",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A3",
+      "to": "CA-1-A4",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A4",
+      "to": "CA-1-A3",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A4",
+      "to": "CA-1-A5",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    },
+    {
+      "from": "CA-1-A5",
+      "to": "CA-1-A4",
+      "distance": 3.0,
+      "hazard_level": "medium"
+    }
+  ]
+}

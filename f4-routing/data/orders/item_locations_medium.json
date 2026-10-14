@@ -1,0 +1,1634 @@
+{
+  "description": "Item locations for warehouse_medium. 324 unique SKUs placed across 90% of 360 pick nodes. Replace with real partner WMS stock report when available.",
+  "warehouse": "warehouse_medium",
+  "total_nodes": 360,
+  "items_placed": 324,
+  "coverage_percent": 90.0,
+  "task_distribution": {
+    "Heavy": 38,
+    "Moderate": 251,
+    "Light": 35
+  },
+  "items": [
+    {
+      "item_code": "SKU-0001",
+      "shelf_location": "A1-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0002",
+      "shelf_location": "A1-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0003",
+      "shelf_location": "A1-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0004",
+      "shelf_location": "A1-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0005",
+      "shelf_location": "A1-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0006",
+      "shelf_location": "A1-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0007",
+      "shelf_location": "A1-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0008",
+      "shelf_location": "A1-B1-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0009",
+      "shelf_location": "A1-B1-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0010",
+      "shelf_location": "A1-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0011",
+      "shelf_location": "A1-B1-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0012",
+      "shelf_location": "A1-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0013",
+      "shelf_location": "A1-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0014",
+      "shelf_location": "A1-B1-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0015",
+      "shelf_location": "A1-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0016",
+      "shelf_location": "A1-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0017",
+      "shelf_location": "A1-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0018",
+      "shelf_location": "A1-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0019",
+      "shelf_location": "A1-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0020",
+      "shelf_location": "A1-B2-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0021",
+      "shelf_location": "A1-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0022",
+      "shelf_location": "A1-B2-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0023",
+      "shelf_location": "A1-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0024",
+      "shelf_location": "A1-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0025",
+      "shelf_location": "A1-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0026",
+      "shelf_location": "A1-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0027",
+      "shelf_location": "A1-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0028",
+      "shelf_location": "A1-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0029",
+      "shelf_location": "A1-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0030",
+      "shelf_location": "A1-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0031",
+      "shelf_location": "A1-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0032",
+      "shelf_location": "A1-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0033",
+      "shelf_location": "A1-B3-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0034",
+      "shelf_location": "A1-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0035",
+      "shelf_location": "A1-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0036",
+      "shelf_location": "A1-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0037",
+      "shelf_location": "A1-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0038",
+      "shelf_location": "A1-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0039",
+      "shelf_location": "A1-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0040",
+      "shelf_location": "A1-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0041",
+      "shelf_location": "A1-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0042",
+      "shelf_location": "A1-B3-L13",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0043",
+      "shelf_location": "A1-B3-L14",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0044",
+      "shelf_location": "A1-B3-L15",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0045",
+      "shelf_location": "A2-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0046",
+      "shelf_location": "A2-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0047",
+      "shelf_location": "A2-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0048",
+      "shelf_location": "A2-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0049",
+      "shelf_location": "A2-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0050",
+      "shelf_location": "A2-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0051",
+      "shelf_location": "A2-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0052",
+      "shelf_location": "A2-B1-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0053",
+      "shelf_location": "A2-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0054",
+      "shelf_location": "A2-B1-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0055",
+      "shelf_location": "A2-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0056",
+      "shelf_location": "A2-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0057",
+      "shelf_location": "A2-B1-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0058",
+      "shelf_location": "A2-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0059",
+      "shelf_location": "A2-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0060",
+      "shelf_location": "A2-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0061",
+      "shelf_location": "A2-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0062",
+      "shelf_location": "A2-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0063",
+      "shelf_location": "A2-B2-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0064",
+      "shelf_location": "A2-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0065",
+      "shelf_location": "A2-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0066",
+      "shelf_location": "A2-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0067",
+      "shelf_location": "A2-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0068",
+      "shelf_location": "A2-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0069",
+      "shelf_location": "A2-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0070",
+      "shelf_location": "A2-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0071",
+      "shelf_location": "A2-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0072",
+      "shelf_location": "A2-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0073",
+      "shelf_location": "A2-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0074",
+      "shelf_location": "A2-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0075",
+      "shelf_location": "A2-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0076",
+      "shelf_location": "A2-B3-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0077",
+      "shelf_location": "A2-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0078",
+      "shelf_location": "A2-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0079",
+      "shelf_location": "A2-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0080",
+      "shelf_location": "A2-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0081",
+      "shelf_location": "A2-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0082",
+      "shelf_location": "A2-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0083",
+      "shelf_location": "A2-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0084",
+      "shelf_location": "A2-B3-L13",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0085",
+      "shelf_location": "A2-B3-L14",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0086",
+      "shelf_location": "A3-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0087",
+      "shelf_location": "A3-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0088",
+      "shelf_location": "A3-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0089",
+      "shelf_location": "A3-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0090",
+      "shelf_location": "A3-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0091",
+      "shelf_location": "A3-B1-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0092",
+      "shelf_location": "A3-B1-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0093",
+      "shelf_location": "A3-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0094",
+      "shelf_location": "A3-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0095",
+      "shelf_location": "A3-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0096",
+      "shelf_location": "A3-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0097",
+      "shelf_location": "A3-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0098",
+      "shelf_location": "A3-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0099",
+      "shelf_location": "A3-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0100",
+      "shelf_location": "A3-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0101",
+      "shelf_location": "A3-B2-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0102",
+      "shelf_location": "A3-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0103",
+      "shelf_location": "A3-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0104",
+      "shelf_location": "A3-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0105",
+      "shelf_location": "A3-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0106",
+      "shelf_location": "A3-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0107",
+      "shelf_location": "A3-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0108",
+      "shelf_location": "A3-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0109",
+      "shelf_location": "A3-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0110",
+      "shelf_location": "A3-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0111",
+      "shelf_location": "A3-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0112",
+      "shelf_location": "A3-B3-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0113",
+      "shelf_location": "A3-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0114",
+      "shelf_location": "A3-B3-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0115",
+      "shelf_location": "A3-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0116",
+      "shelf_location": "A3-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0117",
+      "shelf_location": "A3-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0118",
+      "shelf_location": "A3-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0119",
+      "shelf_location": "A3-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0120",
+      "shelf_location": "A3-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0121",
+      "shelf_location": "A3-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0122",
+      "shelf_location": "A3-B3-L13",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0123",
+      "shelf_location": "A3-B3-L14",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0124",
+      "shelf_location": "A3-B3-L15",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0125",
+      "shelf_location": "A4-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0126",
+      "shelf_location": "A4-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0127",
+      "shelf_location": "A4-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0128",
+      "shelf_location": "A4-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0129",
+      "shelf_location": "A4-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0130",
+      "shelf_location": "A4-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0131",
+      "shelf_location": "A4-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0132",
+      "shelf_location": "A4-B1-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0133",
+      "shelf_location": "A4-B1-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0134",
+      "shelf_location": "A4-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0135",
+      "shelf_location": "A4-B1-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0136",
+      "shelf_location": "A4-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0137",
+      "shelf_location": "A4-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0138",
+      "shelf_location": "A4-B1-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0139",
+      "shelf_location": "A4-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0140",
+      "shelf_location": "A4-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0141",
+      "shelf_location": "A4-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0142",
+      "shelf_location": "A4-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0143",
+      "shelf_location": "A4-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0144",
+      "shelf_location": "A4-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0145",
+      "shelf_location": "A4-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0146",
+      "shelf_location": "A4-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0147",
+      "shelf_location": "A4-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0148",
+      "shelf_location": "A4-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0149",
+      "shelf_location": "A4-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0150",
+      "shelf_location": "A4-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0151",
+      "shelf_location": "A4-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0152",
+      "shelf_location": "A4-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0153",
+      "shelf_location": "A4-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0154",
+      "shelf_location": "A4-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0155",
+      "shelf_location": "A4-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0156",
+      "shelf_location": "A4-B3-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0157",
+      "shelf_location": "A4-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0158",
+      "shelf_location": "A4-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0159",
+      "shelf_location": "A4-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0160",
+      "shelf_location": "A4-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0161",
+      "shelf_location": "A4-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0162",
+      "shelf_location": "A4-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0163",
+      "shelf_location": "A4-B3-L14",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0164",
+      "shelf_location": "A4-B3-L15",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0165",
+      "shelf_location": "A5-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0166",
+      "shelf_location": "A5-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0167",
+      "shelf_location": "A5-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0168",
+      "shelf_location": "A5-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0169",
+      "shelf_location": "A5-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0170",
+      "shelf_location": "A5-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0171",
+      "shelf_location": "A5-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0172",
+      "shelf_location": "A5-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0173",
+      "shelf_location": "A5-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0174",
+      "shelf_location": "A5-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0175",
+      "shelf_location": "A5-B1-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0176",
+      "shelf_location": "A5-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0177",
+      "shelf_location": "A5-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0178",
+      "shelf_location": "A5-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0179",
+      "shelf_location": "A5-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0180",
+      "shelf_location": "A5-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0181",
+      "shelf_location": "A5-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0182",
+      "shelf_location": "A5-B2-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0183",
+      "shelf_location": "A5-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0184",
+      "shelf_location": "A5-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0185",
+      "shelf_location": "A5-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0186",
+      "shelf_location": "A5-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0187",
+      "shelf_location": "A5-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0188",
+      "shelf_location": "A5-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0189",
+      "shelf_location": "A5-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0190",
+      "shelf_location": "A5-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0191",
+      "shelf_location": "A5-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0192",
+      "shelf_location": "A5-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0193",
+      "shelf_location": "A5-B3-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0194",
+      "shelf_location": "A5-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0195",
+      "shelf_location": "A5-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0196",
+      "shelf_location": "A5-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0197",
+      "shelf_location": "A5-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0198",
+      "shelf_location": "A5-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0199",
+      "shelf_location": "A5-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0200",
+      "shelf_location": "A5-B3-L14",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0201",
+      "shelf_location": "A5-B3-L15",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0202",
+      "shelf_location": "A6-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0203",
+      "shelf_location": "A6-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0204",
+      "shelf_location": "A6-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0205",
+      "shelf_location": "A6-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0206",
+      "shelf_location": "A6-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0207",
+      "shelf_location": "A6-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0208",
+      "shelf_location": "A6-B1-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0209",
+      "shelf_location": "A6-B1-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0210",
+      "shelf_location": "A6-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0211",
+      "shelf_location": "A6-B1-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0212",
+      "shelf_location": "A6-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0213",
+      "shelf_location": "A6-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0214",
+      "shelf_location": "A6-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0215",
+      "shelf_location": "A6-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0216",
+      "shelf_location": "A6-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0217",
+      "shelf_location": "A6-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0218",
+      "shelf_location": "A6-B2-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0219",
+      "shelf_location": "A6-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0220",
+      "shelf_location": "A6-B2-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0221",
+      "shelf_location": "A6-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0222",
+      "shelf_location": "A6-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0223",
+      "shelf_location": "A6-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0224",
+      "shelf_location": "A6-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0225",
+      "shelf_location": "A6-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0226",
+      "shelf_location": "A6-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0227",
+      "shelf_location": "A6-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0228",
+      "shelf_location": "A6-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0229",
+      "shelf_location": "A6-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0230",
+      "shelf_location": "A6-B3-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0231",
+      "shelf_location": "A6-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0232",
+      "shelf_location": "A6-B3-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0233",
+      "shelf_location": "A6-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0234",
+      "shelf_location": "A6-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0235",
+      "shelf_location": "A6-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0236",
+      "shelf_location": "A6-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0237",
+      "shelf_location": "A6-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0238",
+      "shelf_location": "A6-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0239",
+      "shelf_location": "A6-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0240",
+      "shelf_location": "A6-B3-L13",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0241",
+      "shelf_location": "A6-B3-L15",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0242",
+      "shelf_location": "A7-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0243",
+      "shelf_location": "A7-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0244",
+      "shelf_location": "A7-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0245",
+      "shelf_location": "A7-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0246",
+      "shelf_location": "A7-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0247",
+      "shelf_location": "A7-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0248",
+      "shelf_location": "A7-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0249",
+      "shelf_location": "A7-B1-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0250",
+      "shelf_location": "A7-B1-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0251",
+      "shelf_location": "A7-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0252",
+      "shelf_location": "A7-B1-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0253",
+      "shelf_location": "A7-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0254",
+      "shelf_location": "A7-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0255",
+      "shelf_location": "A7-B1-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0256",
+      "shelf_location": "A7-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0257",
+      "shelf_location": "A7-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0258",
+      "shelf_location": "A7-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0259",
+      "shelf_location": "A7-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0260",
+      "shelf_location": "A7-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0261",
+      "shelf_location": "A7-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0262",
+      "shelf_location": "A7-B2-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0263",
+      "shelf_location": "A7-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0264",
+      "shelf_location": "A7-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0265",
+      "shelf_location": "A7-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0266",
+      "shelf_location": "A7-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0267",
+      "shelf_location": "A7-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0268",
+      "shelf_location": "A7-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0269",
+      "shelf_location": "A7-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0270",
+      "shelf_location": "A7-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0271",
+      "shelf_location": "A7-B3-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0272",
+      "shelf_location": "A7-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0273",
+      "shelf_location": "A7-B3-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0274",
+      "shelf_location": "A7-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0275",
+      "shelf_location": "A7-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0276",
+      "shelf_location": "A7-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0277",
+      "shelf_location": "A7-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0278",
+      "shelf_location": "A7-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0279",
+      "shelf_location": "A7-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0280",
+      "shelf_location": "A7-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0281",
+      "shelf_location": "A7-B3-L13",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0282",
+      "shelf_location": "A7-B3-L15",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0283",
+      "shelf_location": "A8-B1-L1",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0284",
+      "shelf_location": "A8-B1-L2",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0285",
+      "shelf_location": "A8-B1-L3",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0286",
+      "shelf_location": "A8-B1-L4",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0287",
+      "shelf_location": "A8-B1-L5",
+      "task_weight": "Heavy"
+    },
+    {
+      "item_code": "SKU-0288",
+      "shelf_location": "A8-B1-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0289",
+      "shelf_location": "A8-B1-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0290",
+      "shelf_location": "A8-B1-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0291",
+      "shelf_location": "A8-B1-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0292",
+      "shelf_location": "A8-B1-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0293",
+      "shelf_location": "A8-B1-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0294",
+      "shelf_location": "A8-B1-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0295",
+      "shelf_location": "A8-B1-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0296",
+      "shelf_location": "A8-B2-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0297",
+      "shelf_location": "A8-B2-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0298",
+      "shelf_location": "A8-B2-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0299",
+      "shelf_location": "A8-B2-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0300",
+      "shelf_location": "A8-B2-L5",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0301",
+      "shelf_location": "A8-B2-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0302",
+      "shelf_location": "A8-B2-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0303",
+      "shelf_location": "A8-B2-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0304",
+      "shelf_location": "A8-B2-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0305",
+      "shelf_location": "A8-B2-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0306",
+      "shelf_location": "A8-B2-L11",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0307",
+      "shelf_location": "A8-B2-L12",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0308",
+      "shelf_location": "A8-B2-L13",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0309",
+      "shelf_location": "A8-B2-L14",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0310",
+      "shelf_location": "A8-B2-L15",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0311",
+      "shelf_location": "A8-B3-L1",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0312",
+      "shelf_location": "A8-B3-L2",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0313",
+      "shelf_location": "A8-B3-L3",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0314",
+      "shelf_location": "A8-B3-L4",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0315",
+      "shelf_location": "A8-B3-L6",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0316",
+      "shelf_location": "A8-B3-L7",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0317",
+      "shelf_location": "A8-B3-L8",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0318",
+      "shelf_location": "A8-B3-L9",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0319",
+      "shelf_location": "A8-B3-L10",
+      "task_weight": "Moderate"
+    },
+    {
+      "item_code": "SKU-0320",
+      "shelf_location": "A8-B3-L11",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0321",
+      "shelf_location": "A8-B3-L12",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0322",
+      "shelf_location": "A8-B3-L13",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0323",
+      "shelf_location": "A8-B3-L14",
+      "task_weight": "Light"
+    },
+    {
+      "item_code": "SKU-0324",
+      "shelf_location": "A8-B3-L15",
+      "task_weight": "Light"
+    }
+  ]
+}

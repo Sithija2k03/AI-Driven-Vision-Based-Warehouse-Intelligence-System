@@ -14,23 +14,34 @@ import networkx as nx
 
 
 def ergonomic_multiplier(score: int) -> float:
-    """Score 1 → 1.0x (no penalty). Score 10 → 2.0x (double cost)."""
-    return 1.0 + (score - 1) / 9.0
+    """Score 1 → 1.0x (no penalty). Score 10 → 1.3x (modest cost increase).
+    Reduced from 2.0x max to 1.3x — ergonomics modulates preference,
+    never makes routes impassable."""
+    return 1.0 + (score - 1) * (0.3 / 9.0)
 
 
 def gait_hazard_multiplier(gait_score: int, edge_hazard: str) -> float:
-    """Extra cost on hazardous edges for fall-risk pickers (gait > 7)."""
+    """Extra cost on hazardous edges for fall-risk pickers (gait > 7).
+    Capped at 1.2x so high-risk pickers still reach all nodes."""
     if gait_score <= 7:
         return 1.0
-    return {"low": 1.1, "medium": 1.4, "high": 1.8}.get(edge_hazard, 1.0)
+    return {"low": 1.05, "medium": 1.1, "high": 1.2}.get(edge_hazard, 1.0)
 
 
 def demographic_floor(demo_weight: float) -> float:
-    """Baseline cost floor for vulnerable demographic groups."""
-    return 1.0 + (demo_weight - 1.0) * 0.5
+    """Baseline cost floor for vulnerable demographic groups.
+    Capped at 1.1x for senior pickers — enough to prefer shorter
+    paths without making long paths unreachable."""
+    return 1.0 + (demo_weight - 1.0) * 0.1
 
 
 def edge_cost(base_dist, ergo, gait, demo, hazard="low"):
+    """
+    Final edge cost. All multipliers are deliberately small so the
+    ergonomic layer modulates routing preference without ever making
+    a physically reachable node appear unreachable to the agent.
+    Maximum possible multiplier: 1.3 × 1.2 × 1.1 = 1.716x on base distance.
+    """
     return round(
         base_dist
         * ergonomic_multiplier(ergo)

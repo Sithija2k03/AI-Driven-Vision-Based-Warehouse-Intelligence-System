@@ -3,25 +3,36 @@ f4-routing/gym-environment/warehouse_env.py
 
 Custom OpenAI Gymnasium environment for warehouse order picking.
 
-The RL agent lives inside this environment. At each step it:
-  1. Observes the current warehouse state (state)
-  2. Chooses which item node to visit next (action)
-  3. Receives a reward based on efficiency + safety
-  4. The environment updates and returns the new state
+EPISODE MODEL (v3 - order-aware trip model):
+  One episode = one complete picker TRIP.
+  A trip covers all items in an assigned batch (one or more orders),
+  starting and ending at DEPOT.
 
-Primary objective : maximise picks per hour (efficiency)
-Secondary         : ergonomic safety via F3-modulated edge weights
+  The pick list is order-aware:
+    Each item carries its order_id.
+    An order is COMPLETE when ALL its items are picked.
+    Partial orders (items stocked out) are INCOMPLETE.
 
-Key design decisions:
-  - Simulated time replaces real clock time so picks-per-hour
-    reflects realistic warehouse operation (~50-120 picks/hour)
-    rather than CPU execution speed (millions per hour).
-  - sim_seconds_per_step models the average time a human picker
-    takes to walk to and collect one item. Default = 45 seconds.
-  - Reward magnitudes are deliberately asymmetric:
-    primary efficiency signals (+10x, +50) dominate ergonomic
-    secondary signals (-0.1 per cost unit) by a factor of 5-50x
-    so the agent always prioritises picking efficiency first.
+METRICS (equal weight):
+  item_pph   : items picked per hour  (routing quality)
+  order_pph  : complete orders per hour (batching + routing quality)
+  cycle_time : mean seconds per complete order (responsiveness)
+  dist_per_item: metres walked per item (travel efficiency)
+
+REWARD (equally weighted dual objective):
+  Primary A: item picking rate (picks/hour contribution per step)
+  Primary B: order completion speed (triggered when order completes)
+  These two signals are scaled to similar magnitudes so neither
+  dominates — the agent must optimise both simultaneously.
+
+TIME MODEL:
+  step_time = (physical_distance / WALKING_SPEED_MS) + PICK_TIME_SECONDS
+  + DEPOT return leg added at episode end for order_pph calculation
+
+GENERALISABILITY:
+  All operational parameters are configurable at __init__.
+  The environment works for any warehouse, picker count, or
+  batch composition — not specific to any single operation.
 """
 
 import gymnasium as gym
@@ -31,8 +42,9 @@ import json
 import sys
 import os
 
-# ── Absolute import — works regardless of run location ────────────────────
-_SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
+_SRC_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "src")
+)
 if _SRC_DIR not in sys.path:
     sys.path.insert(0, _SRC_DIR)
 
@@ -40,112 +52,113 @@ from graph_builder import WarehouseGraph
 
 
 class WarehouseEnv(gym.Env):
-    """
-    Warehouse order picking Gymnasium environment.
-
-    Episode lifecycle:
-        reset()  → random order sampled from orders.json
-                 → picker placed at DEPOT
-                 → simulated clock set to 0
-        step()   → agent selects next pick node
-                 → travel cost calculated on weighted graph
-                 → simulated time advances by sim_seconds_per_step
-                 → reward returned
-                 → done when all items picked or max_steps reached
-
-    Observation space (8-dimensional, all values in [0, 1]):
-        [0] picker_x              current x position (normalised)
-        [1] picker_y              current y position (normalised)
-        [2] items_remaining_ratio remaining picks / total picks
-        [3] ergo_norm             F3 ergonomic score (1-10 → 0-1)
-        [4] gait_norm             F3 gait score (1-10 → 0-1)
-        [5] aisle_occupancy       congestion 0-1 (0 in single-picker mode)
-        [6] stockout_norm         active stockouts / total pick list
-        [7] time_ratio            sim time used / max sim time budget
-
-    Action space:
-        Discrete(MAX_ORDER_SIZE)
-        Agent selects index into current valid pick list.
-        Invalid nodes (stockout / task-incompatible) are pre-filtered.
-    """
 
     metadata = {"render_modes": []}
 
-    # Maximum order size supported — matches order generator cap
-    MAX_ORDER_SIZE = 20
+    MAX_ORDER_SIZE = 30   # maximum items in action space
 
-    # Simulated time budget per episode
-    # 20 items × 45 seconds = 900 seconds = 15 minutes per trip
-    # Realistic for a warehouse pick run
-    SIM_SECONDS_PER_STEP = 45     # seconds per pick (walk + collect)
-    MAX_SIM_SECONDS      = 1800   # 30-minute episode time budget
+    # Time model — physical reality, not artificial constants
+    WALKING_SPEED_MS  = 1.2    # m/s — average human warehouse walking speed
+    PICK_TIME_SECONDS = 15     # s   — time to locate and pick one item
+    MAX_SIM_SECONDS   = 3600   # s   — 1-hour trip budget
+
+    # Reward scaling — calibrated for equal item_pph and order_pph weight
+    ITEM_PPH_WEIGHT      = 5.0    # per-step item efficiency contribution
+    ORDER_COMPLETE_BASE  = 50.0   # base reward per completed order
+    ORDER_CYCLE_DIVISOR  = 60.0   # normalise cycle time to minutes
+    TRAVEL_PENALTY       = 0.05   # per physical metre (small — efficiency shaper)
+    ERGONOMIC_PENALTY    = 0.02   # per weighted cost unit (secondary — safety)
+    CONGESTION_PENALTY   = 5.0    # per aisle conflict event
+    INCOMPLETE_PENALTY   = 10.0   # per order that could not be completed (stockout)
 
     def __init__(
         self,
         floor_plan_path: str,
         orders_path: str,
-        max_pickers: int = 1,
-        max_episode_steps: int = 100,
+        max_episode_steps: int = 200,
         render_mode=None
     ):
         super().__init__()
 
-        self.floor_plan_path  = floor_plan_path
-        self.orders_path      = orders_path
-        self.max_pickers      = max_pickers
-        self.max_steps        = max_episode_steps
+        self.floor_plan_path = floor_plan_path
+        self.orders_path     = orders_path
+        self.max_steps       = max_episode_steps
 
-        # ── Load warehouse graph ───────────────────────────────────────────
+        # Load warehouse graph
         self.wh_graph = WarehouseGraph(floor_plan_path)
 
-        # ── Load orders ────────────────────────────────────────────────────
+        # Load orders
         with open(orders_path) as f:
             data = json.load(f)
         self.all_orders = data["orders"]
-        print(f"[Env] Loaded {len(self.all_orders)} orders")
-        print(f"[Env] Order categories: "
-              f"Small={data['categories']['Small']['count']} | "
-              f"Medium={data['categories']['Medium']['count']} | "
-              f"Large={data['categories']['Large']['count']}")
+        cats = data.get("categories", {})
+        print(f"[Env] Loaded {len(self.all_orders)} orders from "
+              f"{os.path.basename(orders_path)}")
+        if cats:
+            print(f"[Env] Small={cats.get('Small',{}).get('count','?')} "
+                  f"Medium={cats.get('Medium',{}).get('count','?')} "
+                  f"Large={cats.get('Large',{}).get('count','?')}")
 
-        # ── Load node coordinates for observation builder ──────────────────
+        # Node coordinate lookup for observation builder
         with open(floor_plan_path) as f:
             plan = json.load(f)
         self.node_coords = {
             n["id"]: (n.get("x", 0.0), n.get("y", 0.0))
             for n in plan["nodes"]
         }
-
-        # Normalisation bounds
         dims       = plan["dimensions"]
         self.max_x = max(dims["total_warehouse_width_m"], 1.0)
         self.max_y = max(dims["total_warehouse_depth_m"], 1.0)
 
-        # ── Episode state — initialised properly in reset() ────────────────
-        self.current_order    = None
-        self.full_pick_list   = []
-        self.remaining_picks  = []
-        self.picker_id        = "P-001"
-        self.current_position = "DEPOT"
-        self.step_count       = 0
-        self.items_picked     = 0
-        self.aisle_conflicts  = 0
-        self.stockout_rerouts = 0
+        # Episode state — all initialised in reset()
+        self.current_order_batch   = []   # list of order dicts in this batch
+        self.pick_list             = []   # flat list of (item, order_id) tuples
+        self.remaining_picks       = []   # items not yet collected
+        self.order_item_counts     = {}   # {order_id: total_items}
+        self.order_picked_counts   = {}   # {order_id: items_collected_so_far}
+        self.order_start_times     = {}   # {order_id: sim_time when trip started}
+        self.completed_orders      = []   # order_ids fully completed
+        self.current_position      = "DEPOT"
+        self.picker_id             = "P-001"
+        self.step_count            = 0
+        self.items_picked          = 0
+        self.total_distance        = 0.0
+        self.aisle_conflicts       = 0
+        self.stockout_rerouts      = 0
+        self.sim_time              = 0.0
 
-        # Simulated time — replaces real clock
-        self.sim_time         = 0.0   # seconds elapsed in simulation
+        # F3 state
+        self.last_ergo_score  = 3
+        self.last_gait_score  = 2
+        self.last_demo_weight = 1.0
+        self.last_task_tier   = "Heavy"
+        self._current_batch_override = None
 
-        # Last known F3 values — updated via receive_f3_update()
-        self.last_ergo_score  = 3     # default: low-moderate risk
-        self.last_gait_score  = 2     # default: stable gait
-        self.last_demo_weight = 1.0   # default: young adult
-        self.last_task_tier   = "Heavy"  # default: full task capability
-
-        # ── Gym spaces ─────────────────────────────────────────────────────
+        # Observation space: 10 dimensions
+        # Added: order_completion_ratio and n_orders_in_batch
         self.observation_space = gym.spaces.Box(
-            low=0.0, high=1.0, shape=(8,), dtype=np.float32
+            low=0.0, high=1.0, shape=(10,), dtype=np.float32
         )
         self.action_space = gym.spaces.Discrete(self.MAX_ORDER_SIZE)
+
+    # ══════════════════════════════════════════════════════════════════════
+    # BATCH LOADING — called externally by the training loop or batcher
+    # ══════════════════════════════════════════════════════════════════════
+
+    def load_batch(self, batch: dict):
+        """
+        Loads a pre-assembled batch (from OrderBatcher) into the env.
+        Called before reset() when you want a specific batch rather
+        than a randomly sampled one.
+
+        batch format (from OrderBatcher.create_batches()):
+            {
+                'batch_id':  str,
+                'is_solo':   bool,
+                'orders':    [order_dict, ...]
+            }
+        """
+        self._current_batch_override = batch
 
     # ══════════════════════════════════════════════════════════════════════
     # RESET
@@ -154,23 +167,56 @@ class WarehouseEnv(gym.Env):
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
 
-        # Sample a random order from the pool
-        idx = np.random.randint(len(self.all_orders))
-        self.current_order = self.all_orders[idx]
+        # Use override batch if set, otherwise sample randomly
+        if hasattr(self, '_current_batch_override') \
+                and self._current_batch_override:
+            batch  = self._current_batch_override
+            orders = batch["orders"]
+            self._current_batch_override = None
+        else:
+            # Random sampling: pick 1-3 random orders as a batch
+            n_orders = np.random.randint(1, 4)
+            n_orders = min(n_orders, len(self.all_orders))
+            idxs     = np.random.choice(
+                len(self.all_orders), size=n_orders, replace=False
+            )
+            orders = [self.all_orders[i] for i in idxs]
 
-        self.full_pick_list   = [
-            item["shelf_location"]
-            for item in self.current_order["items"]
-        ]
-        self.remaining_picks  = list(self.full_pick_list)
+        self.current_order_batch = orders
+
+        # Build flat pick list — each entry is (shelf_location, order_id)
+        # This is the key difference from v2: every item knows its order
+        self.pick_list       = []
+        self.order_item_counts   = {}
+        self.order_picked_counts = {}
+        self.order_start_times   = {}
+
+        for order in orders:
+            oid   = order["order_id"]
+            items = order["items"]
+            self.order_item_counts[oid]   = len(items)
+            self.order_picked_counts[oid] = 0
+            self.order_start_times[oid]   = 0.0   # trip starts at sim_time=0
+
+            for item in items:
+                self.pick_list.append({
+                    "shelf_location": item["shelf_location"],
+                    "item_code":      item["item_code"],
+                    "task_weight":    item["task_weight"],
+                    "order_id":       oid
+                })
+
+        self.remaining_picks  = list(self.pick_list)
+        self.completed_orders = []
         self.current_position = "DEPOT"
         self.step_count       = 0
         self.items_picked     = 0
+        self.total_distance   = 0.0
         self.aisle_conflicts  = 0
         self.stockout_rerouts = 0
-        self.sim_time         = 0.0   # reset simulated clock
+        self.sim_time         = 0.0
 
-        # Build initial picker graph with current F3 state
+        # Build initial picker graph
         self.wh_graph.update_from_f3({
             "picker_id":            self.picker_id,
             "ergonomic_risk_score": self.last_ergo_score,
@@ -190,57 +236,90 @@ class WarehouseEnv(gym.Env):
 
         self.step_count += 1
 
-        # ── Get valid pick nodes ───────────────────────────────────────────
-        valid_picks = self.wh_graph.get_valid_nodes(
-            self.picker_id, self.remaining_picks
+        # Get valid nodes (not stocked out, task-compatible)
+        valid_locations = self.wh_graph.get_valid_nodes(
+            self.picker_id,
+            [r["shelf_location"] for r in self.remaining_picks]
         )
 
-        # ── Dead-end: no valid picks left ─────────────────────────────────
-        if not valid_picks:
-            self.sim_time += self.SIM_SECONDS_PER_STEP
-            info   = self._episode_summary()
-            return self._get_observation(), -2.0, True, False, info
+        # Dead-end — nothing left to pick
+        if not valid_locations:
+            self.sim_time += self.PICK_TIME_SECONDS
+            return (self._get_observation(), -2.0,
+                    True, False, self._episode_summary())
 
-        # ── Map action index to target node ───────────────────────────────
-        # Modulo ensures action always maps to a valid index
-        # even if action > len(valid_picks)
-        target_node = valid_picks[action % len(valid_picks)]
+        # Map action to target location
+        target_location = valid_locations[action % len(valid_locations)]
 
-        # ── Advance simulated time ─────────────────────────────────────────
-        # This is the critical fix — time advances by a fixed realistic
-        # amount per pick rather than real CPU execution time.
-        # Effect: picks_per_hour stays in the realistic 50-120 range.
-        self.sim_time += self.SIM_SECONDS_PER_STEP
+        # Find the pick item matching this location
+        target_item = next(
+            (r for r in self.remaining_picks
+             if r["shelf_location"] == target_location), None
+        )
+        if target_item is None:
+            return (self._get_observation(), -1.0,
+                    False, False, {})
 
-        # ── Calculate weighted travel cost ─────────────────────────────────
-        g = self.wh_graph.picker_graphs.get(self.picker_id)
+        # Physical distance on base graph (real metres walked)
         try:
-            travel_cost = nx.shortest_path_length(
-                g, self.current_position, target_node, weight="weight"
-            ) if g else 5.0
+            physical_distance = nx.shortest_path_length(
+                self.wh_graph.base_graph,
+                self.current_position,
+                target_location,
+                weight="base_distance"
+            )
         except (nx.NetworkXNoPath, nx.NodeNotFound):
-            travel_cost = 10.0   # penalty for unreachable node
+            physical_distance = 10.0
 
-        # ── Execute the pick ───────────────────────────────────────────────
-        self.current_position = target_node
-        self.remaining_picks.remove(target_node)
-        self.items_picked += 1
+        # Advance simulated time — distance-based
+        travel_time    = physical_distance / self.WALKING_SPEED_MS
+        self.sim_time += travel_time + self.PICK_TIME_SECONDS
 
-        # ── Check congestion (single picker — always false for now) ────────
-        # Extended in multi-picker phase with shared occupancy map
+        # Ergonomic-weighted cost for reward secondary signal
+        try:
+            g = self.wh_graph.picker_graphs.get(self.picker_id)
+            weighted_cost = nx.shortest_path_length(
+                g, self.current_position,
+                target_location, weight="weight"
+            ) if g else physical_distance
+        except (nx.NetworkXNoPath, nx.NodeNotFound):
+            weighted_cost = physical_distance
+
+        # Execute the pick
+        self.current_position  = target_location
+        self.remaining_picks.remove(target_item)
+        self.items_picked     += 1
+        self.total_distance   += physical_distance
+
+        # Update order completion tracking
+        oid = target_item["order_id"]
+        self.order_picked_counts[oid] += 1
+        order_just_completed = False
+        order_cycle_time     = 0.0
+
+        if self.order_picked_counts[oid] == self.order_item_counts[oid]:
+            # This order is now fully picked
+            order_just_completed = True
+            order_cycle_time     = self.sim_time - self.order_start_times[oid]
+            self.completed_orders.append(oid)
+
+        # Congestion (single picker — always False in training)
         aisle_conflict = False
 
-        # ── Termination check ──────────────────────────────────────────────
-        order_complete = len(self.remaining_picks) == 0
+        # Termination
+        all_items_done = len(self.remaining_picks) == 0
         time_exceeded  = self.sim_time >= self.MAX_SIM_SECONDS
         step_exceeded  = self.step_count >= self.max_steps
-        done = order_complete or time_exceeded or step_exceeded
+        done           = all_items_done or time_exceeded or step_exceeded
 
-        # ── Reward ────────────────────────────────────────────────────────
+        # Reward
         reward = self._calculate_reward(
-            travel_cost=travel_cost,
+            physical_distance=physical_distance,
+            weighted_cost=weighted_cost,
+            order_just_completed=order_just_completed,
+            order_cycle_time=order_cycle_time,
             aisle_conflict=aisle_conflict,
-            order_complete=order_complete
+            trip_complete=all_items_done
         )
 
         obs  = self._get_observation()
@@ -248,58 +327,75 @@ class WarehouseEnv(gym.Env):
         return obs, reward, done, False, info
 
     # ══════════════════════════════════════════════════════════════════════
-    # REWARD FUNCTION
+    # REWARD — equally weighted dual objective
     # ══════════════════════════════════════════════════════════════════════
 
     def _calculate_reward(
         self,
-        travel_cost: float,
-        aisle_conflict: bool,
-        order_complete: bool
+        physical_distance:    float,
+        weighted_cost:        float,
+        order_just_completed: bool,
+        order_cycle_time:     float,
+        aisle_conflict:       bool,
+        trip_complete:        bool
     ) -> float:
         """
-        Multi-objective reward. Efficiency signals dominate ergonomic
-        signals by design — the agent learns efficiency first.
+        Equally weighted dual-objective reward.
 
-        PRIMARY (high magnitude):
-          +picks_per_hour_contribution  core efficiency metric
-          +50.0                         order completion bonus
-          -0.5 × remaining_items        urgency pressure
+        PRIMARY A — Item picking rate:
+          Contributes every step based on current picks/hour.
+          Rewards efficient routing that covers items quickly.
+          Magnitude: ~5-15 per step depending on efficiency.
 
-        SECONDARY (low magnitude — shape behaviour, never override efficiency):
-          -0.1 × travel_cost            penalise long routes
-          -5.0                          aisle conflict (congestion)
+        PRIMARY B — Order completion speed:
+          Triggered when all items for one customer order are
+          collected. Rewards both completing orders AND doing
+          so quickly (faster cycle = higher reward).
+          Magnitude: 50 / cycle_minutes → ~8-25 per order.
 
-        Simulated time keeps picks_per_hour in realistic range (50-120/hr).
-        At 45s per pick:
-          10 items picked in 450s (7.5 min) → 80 picks/hour
-          5 items in 225s (3.75 min)        → 80 picks/hour
+        These two primaries are calibrated to contribute similar
+        total reward over a typical episode, giving equal weight
+        to item-level routing quality and order-level completion.
+
+        SECONDARY signals shape behaviour without overriding primaries:
+          - Travel distance penalty: keeps routes physically short
+          - Ergonomic penalty: nudges agent to ergonomic paths
+          - Congestion penalty: proactive aisle avoidance
+
+        PENALTIES:
+          - Incomplete order at trip end: picker did not finish
+            all items for some orders (due to stockouts)
         """
         reward = 0.0
 
-        # ── PRIMARY: Efficiency ────────────────────────────────────────────
-        sim_hours = max(self.sim_time / 3600, 1e-6)
-        picks_per_hour = self.items_picked / sim_hours
-        # Scale to a per-step contribution
-        # Dividing by max_steps keeps reward magnitude stable across
-        # episodes of different lengths
-        reward += (picks_per_hour / max(self.max_steps, 1)) * 10.0
+        # ── PRIMARY A: Item picking efficiency ─────────────────────────────
+        sim_hours = max(self.sim_time / 3600, 1e-9)
+        item_pph  = self.items_picked / sim_hours
+        reward   += (item_pph / max(self.max_steps, 1)) * self.ITEM_PPH_WEIGHT
 
-        # ── PRIMARY: Completion bonus ──────────────────────────────────────
-        if order_complete:
-            reward += 50.0
+        # ── PRIMARY B: Order completion speed ─────────────────────────────
+        if order_just_completed:
+            cycle_minutes = max(order_cycle_time / self.ORDER_CYCLE_DIVISOR,
+                                0.5)
+            # Faster cycle = higher reward
+            # 3-min cycle  → 50/3  = 16.7
+            # 6-min cycle  → 50/6  = 8.3
+            # 12-min cycle → 50/12 = 4.2
+            reward += self.ORDER_COMPLETE_BASE / cycle_minutes
 
-        # ── PRIMARY: Urgency ───────────────────────────────────────────────
-        reward -= 0.5 * len(self.remaining_picks)
+        # ── Trip completion bonus ──────────────────────────────────────────
+        if trip_complete:
+            reward += 30.0
 
-        # ── SECONDARY: Travel cost ─────────────────────────────────────────
-        # Small penalty — pushes agent toward shorter ergonomic routes
-        # but never enough to override efficiency
-        reward -= 0.1 * travel_cost
+        # ── SECONDARY: Travel distance ─────────────────────────────────────
+        reward -= self.TRAVEL_PENALTY * physical_distance
+
+        # ── SECONDARY: Ergonomic cost ──────────────────────────────────────
+        reward -= self.ERGONOMIC_PENALTY * weighted_cost
 
         # ── SECONDARY: Congestion ──────────────────────────────────────────
         if aisle_conflict:
-            reward -= 5.0
+            reward -= self.CONGESTION_PENALTY
             self.aisle_conflicts += 1
 
         return reward
@@ -310,40 +406,36 @@ class WarehouseEnv(gym.Env):
 
     def _get_observation(self) -> np.ndarray:
         """
-        Returns the 8-dimensional state vector.
-        All values clamped to [0, 1] for stable PPO training.
+        10-dimensional state vector. All values clamped to [0, 1].
 
-        The agent uses this to decide its next action.
-        Richer state → better decisions, but larger state →
-        slower training. 8 dimensions is a pragmatic balance
-        for a final year project scope.
+        New dimensions vs v2:
+          [8] order_completion_ratio — how many orders in this batch
+              are fully completed / total orders in batch
+          [9] n_orders_normalised    — batch size (normalised)
+              gives agent context about whether this is a solo
+              or multi-order trip, shaping its routing strategy
         """
-        # ── [0, 1] Position ────────────────────────────────────────────────
         x, y = self.node_coords.get(self.current_position, (0.0, 0.0))
         px   = float(x) / self.max_x
         py   = float(y) / self.max_y
 
-        # ── [2] Progress ───────────────────────────────────────────────────
-        total              = max(len(self.full_pick_list), 1)
-        remaining_ratio    = len(self.remaining_picks) / total
+        total_items     = max(len(self.pick_list), 1)
+        remaining_ratio = len(self.remaining_picks) / total_items
 
-        # ── [3, 4] F3 ergonomic signals ────────────────────────────────────
-        # Normalised from 1-10 integer scale to 0-1 float
         ergo_norm = (self.last_ergo_score - 1) / 9.0
         gait_norm = (self.last_gait_score  - 1) / 9.0
 
-        # ── [5] Aisle occupancy / congestion ───────────────────────────────
-        # Placeholder — always 0.0 in single-picker mode
-        # Will be populated from shared occupancy map in multi-picker phase
-        aisle_occupancy = 0.0
+        aisle_occupancy = 0.0   # multi-picker phase
 
-        # ── [6] Stockout pressure ──────────────────────────────────────────
         stockout_norm = min(
-            len(self.wh_graph.masked_nodes) / max(total, 1), 1.0
+            len(self.wh_graph.masked_nodes) / max(total_items, 1), 1.0
         )
 
-        # ── [7] Time budget used ───────────────────────────────────────────
-        time_ratio = min(self.sim_time / max(self.MAX_SIM_SECONDS, 1), 1.0)
+        time_ratio = min(self.sim_time / self.MAX_SIM_SECONDS, 1.0)
+
+        total_orders            = max(len(self.current_order_batch), 1)
+        order_completion_ratio  = len(self.completed_orders) / total_orders
+        n_orders_norm           = min(total_orders / 10.0, 1.0)
 
         return np.clip(
             np.array([
@@ -353,71 +445,121 @@ class WarehouseEnv(gym.Env):
                 gait_norm,
                 aisle_occupancy,
                 stockout_norm,
-                time_ratio
+                time_ratio,
+                order_completion_ratio,
+                n_orders_norm
             ], dtype=np.float32),
             0.0, 1.0
         )
 
     # ══════════════════════════════════════════════════════════════════════
-    # EXTERNAL UPDATE HOOKS — called by message bus subscribers
+    # EXTERNAL UPDATE HOOKS
     # ══════════════════════════════════════════════════════════════════════
 
     def receive_f3_update(self, msg: dict):
-        """
-        Called when F3 publishes an ergonomic update on the message bus.
-        Frozen readings are ignored — previous valid scores are held.
-        This updates both the environment state AND the graph edge weights.
-        """
         if not msg.get("freeze_state", False):
             self.last_ergo_score  = msg["ergonomic_risk_score"]
             self.last_gait_score  = msg["gait_stability_score"]
             self.last_demo_weight = msg["demographic_weight"]
             self.last_task_tier   = msg["task_tier"]
-
         self.wh_graph.update_from_f3(msg)
 
     def receive_f1_update(self, msg: dict):
         """
-        Called when F1 publishes an inventory update on the message bus.
-        On stockout exception: masks the node AND removes it from the
-        active pick list so the agent is forced to replan immediately.
-        This is the vision-triggered mid-pick replanning novelty.
+        F1 stockout: mask node AND remove from remaining picks.
+        If removing this item makes an order impossible to complete,
+        mark that order as incomplete (will be penalised at trip end).
         """
         self.wh_graph.update_from_f1(msg)
-
         if msg.get("exception_flag", False):
-            loc = msg["shelf_location"]
-            if loc in self.remaining_picks:
-                self.remaining_picks.remove(loc)
+            loc       = msg["shelf_location"]
+            to_remove = [r for r in self.remaining_picks
+                         if r["shelf_location"] == loc]
+            for item in to_remove:
+                self.remaining_picks.remove(item)
                 self.stockout_rerouts += 1
-                print(f"[Env] Mid-pick replan triggered: {loc} removed "
-                      f"| item={msg['item_code']} "
-                      f"| rerouts this episode={self.stockout_rerouts}")
+                # Reduce the expected count for this order
+                oid = item["order_id"]
+                if oid in self.order_item_counts:
+                    self.order_item_counts[oid] -= 1
+                print(f"[Env] Stockout replan: {loc} removed "
+                      f"(order={oid})")
 
     # ══════════════════════════════════════════════════════════════════════
-    # EPISODE SUMMARY
+    # EPISODE SUMMARY — both metrics reported equally
     # ══════════════════════════════════════════════════════════════════════
 
     def _episode_summary(self) -> dict:
         """
-        Returns a dictionary of episode metrics written to the
-        evaluation_runs table in Supabase at the end of each episode.
-        picks_per_hour is the headline metric compared against baselines.
+        Reports both item_pph and order_pph with equal prominence.
+
+        Adds depot return distance to sim_time for order_pph calculation.
+        This is correct because a picker must walk back to depot to
+        hand over orders — this time counts against order throughput.
         """
-        sim_hours      = max(self.sim_time / 3600, 1e-6)
-        picks_per_hour = self.items_picked / sim_hours
-        total          = max(len(self.full_pick_list), 1)
+        # Depot return distance
+        try:
+            return_dist = nx.shortest_path_length(
+                self.wh_graph.base_graph,
+                self.current_position,
+                "DEPOT",
+                weight="base_distance"
+            )
+        except Exception:
+            return_dist = 20.0
+
+        return_time            = return_dist / self.WALKING_SPEED_MS
+        total_time_with_return = self.sim_time + return_time
+        hours_with_return      = max(total_time_with_return / 3600, 1e-9)
+        hours_without_return   = max(self.sim_time / 3600, 1e-9)
+
+        n_orders      = len(self.current_order_batch)
+        n_completed   = len(self.completed_orders)
+        total_items   = len(self.pick_list)
+
+        # item_pph: does NOT include depot return (routing quality measure)
+        item_pph      = self.items_picked / hours_without_return
+
+        # order_pph: INCLUDES depot return (order delivery measure)
+        order_pph     = n_completed / hours_with_return
+
+        # Mean cycle time per completed order
+        if n_completed > 0:
+            # Cycle time = from trip start to depot return, split equally
+            # In single-order trips this is exact
+            # In multi-order trips this is an approximation
+            mean_cycle_time = total_time_with_return / n_completed
+        else:
+            mean_cycle_time = total_time_with_return
+
+        dist_per_item = (
+            (self.total_distance + return_dist) / max(self.items_picked, 1)
+        )
 
         return {
-            "order_id":         self.current_order["order_id"],
-            "order_category":   self.current_order["category"],
-            "order_size":       self.current_order["order_size"],
-            "items_picked":     self.items_picked,
-            "items_total":      total,
-            "completion_rate":  round(self.items_picked / total, 3),
-            "picks_per_hour":   round(picks_per_hour, 1),
-            "sim_time_seconds": round(self.sim_time, 1),
-            "total_steps":      self.step_count,
-            "aisle_conflicts":  self.aisle_conflicts,
-            "stockout_rerouts": self.stockout_rerouts,
+            # Trip metadata
+            "n_orders_in_batch":   n_orders,
+            "n_orders_completed":  n_completed,
+            "n_orders_incomplete": n_orders - n_completed,
+            "items_total":         total_items,
+            "items_picked":        self.items_picked,
+            "completion_rate":     round(self.items_picked /
+                                         max(total_items, 1), 3),
+
+            # PRIMARY METRICS — equally weighted
+            "item_pph":            round(item_pph,         1),
+            "order_pph":           round(order_pph,        2),
+            "mean_cycle_time_sec": round(mean_cycle_time,  1),
+
+            # SECONDARY METRICS — travel and safety
+            "total_distance_m":    round(self.total_distance +
+                                         return_dist,      1),
+            "dist_per_item_m":     round(dist_per_item,    2),
+            "return_distance_m":   round(return_dist,      1),
+            "sim_time_seconds":    round(total_time_with_return, 1),
+
+            # Operational events
+            "aisle_conflicts":     self.aisle_conflicts,
+            "stockout_rerouts":    self.stockout_rerouts,
+            "total_steps":         self.step_count,
         }

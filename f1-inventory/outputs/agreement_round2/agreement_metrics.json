@@ -1,0 +1,92 @@
+{
+  "human_vs_original": {
+    "n": 102,
+    "accuracy": 0.637,
+    "macro_f1": 0.636,
+    "cohen_kappa": 0.456,
+    "quadratic_weighted_kappa": 0.604,
+    "within_one_accuracy": 0.941,
+    "low_vs_high_swaps": 6,
+    "confusion_matrix_rows_first_cols_second": [
+      [
+        22,
+        7,
+        5
+      ],
+      [
+        5,
+        17,
+        12
+      ],
+      [
+        1,
+        7,
+        26
+      ]
+    ],
+    "kappa_95ci": [
+      0.321,
+      0.59
+    ]
+  },
+  "model_vs_original": {
+    "n": 102,
+    "accuracy": 0.627,
+    "macro_f1": 0.626,
+    "cohen_kappa": 0.441,
+    "quadratic_weighted_kappa": 0.588,
+    "within_one_accuracy": 0.941,
+    "low_vs_high_swaps": 6,
+    "confusion_matrix_rows_first_cols_second": [
+      [
+        20,
+        9,
+        5
+      ],
+      [
+        6,
+        18,
+        10
+      ],
+      [
+        1,
+        7,
+        26
+      ]
+    ],
+    "kappa_95ci": [
+      0.295,
+      0.574
+    ]
+  },
+  "model_vs_human": {
+    "n": 102,
+    "accuracy": 0.578,
+    "macro_f1": 0.568,
+    "cohen_kappa": 0.358,
+    "quadratic_weighted_kappa": 0.548,
+    "within_one_accuracy": 0.941,
+    "low_vs_high_swaps": 6,
+    "confusion_matrix_rows_first_cols_second": [
+      [
+        16,
+        11,
+        1
+      ],
+      [
+        6,
+        14,
+        11
+      ],
+      [
+        5,
+        9,
+        29
+      ]
+    ],
+    "kappa_95ci": [
+      0.207,
+      0.5
+    ]
+  }
+}

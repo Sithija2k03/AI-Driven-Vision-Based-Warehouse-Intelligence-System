@@ -164,3 +164,50 @@ At the chosen threshold 0.80 (all cells): 62% of unreliable cells caught, 17% fa
 
 **Limitations:** moderate AUC (0.67); the top trust quartile is not monotonic; high false alarms on the darker G_H camera;
 only 37 frames from 3 cameras. Retest after the new cameras (cam16–21) are annotated.
+
+
+### Step 2e. Label agreement check (how consistent are the occlusion labels?)
+
+Question: the hybrid classifier scores about 60%. Is that low because of the model, or because the
+low / medium / high labels are themselves hard to assign consistently?
+
+Method: `scripts/agreement_check.py`. Cartons were sampled from the three day-2 batches (34 low, 34 medium,
+34 high, one per physical carton, mixed order). The original annotator relabelled them blind
+(original labels hidden in a separate key file) from a review image (whole frame + zoom, box in yellow).
+Round 1 used no written rule. Round 2 used a new sample (seed 7) and a written one-sentence rule per level
+(`docs/occlusion_label_rule.md`). Both were compared with the original labels and with the hybrid model
+(0.5 CNN + 0.5 geometry). Pooled results from `scripts/pooled_agreement.py` (95% bootstrap CI, 2,000 resamples).
+
+| Comparison | Round 1 (no rule) | Round 2 (written rule) | Pooled (204 cartons) |
+|---|---|---|---|
+| Human relabel vs original: accuracy | 0.598 | 0.637 | 0.618 |
+| Human relabel vs original: kappa | 0.397 (fair) | 0.456 (moderate) | **0.426** [0.325-0.522] |
+| Human relabel vs original: QWK | 0.595 | 0.604 | **0.600** [0.501-0.685] |
+| Hybrid model vs original: accuracy | 0.647 | 0.627 | 0.637 |
+| Hybrid model vs original: kappa | 0.471 | 0.441 | **0.456** [0.357-0.551] |
+| Hybrid model vs original: QWK | 0.617 | 0.588 | **0.602** [0.496-0.696] |
+| Human: within one level | 0.961 | 0.941 | |
+| Human: low<->high swaps | 4 | 6 | |
+| Human: moved one+ level up / down | 32 / 9 | 24 / 13 | |
+
+Findings
+- The labels are only moderately repeatable: the same annotator agreed with their own original labels
+  62% of the time (kappa 0.43). This is the practical ceiling for any model trained on these labels.
+- The hybrid model agrees with the original labels at the same level as the human (kappa 0.46 vs 0.43,
+  QWK 0.60 vs 0.60, intervals overlap). The model performs at human-consistency level.
+- Disagreements are almost always between neighbouring levels (94-96% within one level; low<->high
+  swaps 4-6%). The order low < medium < high is reliable; the boundaries between levels are fuzzy.
+- Round 1 showed a clear drift toward "more hidden" (32 up vs 9 down, sign test p < 0.001). With a written
+  rule (round 2) the drift became smaller and no longer significant (24 vs 13, p = 0.10), and kappa rose
+  from 0.40 to 0.46. The improvement is small and the intervals overlap, so it is reported as a trend.
+
+Limits
+- Same annotator twice (intra-rater). A second annotator (inter-rater) would be stronger evidence.
+- Round 2 was done the same night, after seeing round-1 disagreements: part of the gain may be learning.
+- The two samples may share a few cartons (only 140 unique low cartons available).
+- The review view (zoom) differs from the CVAT annotation view.
+- Kappa bands (Landis & Koch 1977) are a rough guide, especially for QWK.
+
+Implications (PP2)
+- Use a written labelling guide with example images per level; add a second annotator.
+- Treat occlusion as ordered (ordinal model / QWK as the main metric), since most errors are one level apart.

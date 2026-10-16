@@ -1,0 +1,35 @@
+{
+  "n_per_level": 400,
+  "results": {
+    "baseline_real_day1_vs_real_day2": {
+      "c2st": {
+        "accuracy": 0.726,
+        "accuracy_95ci": [
+          0.708,
+          0.744
+        ],
+        "auc": 0.792,
+        "n": 2400
+      },
+      "kid_x1000": 41.25,
+      "kid_std_x1000": 7.48,
+      "precision": 0.696,
+      "recall": 0.492
+    },
+    "real_day1_vs_synth_500": {
+      "c2st": {
+        "accuracy": 0.998,
+        "accuracy_95ci": [
+          0.996,
+          1.0
+        ],
+        "auc": 1.0,
+        "n": 2400
+      },
+      "kid_x1000": 798.52,
+      "kid_std_x1000": 20.12,
+      "precision": 0.048,
+      "recall": 0.007
+    }
+  }
+}

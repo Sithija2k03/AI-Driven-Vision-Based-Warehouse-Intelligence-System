@@ -30,10 +30,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", required=True, help="output folder of postprocess_synthetic_3d.py")
     ap.add_argument("--weights", required=True)
-    ap.add_argument("--conf", type=float, default=0.25)
+    ap.add_argument("--conf", type=float, default=0.25, help="detector confidence (try 0.05: are cartons seen but with low confidence?)")
+    ap.add_argument("--match-iou", type=float, default=0.5, help="IoU needed to count a carton as found (try 0.3: box-shape mismatch?)")
     ap.add_argument("--imgsz", type=int, default=1024)
     ap.add_argument("--limit", type=int, default=0, help="only the first N images (0 = all)")
     ap.add_argument("--pass-medium", type=float, default=0.40)
+    ap.add_argument("--vis", type=int, default=0, help="save N pictures: labels (green = found, red = missed) + detector boxes (blue)")
     a = ap.parse_args()
     data = Path(a.data)
 
@@ -54,10 +56,13 @@ def main():
     det = YOLO(a.weights)
     found = {l: [0, 0] for l in LEVELS}
     per_image = []
+    sizes = {"found": [], "missed": []}
+    n_pred = 0
     t0 = time.time()
     for i, name in enumerate(names, 1):
         res = det.predict(str(data / "images" / name), conf=a.conf, iou=0.5, imgsz=a.imgsz, max_det=1000, verbose=False)[0]
         preds = res.boxes.xyxy.cpu().numpy().tolist() if len(res.boxes) else []
+        n_pred += len(preds)
         used, hit = set(), 0
         for bx, lvl, _ in sorted(gt[name], key=lambda t: t[2]):      # least hidden first, one-to-one
             best, bj = 0, -1
@@ -67,19 +72,41 @@ def main():
                     if v > best:
                         best, bj = v, j
             found[lvl][1] += 1
-            if best >= 0.5:
+            if best >= a.match_iou:
                 found[lvl][0] += 1; used.add(bj); hit += 1
+                sizes["found"].append(bx[3] - bx[1])
+            else:
+                sizes["missed"].append(bx[3] - bx[1])
         per_image.append(hit / max(len(gt[name]), 1))
+        if i <= a.vis:
+            import cv2
+            img = cv2.imread(str(data / "images" / name))
+            vis_dir = data / "diagnostic_vis"; vis_dir.mkdir(exist_ok=True)
+            for p in preds:
+                cv2.rectangle(img, (int(p[0]), int(p[1])), (int(p[2]), int(p[3])), (255, 120, 0), 1)
+            for bx, lvl, _ in gt[name]:
+                ok = any(iou(bx, preds[j]) >= a.match_iou for j in used)
+                cv2.rectangle(img, (int(bx[0]), int(bx[1])), (int(bx[2]), int(bx[3])), (0, 200, 0) if ok else (0, 0, 255), 1)
+            big = cv2.resize(img, None, fx=1.6, fy=1.6, interpolation=cv2.INTER_NEAREST)
+            cv2.putText(big, "green = label found | red = label missed | blue = detector box", (8, 22),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.imwrite(str(vis_dir / f"vis_{Path(name).stem}.jpg"), big, [cv2.IMWRITE_JPEG_QUALITY, 92])
         if i % 50 == 0 or i == len(names):
             print(f"  {i}/{len(names)} images ({time.time() - t0:.0f} s)")
 
     rec = {l: (found[l][0] / found[l][1] if found[l][1] else float("nan")) for l in LEVELS}
-    print("\nRealism check - real-trained detector recall (IoU 0.5):")
+    print(f"\nRealism check - real-trained detector recall (conf {a.conf}, match IoU {a.match_iou}):")
     print(f"  {'level':7s} {'synthetic':>18s} {'real day-2':>11s}")
     for l in LEVELS:
         print(f"  {l:7s} {rec[l]:8.2f} ({found[l][0]}/{found[l][1]}) {REAL_RECALL[l]:11.2f}")
     print(f"  per-image recall: median {np.median(per_image):.2f}, 10th-90th pct "
           f"{np.percentile(per_image, 10):.2f}-{np.percentile(per_image, 90):.2f}")
+    print(f"  detector boxes per image: {n_pred / max(len(names), 1):.1f}  vs  labelled cartons per image: {len(lab) / max(len(names), 1):.1f}")
+    for k in ("found", "missed"):
+        if sizes[k]:
+            print(f"  {k:6s} cartons: median box height {np.median(sizes[k]):.1f} px")
+    if a.vis:
+        print(f"  diagnostic pictures: {data / 'diagnostic_vis'}")
     ok = rec["medium"] >= a.pass_medium
     print(f"\nPre-set rule: synthetic medium recall >= {a.pass_medium:.2f} -> {'PASS' if ok else 'FAIL'}")
 
@@ -91,9 +118,13 @@ def main():
                "realism_check_recall": {l: round(rec[l], 3) for l in LEVELS},
                "realism_check_counts": {l: found[l] for l in LEVELS},
                "real_day2_recall": REAL_RECALL,
+               "conf": a.conf, "match_iou": a.match_iou,
+               "detector_boxes_per_image": round(n_pred / max(len(names), 1), 1),
                "pass_rule": f"medium >= {a.pass_medium}", "pass": bool(ok)}
-    json.dump(summary, open(data / "summary.json", "w"), indent=2)
-    print(f"Saved {data / 'summary.json'}")
+    name = "summary.json" if (a.conf == 0.25 and a.match_iou == 0.5 and not a.limit) else \
+        f"summary_conf{a.conf}_iou{a.match_iou}{'_n' + str(a.limit) if a.limit else ''}.json"
+    json.dump(summary, open(data / name, "w"), indent=2)
+    print(f"Saved {data / name}")
 
 
 if __name__ == "__main__":

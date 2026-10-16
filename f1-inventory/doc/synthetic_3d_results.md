@@ -54,3 +54,17 @@ Per-image recall on the 500 scenes: median 0.10 (10th-90th percentile 0.06-0.16)
   box definition of heavily hidden cartons may differ from the human annotation style.
 - Stage 2 (mixed training, real day-1 + synthetic, tested on real day-2) was not run for PP1; planned for PP2
   together with copy-paste augmentation (Dwibedi et al. 2017; Ghiasi et al. 2021) as a lower-gap alternative.
+
+### Second, independent check: distribution tests on carton crops (`synthetic_validation.py`)
+1,200 crops per set (400 per occlusion level), ImageNet ResNet18 features; baseline = real day-1 vs real day-2.
+
+| Test | Real day-1 vs day-2 (baseline) | Real day-1 vs synthetic |
+|---|---|---|
+| Real-vs-fake classifier accuracy (C2ST; 0.5 = indistinguishable) | 0.726 (AUC 0.79) | 0.998 (AUC 1.00) |
+| KID x1000 (lower = closer) | 41.3 | 798.5 |
+| Precision (synthetic inside real manifold) | 0.70 | 0.05 |
+| Recall (real covered by synthetic) | 0.49 | 0.01 |
+
+All three tests agree with the detector realism check: the synthetic cartons are clearly distinguishable from real ones.
+Diagnosis (100 scenes): lowering confidence to 0.05 or the match to IoU 0.3 raised medium recall only to 0.15,
+and at conf 0.25 the detector made ~22 boxes per image for ~71 cartons, so the main gap is appearance; small (far) cartons are missed more (median height 48 vs 71 px).

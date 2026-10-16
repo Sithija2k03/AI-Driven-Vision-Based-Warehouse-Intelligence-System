@@ -2,7 +2,7 @@ r"""
 Turn the saved result files into evidence figures for the slides, the report and Teams Planner.
 No models needed; runs in seconds. Missing inputs are skipped with a message.
 
-  python scripts\make_evidence_figures.py            -> outputs\figures\*.png
+  python scripts\make_evidence_figures.py --synth-summary D:\Research\synth3d_trial\synth_500\summary.json
 
 Figures:
   fig1_recall_by_occlusion.png     detector recall per occlusion level with 95% CI (IoU 0.5 and 0.3)
@@ -12,6 +12,9 @@ Figures:
   fig5_rf_feature_importance       which box-layout features the random forest uses
   fig6_trust_threshold             ROC of trust vs unreliable cells, Youden point and 0.80, recall by trust quartile
   fig7_stockout_fix                status accuracy before/after the empty-shelf calibration
+  fig8_label_agreement             human relabel vs model agreement with the original occlusion labels (2 rounds)
+  fig10_synthetic_distribution_tests  C2ST / KID / precision / recall: real-vs-real baseline vs real-vs-synthetic
+  fig9_synthetic_realism           real-trained detector recall on real vs 3D synthetic images (needs --synth-summary)
 """
 import argparse, csv, json
 from pathlib import Path
@@ -190,17 +193,104 @@ def fig_stockout(out, a):
     save(fig, out, "fig7_stockout_fix.png")
 
 
+def fig_agreement(out, a):
+    rounds = [(lab, load_json(Path(d) / "agreement_metrics.json")) for lab, d in
+              (("Round 1\n(no rule)", a.agreement_dirs[0]), ("Round 2\n(written rule)", a.agreement_dirs[1]))
+              if d]
+    rounds = [(lab, m) for lab, m in rounds if m]
+    if not rounds:
+        print("  skip fig8 (no agreement_metrics.json)"); return
+    fig, axes = plt.subplots(1, 2, figsize=(9, 4)); x = np.arange(len(rounds)); w = 0.38
+    for ax, key, title in ((axes[0], "cohen_kappa", "Cohen's kappa (all disagreements count)"),
+                           (axes[1], "quadratic_weighted_kappa", "QWK (one-level mistakes count less)")):
+        for i, (who, label) in enumerate((("human_vs_original", "human relabel"), ("model_vs_original", "hybrid model"))):
+            vals = [m.get(who, {}).get(key, np.nan) for _, m in rounds]
+            pos = x + (i - 0.5) * w
+            err = None
+            if key == "cohen_kappa":
+                ci = [m.get(who, {}).get("kappa_95ci") for _, m in rounds]
+                if all(ci):
+                    err = [[v - c[0] for v, c in zip(vals, ci)], [c[1] - v for v, c in zip(vals, ci)]]
+            ax.bar(pos, vals, w, label=label, yerr=err, capsize=4)
+            for p_, v in zip(pos, vals):
+                ax.text(p_, v + 0.02, f"{v:.2f}", ha="center", fontsize=9)
+        ax.set_xticks(x, [lab for lab, _ in rounds]); ax.set_ylim(0, 1); ax.set_title(title, fontsize=10)
+        ax.axhspan(0.41, 0.60, color="grey", alpha=0.08)
+    axes[0].set_ylabel("agreement with the original labels"); axes[0].legend(fontsize=8)
+    fig.suptitle("Occlusion labels: the model agrees with the labels as well as a human re-labelling them", fontsize=10)
+    save(fig, out, "fig8_label_agreement.png")
+
+
+PILOT_RECALL = {"Pilot: 5 scenes\n(textures + fisheye)": [0.29, 0.09, 0.05]}
+REAL_RECALL = [0.659, 0.572, 0.414]
+
+
+def fig_synthetic(out, a):
+    summ = load_json(a.synth_summary) if a.synth_summary else None
+    series = [("Real day-2 frames", REAL_RECALL)] + list(PILOT_RECALL.items())
+    if summ and summ.get("realism_check_recall"):
+        r = summ["realism_check_recall"]
+        series.append((f"3D synthetic: {summ.get('images', '?')} scenes", [r[l] for l in LEVELS]))
+    else:
+        print("  fig9: no synthetic summary.json given, showing real + pilot only")
+    fig, ax = plt.subplots(figsize=(7, 4)); x = np.arange(3); w = 0.8 / len(series)
+    for i, (label, vals) in enumerate(series):
+        pos = x + (i - (len(series) - 1) / 2) * w
+        ax.bar(pos, vals, w, label=label.replace("\n", " "))
+        for p_, v in zip(pos, vals):
+            ax.text(p_, v + 0.02, f"{v:.2f}", ha="center", fontsize=8)
+    ax.axhline(0.40, ls="--", c="k", lw=1); ax.text(2.45, 0.415, "pass rule (medium)", ha="right", fontsize=8)
+    ax.set_xticks(x, LEVELS); ax.set_ylim(0, 1); ax.set_xlabel("Occlusion level")
+    ax.set_ylabel("Real-trained detector recall")
+    ax.set_title("Realism check: synthetic cartons are rarely recognised -> not used for training", fontsize=10)
+    ax.legend(fontsize=8)
+    save(fig, out, "fig9_synthetic_realism.png")
+
+
+def fig_distribution(out, a):
+    js = load_json(a.synth_validation)
+    if not js:
+        print("  skip fig10 (no synthetic_validation.json)"); return
+    res = js["results"]
+    base = res.get("baseline_real_day1_vs_real_day2")
+    syn = [(k.replace("real_day1_vs_", ""), v) for k, v in res.items() if k.startswith("real_day1_vs_")]
+    if not base or not syn:
+        print("  skip fig10 (incomplete results)"); return
+    groups = [("real day-1 vs\nreal day-2 (baseline)", base)] + [(f"real vs\nsynthetic {n}", v) for n, v in syn]
+    panels = [("Real-vs-fake classifier accuracy\n(0.5 = cannot tell apart)", lambda v: v["c2st"]["accuracy"], (0, 1.05), 0.5),
+              ("KID x1000\n(lower = more alike)", lambda v: v["kid_x1000"], None, None),
+              ("Precision\n(synthetic looks real)", lambda v: v["precision"], (0, 1.05), None),
+              ("Recall\n(covers real variety)", lambda v: v["recall"], (0, 1.05), None)]
+    fig, axes = plt.subplots(1, 4, figsize=(13, 3.8))
+    colours = ["#7f8c8d"] + ["#c0392b"] * len(syn)
+    for ax, (title, get, ylim, ref) in zip(axes, panels):
+        vals = [get(v) for _, v in groups]
+        ax.bar(range(len(vals)), vals, color=colours)
+        for i, v in enumerate(vals):
+            lab = f"{v:.0f}" if v >= 10 else (f"{v:.3f}" if v > 0.99 else f"{v:.2f}")
+            ax.annotate(lab, (i, v), xytext=(0, 3), textcoords="offset points", ha="center", fontsize=9)
+        if ref is not None:
+            ax.axhline(ref, ls="--", c="k", lw=1)
+        ax.set_ylim(*(ylim or (0, max(vals) * 1.15)))
+        ax.set_xticks(range(len(vals)), [g for g, _ in groups], fontsize=8); ax.set_title(title, fontsize=10)
+    fig.suptitle("Distribution tests on carton crops: synthetic vs real, against a real-vs-real baseline", fontsize=11)
+    save(fig, out, "fig10_synthetic_distribution_tests.png")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--recall-csv", default="outputs/recall_by_occlusion.csv")
     ap.add_argument("--occ-dir", default="outputs/occlusion")
     ap.add_argument("--trust-dir", default="outputs/occlusion/trust_eval")
     ap.add_argument("--ratio-calibration", default="outputs/simulation_validation/ratio_calibration.json")
+    ap.add_argument("--agreement-dirs", nargs=2, default=["outputs/agreement", "outputs/agreement_round2"])
+    ap.add_argument("--synth-summary", default=None, help="summary.json of the 3D synthetic set (realism check)")
+    ap.add_argument("--synth-validation", default="outputs/synthetic_validation/synthetic_validation.json")
     ap.add_argument("--out", default="outputs/figures")
     a = ap.parse_args()
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
     print(f"Writing figures to {out}")
-    for f in (fig_recall, fig_training, fig_comparison, fig_confusion, fig_importance, fig_trust, fig_stockout):
+    for f in (fig_recall, fig_training, fig_comparison, fig_confusion, fig_importance, fig_trust, fig_stockout, fig_agreement, fig_synthetic, fig_distribution):
         try:
             f(out, a)
         except Exception as e:

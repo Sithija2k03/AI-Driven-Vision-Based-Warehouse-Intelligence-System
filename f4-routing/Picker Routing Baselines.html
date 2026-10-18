@@ -1,0 +1,754 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Picker Routing Baselines</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one order, eight routes. Method switcher drives two floor plans (ground | mezzanine) beside a rule card;
+   below sit the full comparison table and a grid of every route at once. Single dark look (F4 black-and-red template). */
+:root {
+  --bg: #121214;
+  --panel: #1a1a1e;
+  --panel-2: #222227;
+  --line: #2e2e35;
+  --rack: #26262c;
+  --rack-text: #6f6e78;
+  --walk: #3a3a43;
+  --fg: #ecebef;
+  --muted: #9b9aa4;
+  --red: #e5383b;
+  --red-soft: rgba(229, 56, 59, .16);
+  --blue: #5b8dc9;
+  --green: #5bb98c;
+  --amber: #e0a43a;
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1320px; margin: 0 auto; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: .01em; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.05; }
+h2 { font-size: 26px; line-height: 1.15; }
+h3 { font-size: 19px; }
+p { margin: 0; }
+.eyebrow { font-family: var(--display); font-size: 14px; text-transform: uppercase; letter-spacing: .14em; color: var(--red); font-weight: 600; }
+.muted { color: var(--muted); }
+.mono, td.num, .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* header */
+header { display: grid; gap: 14px; }
+.lede { max-width: 72ch; color: var(--muted); }
+.order-strip { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: baseline; padding: 14px 0; border-block: 1px solid var(--line); }
+.order-strip .k { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: 13px; color: var(--muted); }
+.order-strip .v { font-family: var(--mono); font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--mono); font-size: 12.5px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); white-space: nowrap; }
+.chip.m { border-color: rgba(91, 141, 201, .55); color: #a9c4e6; }
+.chip b { color: var(--muted); font-weight: 400; }
+
+/* switcher */
+.switch { display: grid; gap: 10px; }
+.groups { display: flex; flex-wrap: wrap; gap: 14px 26px; }
+.group { display: grid; gap: 6px; }
+.group-label { font-family: var(--display); font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab {
+  font: 600 16px/1 var(--display); letter-spacing: .02em; color: var(--fg); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 6px; padding: 9px 12px; cursor: pointer; display: inline-flex; gap: 8px; align-items: baseline;
+}
+.tab .d { font: 500 12px var(--mono); color: var(--muted); }
+.tab:hover { border-color: #4a4a54; }
+.tab[aria-selected="true"] { background: var(--red); border-color: var(--red); color: #fff; }
+.tab[aria-selected="true"] .d { color: #ffe3e3; }
+.tab:disabled { opacity: .45; cursor: not-allowed; }
+.tab:focus-visible, button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+
+/* main */
+.main { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(300px, 1fr); gap: 22px; align-items: start; }
+.maps { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; min-width: 0; }
+.map { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-width: 0; }
+.map-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.map-head h3 { font-size: 16px; text-transform: uppercase; letter-spacing: .1em; }
+.map svg { display: block; width: 100%; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--muted); grid-column: 1 / -1; align-items: center; }
+.sw { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: 6px; }
+.walk-btn { margin-left: auto; font: 600 15px var(--display); letter-spacing: .03em; background: transparent; color: var(--fg); border: 1px solid var(--red); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+.walk-btn:hover { background: var(--red-soft); }
+
+.side { display: grid; gap: 16px; min-width: 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.card .rule { color: var(--fg); }
+.card .this { color: var(--muted); }
+.kv { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.kv div { background: var(--panel-2); border-radius: 6px; padding: 10px; display: grid; gap: 2px; }
+.kv .k { font: 600 12px var(--display); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.kv .v { font: 500 20px var(--mono); font-variant-numeric: tabular-nums; }
+.kv .v small { font-size: 12px; color: var(--muted); }
+ol.seq { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+ol.seq li { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: center; font-size: 14px; padding: 3px 4px; border-radius: 4px; }
+ol.seq li.on { background: var(--red-soft); }
+ol.seq .n { width: 22px; height: 22px; border-radius: 50%; background: var(--red); color: #fff; font: 600 12px var(--mono); display: grid; place-items: center; }
+ol.seq li.mz .n { background: var(--blue); }
+ol.seq .loc { font-family: var(--mono); font-size: 13px; }
+ol.seq .where { font-size: 12px; color: var(--muted); }
+ol.seq li.endpt .n { background: var(--green); }
+
+/* table */
+.tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font: 600 13px var(--display); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); background: var(--panel-2); white-space: nowrap; }
+td.num, th.num { text-align: right; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: #202026; }
+tbody tr.sel { background: var(--red-soft); }
+tr.grp td { background: var(--bg); font: 600 13px var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); cursor: default; }
+tr.rl td { color: var(--muted); font-style: italic; cursor: default; }
+.bar { position: relative; height: 10px; background: var(--panel-2); border-radius: 3px; min-width: 140px; }
+.bar i { position: absolute; inset: 0 auto 0 0; background: var(--red); border-radius: 3px; }
+.bar i.opt { background: var(--green); }
+.pos { color: var(--amber); } .zero { color: var(--green); }
+.foot { font-size: 13px; color: var(--muted); max-width: 90ch; }
+
+/* takeaways */
+.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.note { border-top: 2px solid var(--red); padding-top: 10px; display: grid; gap: 6px; }
+.note h3 { font-size: 18px; }
+.note p { color: var(--muted); font-size: 14.5px; }
+
+/* grid of all */
+.allgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.mini { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px; cursor: pointer; display: grid; gap: 6px; text-align: left; color: var(--fg); font: inherit; }
+.mini:hover { border-color: #4a4a54; }
+.mini.sel { border-color: var(--red); }
+.mini .t { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.mini .t b { font: 600 16px var(--display); letter-spacing: .02em; }
+.mini .t span { font: 500 12.5px var(--mono); color: var(--muted); }
+.mini svg { width: 100%; height: auto; display: block; }
+
+/* decision walkthrough */
+.walk { display: grid; gap: 16px; }
+.walk:focus-visible { outline: 2px solid var(--fg); outline-offset: 6px; border-radius: 8px; }
+.walk .lede { max-width: 80ch; }
+.eqbox { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 12px; }
+.eq { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.eq .x { align-self: center; font: 500 22px var(--mono); color: var(--muted); }
+.tile { min-width: 92px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: grid; gap: 2px; background: var(--panel-2); transition: background .25s, border-color .25s, opacity .25s; }
+.tile .f { font: 600 34px/1 var(--display); }
+.tile .c { font: 500 11.5px var(--mono); color: var(--muted); white-space: nowrap; }
+.tile.done { opacity: .5; }
+.tile.done .f { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--red); }
+.tile.now { background: var(--red); border-color: var(--red); }
+.tile.now .f, .tile.now .c { color: #fff; }
+.eqres { font: 500 18px var(--mono); font-variant-numeric: tabular-nums; }
+.eqres b { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--red); margin-right: 6px; }
+.stepper { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.stepper button { font: 600 15px var(--display); letter-spacing: .02em; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; cursor: pointer; }
+.stepper button:hover:not(:disabled) { border-color: #4a4a54; }
+.stepper button:disabled { opacity: .4; cursor: not-allowed; }
+.stepper .dotbtn { min-width: 52px; }
+.stepper .dotbtn[aria-current="step"] { background: var(--red); border-color: var(--red); color: #fff; }
+.stepper .primary { border-color: var(--red); }
+.wgrid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: 16px; align-items: start; }
+.wmap { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-width: 0; }
+.wmap svg { width: 100%; height: auto; display: block; }
+.opts { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 0; }
+.opts th, .opts td { padding: 7px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+.opts th { background: transparent; font-size: 12px; }
+.opts td.num, .opts th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.opts tr.pick td { background: var(--red-soft); }
+.tag { display: inline-block; font: 600 11px var(--display); letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: 1px; }
+.tag.ch { background: var(--red); color: #fff; }
+.tag.best { background: rgba(91, 185, 140, .2); color: var(--green); }
+.why { border-left: 3px solid var(--amber); padding-left: 10px; color: var(--fg); }
+.howrule { color: var(--muted); font-size: 14px; }
+@media (max-width: 1080px) { .wgrid { grid-template-columns: 1fr; } }
+@media (max-width: 1080px) {
+  .main { grid-template-columns: 1fr; }
+  .allgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .notes { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .maps { grid-template-columns: 1fr; }
+  .kv { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .allgrid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">F4 routing · baseline walkthrough</span>
+    <h1>Nine ways to pick the same order</h1>
+    <p class="lede">One real October order, routed by the five classic aisle rules from the literature, the three baselines F4 uses now, and the trained F4 RL agent.
+      Every route starts and ends at the depot, uses the same walkway distances (40 m × 30 m building, 3.5 m per staircase trip) and visits the same 11 stops.
+      Pick a method to see its path on both floors.</p>
+    <div class="order-strip" id="strip"></div>
+    <div class="chips" id="picklist" aria-label="Pick list"></div>
+  </header>
+
+  <section class="switch" aria-label="Choose a routing method">
+    <div class="groups" id="groups"></div>
+  </section>
+
+  <section class="main">
+    <div class="maps">
+      <div class="map"><div class="map-head"><h3>Ground floor</h3><span class="muted mono" id="gm"></span></div><svg id="mapG" viewBox="-12 -12 884 804" role="img" aria-label="Ground floor route"></svg></div>
+      <div class="map"><div class="map-head"><h3>Mezzanine</h3><span class="muted mono" id="mm"></span></div><svg id="mapM" viewBox="-12 -12 884 804" role="img" aria-label="Mezzanine route"></svg></div>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--red)"></span>walked on the ground floor</span>
+        <span><span class="sw" style="background:var(--blue)"></span>walked on the mezzanine</span>
+        <span>darker line = same stretch walked twice</span>
+        <span><span class="dot" style="background:var(--green)"></span>depot</span>
+        <button class="walk-btn" id="walk" type="button">Walk this route</button>
+      </div>
+    </div>
+    <aside class="side">
+      <div class="card">
+        <span class="eyebrow" id="fam"></span>
+        <h2 id="mname"></h2>
+        <p class="rule" id="mrule"></p>
+        <p class="this" id="mthis"></p>
+        <div class="kv" id="mkv"></div>
+      </div>
+      <div class="card">
+        <h3>Pick sequence</h3>
+        <ol class="seq" id="seq"></ol>
+      </div>
+    </aside>
+  </section>
+
+  <section class="walk" id="walk5" tabindex="-1" aria-label="Decision walkthrough">
+    <span class="eyebrow">How a route is built</span>
+    <h2>One decision at a time: 5 × 4 × 3 × 2 × 1</h2>
+    <p class="lede muted" id="wlede"></p>
+    <div class="groups" id="wgroups"></div>
+    <p class="howrule" id="wrule"></p>
+    <div class="eqbox">
+      <div class="eq" id="weq" aria-live="polite"></div>
+      <div class="eqres" id="wres"></div>
+    </div>
+    <div class="stepper" id="wstep"></div>
+    <div class="wgrid">
+      <div class="wmap"><svg id="wsvg" viewBox="-12 -40 1764 832" role="img" aria-label="Route so far on both floors"></svg>
+        <div class="legend" style="margin-top:8px">
+          <span><span class="sw" style="background:var(--red)"></span>walked (ground)</span>
+          <span><span class="sw" style="background:var(--blue)"></span>walked (mezzanine)</span>
+          <span><span class="sw" style="background:var(--amber)"></span>next move</span>
+          <span><span class="dot" style="background:transparent;border:2px solid var(--amber)"></span>choices now</span>
+          <span><span class="dot" style="background:var(--fg)"></span>picker</span>
+        </div>
+      </div>
+      <div class="card" id="wcard"></div>
+    </div>
+  </section>
+
+  <section style="display:grid;gap:12px">
+    <h2>All methods on this order</h2>
+    <div class="tablebox"><table id="tbl"></table></div>
+    <p class="foot" id="tfoot"></p>
+  </section>
+
+  <section class="notes" id="notes"></section>
+
+  <section style="display:grid;gap:12px">
+    <h2>Every route side by side</h2>
+    <p class="muted">Each tile shows the ground floor (left) and mezzanine (right). Click one to open it above.</p>
+    <div class="allgrid" id="all"></div>
+  </section>
+</div>
+
+<script>
+const D = {"so_no":"SO/26/10/0772","date":"2026-10-08","n_lines":25,"n_stops":11,"lines":["F-08","F-23","G-01","G-02","G-05","G-07","G-10","O-09","O-10","O-17","X-02","X-03","Z-01"],"line_count":{"X-02":2,"O-17":1,"O-09":1,"O-10":1,"F-08":1,"X-03":5,"G-02":1,"G-05":2,"F-23":1,"G-10":1,"Z-01":7,"G-01":1,"G-07":1},"methods":{"sshape":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","W3-17","W3-16","W3-15","W3-14","W3-13","W3-12","W3-11","W3-10","W3-09","W3-08","W3-07","W3-06","W3-05","W3-04","DOOR_2F","NX-01","NX-02","NX-03","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-05","W7-06","W7-07","W7-08","W6-10","W6-09","W6-08","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":155.25,"stairs":2,"rewalked_m":28.68,"pick_order":["W2-40","W2-30","NX-02","NX-05","W4-02","W7-04","W6-07","W6-06","W6-04","W6-01","MZZ-01"],"pick_locs":[["F-23"],["F-08"],["X-03"],["O-17"],["O-09","O-10"],["X-02"],["G-10"],["G-07"],["G-05"],["G-01","G-02"],["Z-01"]],"ms":0.44,"how":null,"segments":7},"return":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","W3-17","W3-16","W3-15","W3-14","W3-13","W3-12","W3-11","W3-10","W3-09","W3-08","W3-07","W3-06","W3-05","W3-04","DOOR_2F","NX-01","NX-02","NX-01","DOOR_2F","NX-01","NX-02","NX-03","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-03","W7-02","W7-01","MX-07","MX-06","MX-05","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":191.37,"stairs":2,"rewalked_m":75.88,"pick_order":["W2-40","W2-30","NX-02","NX-05","W4-02","W7-04","W6-01","W6-04","W6-06","W6-07","MZZ-01"],"pick_locs":[["F-23"],["F-08"],["X-03"],["O-17"],["O-09","O-10"],["X-02"],["G-01","G-02"],["G-05"],["G-07"],["G-10"],["Z-01"]],"ms":0.26,"how":null,"segments":7},"midpoint":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","MX-07","MX-08","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-01","NX-04","NX-05","NX-04","W4-01","W4-02","W4-01","NX-04","NX-03","NX-02","NX-03","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","MX-06","MX-05","MX-04","W6-01","W6-02","W6-03","W6-04","W6-03","W6-02","W6-01","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W6-09","W6-08","W6-07","W6-06","W6-07","W6-08","W6-09","W6-10","W7-08","W7-07","W7-06","W7-05","W7-04","W7-05","W7-06","W7-07","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":189.2,"stairs":2,"rewalked_m":83.15,"pick_order":["W2-40","W2-30","NX-05","W4-02","NX-02","W6-01","W6-04","W6-07","W6-06","W7-04","MZZ-01"],"pick_locs":[["F-23"],["F-08"],["O-17"],["O-09","O-10"],["X-03"],["G-01","G-02"],["G-05"],["G-10"],["G-07"],["X-02"],["Z-01"]],"ms":0.25,"how":null,"segments":7},"largest_gap":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","MX-07","MX-08","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-01","NX-04","NX-05","NX-04","W4-01","W4-02","W4-01","NX-04","NX-03","NX-02","NX-03","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","MX-06","MX-05","MX-04","W6-01","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W6-09","W6-08","W6-07","W6-06","W6-05","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W7-08","W7-07","W7-06","W7-05","W7-04","W7-05","W7-06","W7-07","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":186.96,"stairs":2,"rewalked_m":80.91,"pick_order":["W2-40","W2-30","NX-05","W4-02","NX-02","W6-01","W6-07","W6-06","W6-04","W7-04","MZZ-01"],"pick_locs":[["F-23"],["F-08"],["O-17"],["O-09","O-10"],["X-03"],["G-01","G-02"],["G-10"],["G-07"],["G-05"],["X-02"],["Z-01"]],"ms":0.28,"how":null,"segments":7},"combined":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","W3-17","W3-16","W3-15","W3-14","W3-13","W3-12","W3-11","W3-10","W3-09","W3-08","W3-07","W3-06","W3-05","W3-04","DOOR_2F","NX-01","NX-02","NX-03","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-05","W7-06","W7-07","W7-08","W6-10","W6-09","W6-08","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":152.35,"stairs":2,"rewalked_m":27.23,"pick_order":["W2-40","W2-30","NX-02","NX-05","W4-02","W7-04","W6-07","W6-06","W6-04","W6-01","MZZ-01"],"pick_locs":[["F-23"],["F-08"],["X-03"],["O-17"],["O-09","O-10"],["X-02"],["G-10"],["G-07"],["G-05"],["G-01","G-02"],["Z-01"]],"ms":0.23,"how":null,"segments":7},"location_order":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","MX-04","MX-05","MX-06","MX-07","MX-08","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-01","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-03","W7-02","W7-01","MX-07","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-05","W7-06","W7-07","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":168.54,"stairs":2,"rewalked_m":64.86,"pick_order":["W2-30","W2-40","W6-01","W6-04","W6-06","W6-07","W4-02","NX-05","W7-04","MX-08","MZZ-01"],"pick_locs":[["F-08"],["F-23"],["G-01","G-02"],["G-05"],["G-07"],["G-10"],["O-09","O-10"],["O-17"],["X-02"],["X-03"],["Z-01"]],"ms":0.04,"how":null},"nearest_neighbour":{"path":["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","MX-07","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-03","W7-02","W7-01","MX-07","MX-08","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-01","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","W4-17","W4-18","W4-19","W4-20","W4-21","W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"],"dist_m":166.96,"stairs":2,"rewalked_m":50.83,"pick_order":["W6-01","W6-04","W6-06","W6-07","W2-40","W2-30","MX-08","W7-04","W4-02","NX-05","MZZ-01"],"pick_locs":[["G-01","G-02"],["G-05"],["G-07"],["G-10"],["F-23"],["F-08"],["X-03"],["X-02"],["O-09","O-10"],["O-17"],["Z-01"]],"ms":0.04,"how":null},"optimal":{"path":["DEPOT","MX-01","LC-01","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","W5-07","W6-10","W6-09","W6-08","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","MX-04","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-06","MX-07","W7-01","W7-02","W7-03","W7-04","W7-03","W7-02","W7-01","MX-07","MX-08","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-01","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","MX-06","MX-05","MX-04","SC1_FOOT","MX-03","MX-02","MX-01","DEPOT"],"dist_m":147.66,"stairs":2,"rewalked_m":54.06,"pick_order":["MZZ-01","W6-07","W6-06","W6-04","W6-01","W2-40","W2-30","W7-04","MX-08","W4-02","NX-05"],"pick_locs":[["Z-01"],["G-10"],["G-07"],["G-05"],["G-01","G-02"],["F-23"],["F-08"],["X-02"],["X-03"],["O-09","O-10"],["O-17"]],"ms":51.04,"how":"exact"},"rl_agent":{"path":["DEPOT","MX-01","LC-01","SC2_FOOT","SC2_TOP","MZZ-01","SC2_TOP","SC2_FOOT","W5-07","W6-10","W6-09","W6-08","W6-07","W6-06","W6-05","W6-04","W6-03","W6-02","W6-01","MX-04","MX-05","MX-06","MX-07","W7-01","W7-02","W7-03","W7-04","W7-03","W7-02","W7-01","MX-07","MX-08","MX-09","W4-16","W4-15","W4-14","W4-13","W4-12","W4-11","W4-10","W4-09","W4-08","W4-07","W4-06","W4-05","W4-04","W4-03","W4-02","W4-01","NX-04","NX-05","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","MX-08","MX-07","MX-06","MX-05","W2-42","W2-41","W2-40","W2-39","W2-38","W2-37","W2-36","W2-35","W2-34","W2-33","W2-32","W2-31","W2-30","W2-31","W2-32","W2-33","W2-34","W2-35","W2-36","W2-37","W2-38","W2-39","W2-40","W2-41","W2-42","MX-05","MX-04","W6-01","MX-04","SC1_FOOT","MX-03","MX-02","MX-01","DEPOT"],"dist_m":150.56,"stairs":2,"rewalked_m":56.96,"pick_order":["MZZ-01","W6-07","W6-06","W6-04","W7-04","MX-08","W4-02","NX-05","W2-30","W2-40","W6-01"],"pick_locs":[["Z-01"],["G-10"],["G-07"],["G-05"],["X-02"],["X-03"],["O-09","O-10"],["O-17"],["F-08"],["F-23"],["G-01","G-02"]],"ms":3.42,"how":null}},"context":{"orders":56,"mean_m":{"sshape":204.4,"return":209.9,"midpoint":228.2,"largest_gap":226.2,"combined":194.3,"location_order":214.1,"nearest_neighbour":196.1,"optimal":188.3},"gap_pct":{"sshape":8.6,"return":11.5,"midpoint":21.2,"largest_gap":20.2,"combined":3.2,"location_order":13.7,"nearest_neighbour":4.2,"optimal":0.0},"wins_vs_nn":{"sshape":9,"return":8,"midpoint":3,"largest_gap":3,"combined":22,"location_order":5,"nearest_neighbour":0,"optimal":31}},"map":{"walkways":{"MX":{"floor":"G","pts":[[0,362],[642,362]]},"W1":{"floor":"G","pts":[[170,0],[170,362]]},"W2":{"floor":"G","pts":[[302,0],[302,362]]},"W3":{"floor":"G","pts":[[442,0],[442,362]]},"NX":{"floor":"G","pts":[[442,35],[710,35]]},"W4":{"floor":"G","pts":[[642,35],[642,570]]},"W5":{"floor":"G","pts":[[152,362],[152,570]]},"W6":{"floor":"G","pts":[[285,362],[285,570]]},"W7":{"floor":"G","pts":[[465,362],[465,570]]},"LC":{"floor":"G","pts":[[32,362],[32,715]]},"BX1":{"floor":"G","pts":[[32,570],[672,570]]},"BX2":{"floor":"G","pts":[[32,715],[765,715]]},"MZ1":{"floor":"M","pts":[[232,340],[545,340]]},"MZV":{"floor":"M","pts":[[257,340],[257,0]]},"MZS":{"floor":"M","pts":[[385,340],[385,0]]},"MZX5":{"floor":"M","pts":[[545,340],[545,120]]},"MZV4":{"floor":"M","pts":[[232,340],[250,470]]},"MZH":{"floor":"M","pts":[[232,340],[300,385],[300,555]]},"MZ2":{"floor":"M","pts":[[97,555],[465,555]]},"MZTU":{"floor":"M","pts":[[465,555],[465,385]]},"MZZ":{"floor":"M","pts":[[97,555],[97,750],[765,750]]},"MZW":{"floor":"M","pts":[[672,555],[785,555],[785,0]]},"MZX5W":{"floor":"M","pts":[[785,180],[620,180]]}},"stairs":{"SC1":{"foot":[232,362],"top":[232,340]},"SC2":{"foot":[97,570],"top":[97,555]},"SC3":{"foot":[672,570],"top":[672,555]}},"outlines":[["B/C",65,0,80,340],["A",195,0,40,340],["D",235,0,45,340],["E (F above)",325,0,35,340],["R",370,0,40,185],["Q",370,190,40,70],["P",370,265,40,70],["O13-17",470,0,290,22],["X-3 / X-5",470,50,150,285],["O",720,40,40,130],["N",720,175,40,115],["M",720,295,40,140],["L",720,440,40,110],["G25-30",65,385,50,175],["G19-24",185,410,35,140],["G13-18",222,410,28,140],["G1-12",320,385,50,175],["T",375,385,40,90],["U",375,480,40,80],["X-2/4",510,385,45,175],["X6-9",560,385,50,175],["X-1",100,585,645,110],["I",65,590,30,110],["J",65,730,345,30],["K",415,730,350,30],["W (mezz)",810,0,50,600],["H (mezz)",325,392,40,160]],"nodes":{"DEPOT":[0,362,"G"],"MX-01":[32,362,"G"],"MX-02":[152,362,"G"],"MX-03":[170,362,"G"],"SC1_FOOT":[232,362,"G"],"MX-04":[285,362,"G"],"MX-05":[302,362,"G"],"MX-06":[442,362,"G"],"MX-07":[465,362,"G"],"MX-08":[545.0,362.0,"G"],"MX-09":[642,362,"G"],"W2-30":[302.0,231.8,"G"],"W2-31":[302.0,250.0,"G"],"W2-32":[302.0,255.0,"G"],"W2-33":[302.0,262.7,"G"],"W2-34":[302.0,270.0,"G"],"W2-35":[302.0,279.3,"G"],"W2-36":[302.0,290.0,"G"],"W2-37":[302.0,293.6,"G"],"W2-38":[302.0,303.6,"G"],"W2-39":[302.0,310.0,"G"],"W2-40":[302.0,324.5,"G"],"W2-41":[302.0,327.9,"G"],"W2-42":[302.0,330.0,"G"],"DOOR_2F":[442,35,"G"],"W3-04":[442.0,51.4,"G"],"W3-05":[442.0,71.9,"G"],"W3-06":[442.0,92.5,"G"],"W3-07":[442.0,113.1,"G"],"W3-08":[442.0,120.0,"G"],"W3-09":[442.0,133.6,"G"],"W3-10":[442.0,154.2,"G"],"W3-11":[442.0,174.7,"G"],"W3-12":[442.0,207.5,"G"],"W3-13":[442.0,242.5,"G"],"W3-14":[442.0,273.8,"G"],"W3-15":[442.0,291.2,"G"],"W3-16":[442.0,308.8,"G"],"W3-17":[442.0,326.2,"G"],"NX-01":[518.3,35.0,"G"],"NX-02":[545.0,35.0,"G"],"NX-03":[615.0,35.0,"G"],"NX-04":[642,35,"G"],"NX-05":[710,35,"G"],"W4-01":[642.0,50.8,"G"],"W4-02":[642.0,72.5,"G"],"W4-03":[642.0,94.2,"G"],"W4-04":[642.0,115.8,"G"],"W4-05":[642.0,120.0,"G"],"W4-06":[642.0,137.5,"G"],"W4-07":[642.0,159.2,"G"],"W4-08":[642.0,184.6,"G"],"W4-09":[642.0,203.8,"G"],"W4-10":[642.0,222.9,"G"],"W4-11":[642.0,242.1,"G"],"W4-12":[642.0,261.2,"G"],"W4-13":[642.0,280.4,"G"],"W4-14":[642.0,306.7,"G"],"W4-15":[642.0,330.0,"G"],"W4-16":[642.0,353.3,"G"],"W4-17":[642.0,376.7,"G"],"W4-18":[642.0,400.0,"G"],"W4-19":[642.0,423.3,"G"],"W4-20":[642.0,449.2,"G"],"W4-21":[642.0,467.5,"G"],"W4-22":[642.0,472.0,"G"],"W4-23":[642.0,485.8,"G"],"W4-24":[642.0,504.2,"G"],"W4-25":[642.0,522.5,"G"],"W4-26":[642.0,540.8,"G"],"W4-27":[642,570,"G"],"W5-07":[152,570,"G"],"W6-01":[285.0,399.6,"G"],"W6-02":[285.0,428.8,"G"],"W6-03":[285.0,433.3,"G"],"W6-04":[285.0,457.9,"G"],"W6-05":[285.0,480.0,"G"],"W6-06":[285.0,487.1,"G"],"W6-07":[285.0,516.2,"G"],"W6-08":[285.0,526.7,"G"],"W6-09":[285.0,545.4,"G"],"W6-10":[285,570,"G"],"W7-01":[465.0,400.0,"G"],"W7-02":[465.0,430.0,"G"],"W7-03":[465.0,460.0,"G"],"W7-04":[465.0,472.0,"G"],"W7-05":[465.0,493.3,"G"],"W7-06":[465.0,520.0,"G"],"W7-07":[465.0,546.7,"G"],"W7-08":[465,570,"G"],"LC-01":[32,570,"G"],"SC2_FOOT":[97,570,"G"],"BX1-01":[585.0,570.0,"G"],"SC3_FOOT":[672,570,"G"],"SC1_TOP":[232,340,"M"],"SC2_TOP":[97,555,"M"],"MZZ-01":[97,750,"M"],"SC3_TOP":[672,555,"M"]},"depot":[0,362]}};
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const fmt = (v, d = 1) => Number(v).toFixed(d);
+
+const META = {
+  sshape: { name: 'S-shape', fam: 'Classic aisle rule', short: 'S-shape',
+    rule: 'Every aisle with a pick is walked from one end to the other, then the picker carries on into the next aisle, snaking across the block. Dead-end aisles (W1, W2, the end of NX) are walked in and back out, because there is no other way.',
+    this: 'Goes in and out of W2 for F-23 and F-08, walks up W3 and along NX (X-03, O-17), down upper W4 (O-09/O-10), through W7 to the bottom aisle (X-02) and up W6 (G-10 to G-01). The rule ends that aisle at the main aisle, so it walks back down W6 to reach SC2 for Z-01.' },
+  return: { name: 'Return', fam: 'Classic aisle rule', short: 'Return',
+    rule: 'Every aisle is entered from its front end (the end nearest the depot). The picker walks to the deepest pick and comes back out the same way.',
+    this: 'Every aisle becomes an out-and-back from the main aisle: W2, W3 and NX, upper W4 (backing out from O-09/O-10 near the top), W7 for X-02 and W6 for the G picks. It walks 75.9 m twice, the most of any method.' },
+  midpoint: { name: 'Midpoint', fam: 'Classic aisle rule', short: 'Midpoint',
+    rule: 'Each through-aisle is split at its middle. Picks in the front half are taken from the front end, picks in the back half from the back end. Block by block, the picker first does all front halves, then all back halves on the way back.',
+    this: 'O-09/O-10 sit in the back (NX) half of upper W4, so they are taken from the top. G-07, G-10 and X-02 are in the BX1 half of W6 and W7. The two passes make it cross the top block twice and go down W6 and W7 from the bottom.' },
+  largest_gap: { name: 'Largest gap', fam: 'Classic aisle rule', short: 'Largest gap',
+    rule: 'Like midpoint, but each through-aisle is split at its largest empty stretch, so that stretch is never walked. Picks before the gap come from the front, picks after it from the back.',
+    this: 'Same as midpoint except W6: the biggest empty stretch is between G-01/G-02 and G-05, so G-05 moves to the bottom pass with G-07 and G-10. That saves 2.2 m.' },
+  combined: { name: 'Combined', fam: 'Classic aisle rule', short: 'Combined',
+    rule: 'Aisle by aisle, choose whichever is shorter: walk right through, or go in and back out. The choice counts the walk to the next aisle too. This is a greedy version of Roodbergen & De Koster’s combined heuristic.',
+    this: 'Same as S-shape until W6. There it goes in from the bottom and comes back out the bottom instead of exiting at the main aisle, so it is already beside SC2 for Z-01. That saves 2.9 m and puts it 4.7 m from optimal.' },
+  location_order: { name: 'Location order', fam: 'Current baseline · stand-in for today', short: 'Location order',
+    rule: 'Visit locations in pick-list order: alphabetically by section, then by number (F-08, F-23, G-01 …). This is how a picker works down a printed list today.',
+    this: 'F in W2, then G in W6, then across to the O racks at the top right, back down to W7 for X-02, over to X-03, and finally Z-01 upstairs. The alphabet ignores where things are, so it crosses the floor several times.' },
+  nearest_neighbour: { name: 'Nearest neighbour', fam: 'Current baseline', short: 'Nearest neighbour',
+    rule: 'From wherever the picker stands, always walk to the closest remaining pick.',
+    this: 'Starts with the closest picks (G in W6), then F in W2, X-03 and X-02, then the O racks in the top-right corner. Z-01 is left for last, so it walks from the far corner all the way to SC2 and back to the depot.' },
+  optimal: { name: 'Optimal', fam: 'Current baseline · lower limit', short: 'Optimal',
+    rule: 'The shortest possible route through all stops. Up to 12 stops it is found exactly by checking every order (Held–Karp); larger orders use the OR-Tools solver.',
+    this: 'Goes up SC2 first for Z-01 while it is close, comes down, works up W6 from the bottom, then W2, W7, X-03 from the main aisle, upper W4 and O-17, and walks back to the depot along the main aisle. Exact search over all 11 stops.' },
+  rl_agent: { name: 'F4 RL agent', fam: 'F4 · trained on June–August orders', short: 'RL agent',
+    rule: 'A neural network trained with PPO on 155,000 practice trips. At each stop it scores every stop the order still needs and walks to the best one. It never checks all routes; it learned which choices tend to make the whole trip short.',
+    this: 'Like optimal, it goes up SC2 first for Z-01, then works W6 from the bottom (G-10, G-07, G-05), takes X-02, X-03 from the main aisle, upper W4 and O-17, then F-08 and F-23 in W2. It leaves G-01/G-02 at the top of W6 for the walk home. 2.9 m from optimal and 16.4 m shorter than nearest neighbour, decided in about 3 ms.' },
+};
+const GROUPS = [
+  ['Classic aisle rules (literature)', ['sshape', 'return', 'midpoint', 'largest_gap', 'combined']],
+  ['Baselines F4 uses now', ['location_order', 'nearest_neighbour', 'optimal']],
+  ['F4 (trained)', ['rl_agent']],
+];
+const ORDER = GROUPS.flatMap(g => g[1]);
+const OPT = D.methods.optimal.dist_m, LOC = D.methods.location_order.dist_m;
+let current = 'sshape';
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const node = id => D.map.nodes[id];
+function whereOf(id) {
+  if (id.startsWith('MZ')) return 'mezzanine';
+  const w = id.split('-')[0];
+  return w === 'MX' ? 'main aisle' : 'walkway ' + w;
+}
+
+// header
+(function header() {
+  const flo = [...new Set(Object.values(D.methods.optimal.pick_order).map(n => n.startsWith('MZ') ? 'mezz' : 'ground'))];
+  $('strip').innerHTML = [
+    ['Order', D.so_no], ['Date', D.date], ['Lines', D.n_lines], ['Stops', D.n_stops], ['Floors', 'ground + mezzanine'],
+  ].map(([k, v]) => `<span><span class="k">${k}</span> <span class="v">${v}</span></span>`).join('');
+  $('picklist').innerHTML = D.lines.map(l => `<span class="chip${l.startsWith('Z') ? ' m' : ''}">${l}${D.line_count[l] > 1 ? ` <b>×${D.line_count[l]}</b>` : ''}</span>`).join('');
+})();
+
+// switcher
+(function tabs() {
+  $('groups').innerHTML = GROUPS.map(([label, ms]) => `
+    <div class="group"><span class="group-label">${label}</span><div class="tabs" role="tablist">
+      ${ms.map(m => `<button class="tab" role="tab" id="tab-${m}" data-m="${m}" aria-selected="false">${META[m].short}<span class="d">${fmt(D.methods[m].dist_m)} m</span></button>`).join('')}
+    </div></div>`).join('');
+  document.querySelectorAll('.tab[data-m]').forEach(b => b.addEventListener('click', () => select(b.dataset.m)));
+})();
+
+// map drawing
+function drawBase(svg, floor, dx = 0, mini = false) {
+  const g = el('g', { transform: `translate(${dx},0)` }, svg);
+  el('rect', { x: 0, y: 0, width: 860, height: 780, fill: 'none', stroke: 'var(--line)', 'stroke-width': 2 }, g);
+  D.map.outlines.forEach(([n, x, y, w, h]) => {
+    const isM = n.includes('mezz');
+    const op = floor === 'M' ? (isM ? 1 : .45) : (isM ? .3 : 1);
+    const r = el('rect', { x, y, width: w, height: h, rx: 2, fill: 'var(--rack)', opacity: op }, g);
+    if (!mini) {
+      const t = el('text', { x: x + w / 2, y: y + h / 2, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: 'var(--rack-text)',
+        'font-family': 'Barlow Condensed, Arial Narrow, sans-serif', 'font-size': Math.min(17, Math.max(10, Math.min(w, h) / 2.4)), opacity: op }, g);
+      if (h > w * 2) t.setAttribute('transform', `rotate(-90 ${x + w / 2} ${y + h / 2})`);
+      t.textContent = n.replace(' (mezz)', '');
+    }
+  });
+  Object.entries(D.map.walkways).forEach(([id, w]) => {
+    if (w.floor !== floor) return;
+    el('polyline', { points: w.pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: 'var(--walk)', 'stroke-width': mini ? 4 : 3,
+      'stroke-dasharray': '7 6', 'stroke-linecap': 'round' }, g);
+    if (!mini) {
+      const [x, y] = w.pts[w.pts.length - 1];
+      const t = el('text', { x: x + 5, y: y - 6, fill: 'var(--muted)', 'font-size': 13, 'font-family': 'IBM Plex Mono, monospace' }, g);
+      t.textContent = id;
+    }
+  });
+  return g;
+}
+function legsOf(path) {
+  const legs = []; let cur = null;
+  for (let i = 0; i < path.length; i++) {
+    const n = node(path[i]);
+    if (!cur || cur.floor !== n[2]) { cur = { floor: n[2], pts: [], ids: [] }; legs.push(cur); }
+    cur.pts.push([n[0], n[1]]); cur.ids.push(path[i]);
+  }
+  return legs;
+}
+function stairUse(path) {
+  const c = {};
+  for (let i = 1; i < path.length; i++) {
+    const a = path[i - 1], b = path[i];
+    const sa = a.replace(/_(FOOT|TOP)$/, ''), sb = b.replace(/_(FOOT|TOP)$/, '');
+    if (a !== b && sa === sb && /_(FOOT|TOP)$/.test(a)) c[sa] = (c[sa] || 0) + 1;
+  }
+  return c;
+}
+function drawRoute(svgs, m, mini = false) {
+  const R = D.methods[m];
+  const floors = { G: svgs.G, M: svgs.M };
+  const lw = mini ? 9 : 6;
+  for (let i = 1; i < R.path.length; i++) {
+    const a = node(R.path[i - 1]), b = node(R.path[i]);
+    if (a[2] !== b[2]) continue;
+    el('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: a[2] === 'G' ? 'var(--red)' : 'var(--blue)', 'stroke-width': lw,
+      'stroke-linecap': 'round', opacity: .5 }, floors[a[2]]);
+  }
+  // stairs used
+  const su = stairUse(R.path);
+  Object.entries(su).forEach(([s, k]) => {
+    ['G', 'M'].forEach(f => {
+      const p = D.map.stairs[s][f === 'G' ? 'foot' : 'top'];
+      el('rect', { x: p[0] - 11, y: p[1] - 11, width: 22, height: 22, rx: 4, fill: 'var(--blue)', stroke: 'var(--fg)', 'stroke-width': 1.5 }, floors[f]);
+      if (!mini) {
+        const t = el('text', { x: p[0] + 15, y: p[1] + 5, fill: 'var(--fg)', 'font-size': 14, 'font-family': 'IBM Plex Mono, monospace' }, floors[f]);
+        t.textContent = `${s} ×${k}`;
+      }
+    });
+  });
+  // depot
+  const dp = D.map.depot;
+  el('circle', { cx: dp[0], cy: dp[1], r: mini ? 16 : 12, fill: 'var(--green)' }, floors.G);
+  if (!mini) {
+    const t = el('text', { x: dp[0] + 6, y: dp[1] + 32, fill: 'var(--green)', 'font-size': 15, 'font-weight': 600, 'font-family': 'Barlow Condensed, sans-serif' }, floors.G);
+    t.textContent = 'DEPOT · start & end';
+  }
+  // pick badges
+  R.pick_order.forEach((id, k) => {
+    const n = node(id), f = floors[n[2]];
+    const g = el('g', { class: 'badge', 'data-k': k }, f);
+    el('circle', { cx: n[0], cy: n[1], r: mini ? 17 : 13, fill: n[2] === 'G' ? 'var(--red)' : 'var(--blue)', stroke: 'var(--bg)', 'stroke-width': 2.5 }, g);
+    const t = el('text', { x: n[0], y: n[1] + 1, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: '#fff',
+      'font-size': mini ? 18 : 14, 'font-weight': 600, 'font-family': 'IBM Plex Mono, monospace' }, g);
+    t.textContent = k + 1;
+    if (!mini) el('title', {}, g).textContent = `${k + 1}. ${R.pick_locs[k].join(', ')}`;
+  });
+}
+
+function select(m) {
+  current = m; stopWalk();
+  document.querySelectorAll('.tab[data-m]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.m === m)));
+  document.querySelectorAll('#tbl tbody tr[data-m]').forEach(r => r.classList.toggle('sel', r.dataset.m === m));
+  document.querySelectorAll('.mini').forEach(r => r.classList.toggle('sel', r.dataset.m === m));
+  const R = D.methods[m], M = META[m];
+  ['mapG', 'mapM'].forEach(id => $(id).innerHTML = '');
+  const gG = drawBase($('mapG'), 'G'), gM = drawBase($('mapM'), 'M');
+  drawRoute({ G: gG, M: gM }, m);
+  const gPicks = R.pick_order.filter(n => !n.startsWith('MZ')).length;
+  $('gm').textContent = `${gPicks} stops`;
+  $('mm').textContent = `${R.pick_order.length - gPicks} stop${R.pick_order.length - gPicks === 1 ? '' : 's'}`;
+  $('fam').textContent = M.fam;
+  $('mname').textContent = M.name;
+  $('mrule').textContent = M.rule;
+  $('mthis').textContent = M.this;
+  const gap = 100 * (R.dist_m / OPT - 1);
+  $('mkv').innerHTML = `
+    <div><span class="k">Distance</span><span class="v">${fmt(R.dist_m)}<small> m</small></span></div>
+    <div><span class="k">vs optimal</span><span class="v ${gap < .05 ? 'zero' : 'pos'}">${gap < .05 ? '0.0' : '+' + fmt(gap)}<small> %</small></span></div>
+    <div><span class="k">Stair trips</span><span class="v">${R.stairs}</span></div>`;
+  $('seq').innerHTML = `<li class="endpt"><span class="n">D</span><span>Start at depot</span><span></span></li>` +
+    R.pick_order.map((id, k) => `<li data-k="${k}" class="${id.startsWith('MZ') ? 'mz' : ''}"><span class="n">${k + 1}</span><span class="loc">${R.pick_locs[k].join(', ')}</span><span class="where">${whereOf(id)}</span></li>`).join('') +
+    `<li class="endpt"><span class="n">D</span><span>Back to depot</span><span></span></li>`;
+  try { localStorage.setItem('f4-baseline-method', m); } catch (e) {}
+}
+
+// table
+(function table() {
+  const ctx = D.context;
+  const max = Math.max(...ORDER.map(m => D.methods[m].dist_m));
+  let h = `<thead><tr><th>Method</th><th class="num">Distance</th><th>Distance</th><th class="num">vs optimal</th>
+    <th class="num">vs location order</th><th class="num">Stair trips</th><th class="num">Walked twice</th><th class="num">Decision time</th>
+    <th class="num">Avg on 56 large orders</th></tr></thead><tbody>`;
+  GROUPS.forEach(([label, ms]) => {
+    h += `<tr class="grp"><td colspan="9">${label}</td></tr>`;
+    ms.forEach(m => {
+      const R = D.methods[m], gap = 100 * (R.dist_m / OPT - 1), save = LOC - R.dist_m;
+      h += `<tr data-m="${m}"><td><b>${META[m].name}</b></td>
+        <td class="num">${fmt(R.dist_m)} m</td>
+        <td><div class="bar"><i class="${m === 'optimal' ? 'opt' : ''}" style="width:${(100 * R.dist_m / max).toFixed(1)}%"></i></div></td>
+        <td class="num ${gap < .05 ? 'zero' : 'pos'}">${gap < .05 ? '0.0%' : '+' + fmt(gap) + '%'}</td>
+        <td class="num">${m === 'location_order' ? '—' : (save >= 0 ? '−' : '+') + fmt(Math.abs(save)) + ' m'}</td>
+        <td class="num">${R.stairs}</td>
+        <td class="num">${fmt(R.rewalked_m)} m</td>
+        <td class="num">${R.ms < 1 ? '&lt; 1 ms' : fmt(R.ms, 0) + ' ms'}</td>
+        <td class="num">${ctx.mean_m[m] == null ? '<span class="muted">test set: +0.74%</span>' : `${fmt(ctx.mean_m[m])} m <span class="muted">(${ctx.gap_pct[m] === 0 ? '0.0' : '+' + fmt(ctx.gap_pct[m])}%)</span>`}</td></tr>`;
+    });
+  });
+  h += `</tbody>`;
+  $('tbl').innerHTML = h;
+  $('tbl').querySelectorAll('tbody tr[data-m]').forEach(r => r.addEventListener('click', () => { select(r.dataset.m); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
+  $('tfoot').innerHTML = `<b>How to read it.</b> Distance is the full trip, depot to depot. “vs location order” is metres saved against the stand-in for today’s practice. ` +
+    `“Walked twice” is metres of walkway covered more than once; dead-end aisles force some of it, so it is not bad by itself (optimal walks 54 m twice). ` +
+    `Decision time is how long the method takes to plan the route on a laptop. The last column averages ${ctx.orders} October orders with 16+ lines and 8–12 stops, ` +
+    `so one lucky order does not decide the ranking.`;
+})();
+
+// takeaways
+(function notes() {
+  const c = D.context;
+  $('notes').innerHTML = `
+    <div class="note"><h3>Classic rules assume a textbook warehouse</h3><p>They need parallel aisles with a cross aisle at both ends. Here W1 and W2 are dead ends, the top and bottom blocks have different back aisles, and part of the order is upstairs. On dead-end aisles S-shape and return become the same move.</p></div>
+    <div class="note"><h3>Combined is the classic rule to beat</h3><p>Across ${c.orders} similar orders, Combined averages +${fmt(c.gap_pct.combined)}% over optimal and nearest neighbour +${fmt(c.gap_pct.nearest_neighbour)}%. Combined beat nearest neighbour on ${c.wins_vs_nn.combined} of them. It should join the baseline set, and the RL agent should be compared against it.</p></div>
+    <div class="note"><h3>Midpoint and largest gap struggle here</h3><p>They pay off when long aisles have picks near both ends. In this building most through-aisles hold one or two picks and the floors are separate, so their two-pass rule adds back-tracking: about +${fmt(c.gap_pct.midpoint)}% and +${fmt(c.gap_pct.largest_gap)}% on average.</p></div>`;
+})();
+
+// all routes grid
+(function grid() {
+  $('all').innerHTML = ORDER.map(m => `<button class="mini" type="button" data-m="${m}"><span class="t"><b>${META[m].name}</b><span>${fmt(D.methods[m].dist_m)} m</span></span><svg viewBox="-12 -12 1764 804" aria-hidden="true"></svg></button>`).join('');
+  document.querySelectorAll('.mini').forEach(b => {
+    const svg = b.querySelector('svg');
+    const gG = drawBase(svg, 'G', 0, true), gM = drawBase(svg, 'M', 880, true);
+    drawRoute({ G: gG, M: gM }, b.dataset.m, true);
+    b.addEventListener('click', () => { select(b.dataset.m); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  });
+})();
+
+// walk animation
+let raf = null;
+function stopWalk() {
+  if (raf) cancelAnimationFrame(raf); raf = null;
+  document.querySelectorAll('.walker').forEach(e => e.remove());
+  document.querySelectorAll('#seq li').forEach(li => li.classList.remove('on'));
+  $('walk').textContent = 'Walk this route';
+}
+$('walk').addEventListener('click', () => {
+  if (raf) { stopWalk(); return; }
+  const R = D.methods[current];
+  const pts = R.path.map(id => node(id));
+  const segs = []; let total = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1], b = pts[i];
+    const len = a[2] === b[2] ? Math.hypot(b[0] - a[0], b[1] - a[1]) : 60;   // stairs get a short pause
+    segs.push({ a, b, len, s: total, id: R.path[i] }); total += len;
+  }
+  const svgs = { G: $('mapG').querySelector('g'), M: $('mapM').querySelector('g') };
+  const dots = {};
+  ['G', 'M'].forEach(f => { dots[f] = el('circle', { r: 10, fill: 'var(--fg)', stroke: 'var(--bg)', 'stroke-width': 3, class: 'walker', opacity: 0 }, svgs[f]); });
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const speed = reduce ? 1e9 : 520;   // px per second
+  const order = R.pick_order;
+  let t0 = null;
+  $('walk').textContent = 'Stop';
+  const step = ts => {
+    if (t0 === null) t0 = ts;
+    const d = Math.min(total, (ts - t0) / 1000 * speed);
+    const sg = segs.find(s => d <= s.s + s.len) || segs[segs.length - 1];
+    const f = sg.len ? (d - sg.s) / sg.len : 1;
+    const fl = sg.a[2] === sg.b[2] ? sg.a[2] : (f < .5 ? sg.a[2] : sg.b[2]);
+    const x = sg.a[2] === sg.b[2] ? sg.a[0] + f * (sg.b[0] - sg.a[0]) : (fl === sg.a[2] ? sg.a[0] : sg.b[0]);
+    const y = sg.a[2] === sg.b[2] ? sg.a[1] + f * (sg.b[1] - sg.a[1]) : (fl === sg.a[2] ? sg.a[1] : sg.b[1]);
+    ['G', 'M'].forEach(k => dots[k].setAttribute('opacity', k === fl ? 1 : 0));
+    dots[fl].setAttribute('cx', x); dots[fl].setAttribute('cy', y);
+    // highlight picks already reached
+    const reached = new Set(segs.filter(s => s.s + s.len <= d).map(s => s.id));
+    let last = -1; order.forEach((id, k) => { if (reached.has(id) && k === last + 1) last = k; });
+    document.querySelectorAll('#seq li[data-k]').forEach(li => li.classList.toggle('on', Number(li.dataset.k) === last));
+    if (d < total) raf = requestAnimationFrame(step);
+    else { raf = null; $('walk').textContent = 'Walk again'; }
+  };
+  raf = requestAnimationFrame(step);
+});
+
+// ── decision walkthrough (5-stop order) ──────────────────────────────────
+const W = {"so_no":"SO/26/10/0491","date":"2026-10-06","n_lines":13,"stops":["MZZ-26","W3-16","W4-22","W5-03","W7-07"],"locs":{"MZZ-26":["Z-52"],"W3-16":["P-03"],"W4-22":["X-06","X-07","X-09"],"W5-03":["G-27"],"W7-07":["U-03"]},"lines_per_stop":{"MZZ-26":3,"W3-16":1,"W4-22":6,"W5-03":2,"W7-07":1},"M":[[0.0,53.95,22.61,34.1,11.32,28.73],[53.95,0.0,67.54,70.55,47.76,59.46],[22.61,67.54,0.0,15.59,19.79,10.22],[34.1,70.55,15.59,0.0,30.31,12.89],[11.32,47.76,19.79,30.31,0.0,19.22],[28.73,59.46,10.22,12.89,19.22,0.0]],"S":[[0,1,0,0,0,0],[1,0,1,1,1,1],[0,1,0,0,0,0],[0,1,0,0,0,0],[0,1,0,0,0,0],[0,1,0,0,0,0]],"methods":{"sshape":{"order":["W3-16","W4-22","W7-07","W5-03","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","MX-06","W3-17","W3-16"],["W3-16","W3-15","W3-14","W3-13","W3-12","W3-11","W3-10","W3-09","W3-08","W3-07","W3-06","W3-05","W3-04","DOOR_2F","NX-01","NX-02","NX-03","NX-04","W4-01","W4-02","W4-03","W4-04","W4-05","W4-06","W4-07","W4-08","W4-09","W4-10","W4-11","W4-12","W4-13","W4-14","W4-15","W4-16","MX-09","W4-17","W4-18","W4-19","W4-20","W4-21","W4-22"],["W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W7-07"],["W7-07","W7-06","W7-05","W7-04","W7-03","W7-02","W7-01","MX-07","MX-06","MX-05","MX-04","SC1_FOOT","MX-03","MX-02","W5-01","W5-02","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[22.61,36.64,12.89,25.91,47.76,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":199.76},"return":{"order":["W3-16","W4-22","W7-07","W5-03","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-07","MX-08","MX-09","W4-17","W4-18","W4-19","W4-20","W4-21","W4-22"],["W4-22","W4-21","W4-20","W4-19","W4-18","W4-17","MX-09","MX-08","MX-07","W7-01","W7-02","W7-03","W7-04","W7-05","W7-06","W7-07"],["W7-07","W7-06","W7-05","W7-04","W7-03","W7-02","W7-01","MX-07","MX-06","MX-05","MX-04","SC1_FOOT","MX-03","MX-02","W5-01","W5-02","W5-03"],["W5-03","W5-02","W5-01","MX-02","W5-01","W5-02","W5-03","W5-04","W5-05","W5-06","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[22.61,15.59,19.57,25.91,56.26,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":193.89},"midpoint":{"order":["W3-16","W5-03","W7-07","W4-22","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-05","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W5-07","W5-06","W5-05","W5-04","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","W6-10","W7-08","W7-07"],["W7-07","W7-08","BX1-01","W4-27","W4-26","W4-25","W4-24","W4-23","W4-22"],["W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[22.61,27.3,19.22,12.89,70.55,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":206.52},"largest_gap":{"order":["W3-16","W5-03","W7-07","W4-22","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-05","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W5-07","W5-06","W5-05","W5-04","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","W6-10","W7-08","W7-07"],["W7-07","W7-08","BX1-01","W4-27","W4-26","W4-25","W4-24","W4-23","W4-22"],["W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[22.61,27.3,19.22,12.89,70.55,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":206.52},"combined":{"order":["W3-16","W4-22","W7-07","W5-03","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-07","MX-08","MX-09","W4-17","W4-18","W4-19","W4-20","W4-21","W4-22"],["W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W7-07"],["W7-07","W7-08","W6-10","W5-07","W5-06","W5-05","W5-04","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[22.61,15.59,12.89,19.22,47.76,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":172.02},"location_order":{"order":["W5-03","W3-16","W7-07","W4-22","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","W5-01","W5-02","W5-03"],["W5-03","W5-02","W5-01","MX-02","MX-03","SC1_FOOT","MX-04","MX-05","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-07","W7-01","W7-02","W7-03","W7-04","W7-05","W7-06","W7-07"],["W7-07","W7-08","BX1-01","W4-27","W4-26","W4-25","W4-24","W4-23","W4-22"],["W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[11.32,19.79,10.22,12.89,70.55,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":178.72},"nearest_neighbour":{"order":["W5-03","W7-07","W3-16","W4-22","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","W5-01","W5-02","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","W6-10","W7-08","W7-07"],["W7-07","W7-06","W7-05","W7-04","W7-03","W7-02","W7-01","MX-07","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-07","MX-08","MX-09","W4-17","W4-18","W4-19","W4-20","W4-21","W4-22"],["W4-22","W4-23","W4-24","W4-25","W4-26","W4-27","BX1-01","W7-08","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[11.32,19.22,10.22,15.59,70.55,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":180.85},"optimal":{"order":["W5-03","MZZ-26","W7-07","W4-22","W3-16"],"legs":[["DEPOT","MX-01","MX-02","W5-01","W5-02","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","W5-07","W6-10","W7-08","W7-07"],["W7-07","W7-08","BX1-01","W4-27","W4-26","W4-25","W4-24","W4-23","W4-22"],["W4-22","W4-21","W4-20","W4-19","W4-18","W4-17","MX-09","MX-08","MX-07","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-05","MX-04","SC1_FOOT","MX-03","MX-02","MX-01","DEPOT"]],"leg_m":[11.32,47.76,59.46,12.89,15.59,22.61],"leg_stairs":[0,1,1,0,0,0],"dist_m":169.63},"rl_agent":{"order":["W5-03","W7-07","W4-22","W3-16","MZZ-26"],"legs":[["DEPOT","MX-01","MX-02","W5-01","W5-02","W5-03"],["W5-03","W5-04","W5-05","W5-06","W5-07","W6-10","W7-08","W7-07"],["W7-07","W7-08","BX1-01","W4-27","W4-26","W4-25","W4-24","W4-23","W4-22"],["W4-22","W4-21","W4-20","W4-19","W4-18","W4-17","MX-09","MX-08","MX-07","MX-06","W3-17","W3-16"],["W3-16","W3-17","MX-06","MX-05","MX-04","W6-01","W6-02","W6-03","W6-04","W6-05","W6-06","W6-07","W6-08","W6-09","W6-10","W5-07","SC2_FOOT","SC2_TOP","MZZ-01","MZZ-02","MZZ-03","MZZ-04","MZZ-05","MZZ-06","MZZ-07","MZZ-08","MZZ-09","MZZ-10","MZZ-11","MZZ-12","MZZ-13","MZZ-14","MZZ-15","MZZ-16","MZZ-17","MZZ-18","MZZ-19","MZZ-20","MZZ-21","MZZ-22","MZZ-23","MZZ-24","MZZ-25","MZZ-26"],["MZZ-26","MZZ-25","MZZ-24","MZZ-23","MZZ-22","MZZ-21","MZZ-20","MZZ-19","MZZ-18","MZZ-17","MZZ-16","MZZ-15","MZZ-14","MZZ-13","MZZ-12","MZZ-11","MZZ-10","MZZ-09","MZZ-08","MZZ-07","MZZ-06","MZZ-05","MZZ-04","MZZ-03","MZZ-02","MZZ-01","SC2_TOP","SC2_FOOT","LC-01","MX-01","DEPOT"]],"leg_m":[11.32,19.22,12.89,15.59,67.54,53.95],"leg_stairs":[0,0,0,0,1,1],"dist_m":180.51}},"nodes":{"DEPOT":[0,362,"G"],"MX-01":[32,362,"G"],"MX-02":[152,362,"G"],"MX-03":[170,362,"G"],"SC1_FOOT":[232,362,"G"],"MX-04":[285,362,"G"],"MX-05":[302,362,"G"],"MX-06":[442,362,"G"],"MX-07":[465,362,"G"],"MX-08":[545.0,362.0,"G"],"MX-09":[642,362,"G"],"DOOR_2F":[442,35,"G"],"W3-04":[442.0,51.4,"G"],"W3-05":[442.0,71.9,"G"],"W3-06":[442.0,92.5,"G"],"W3-07":[442.0,113.1,"G"],"W3-08":[442.0,120.0,"G"],"W3-09":[442.0,133.6,"G"],"W3-10":[442.0,154.2,"G"],"W3-11":[442.0,174.7,"G"],"W3-12":[442.0,207.5,"G"],"W3-13":[442.0,242.5,"G"],"W3-14":[442.0,273.8,"G"],"W3-15":[442.0,291.2,"G"],"W3-16":[442.0,308.8,"G"],"W3-17":[442.0,326.2,"G"],"NX-01":[518.3,35.0,"G"],"NX-02":[545.0,35.0,"G"],"NX-03":[615.0,35.0,"G"],"NX-04":[642,35,"G"],"W4-01":[642.0,50.8,"G"],"W4-02":[642.0,72.5,"G"],"W4-03":[642.0,94.2,"G"],"W4-04":[642.0,115.8,"G"],"W4-05":[642.0,120.0,"G"],"W4-06":[642.0,137.5,"G"],"W4-07":[642.0,159.2,"G"],"W4-08":[642.0,184.6,"G"],"W4-09":[642.0,203.8,"G"],"W4-10":[642.0,222.9,"G"],"W4-11":[642.0,242.1,"G"],"W4-12":[642.0,261.2,"G"],"W4-13":[642.0,280.4,"G"],"W4-14":[642.0,306.7,"G"],"W4-15":[642.0,330.0,"G"],"W4-16":[642.0,353.3,"G"],"W4-17":[642.0,376.7,"G"],"W4-18":[642.0,400.0,"G"],"W4-19":[642.0,423.3,"G"],"W4-20":[642.0,449.2,"G"],"W4-21":[642.0,467.5,"G"],"W4-22":[642.0,472.0,"G"],"W4-23":[642.0,485.8,"G"],"W4-24":[642.0,504.2,"G"],"W4-25":[642.0,522.5,"G"],"W4-26":[642.0,540.8,"G"],"W4-27":[642,570,"G"],"W5-01":[152.0,414.2,"G"],"W5-02":[152.0,433.3,"G"],"W5-03":[152.0,472.5,"G"],"W5-04":[152.0,480.0,"G"],"W5-05":[152.0,526.7,"G"],"W5-06":[152.0,530.8,"G"],"W5-07":[152,570,"G"],"W6-01":[285.0,399.6,"G"],"W6-02":[285.0,428.8,"G"],"W6-03":[285.0,433.3,"G"],"W6-04":[285.0,457.9,"G"],"W6-05":[285.0,480.0,"G"],"W6-06":[285.0,487.1,"G"],"W6-07":[285.0,516.2,"G"],"W6-08":[285.0,526.7,"G"],"W6-09":[285.0,545.4,"G"],"W6-10":[285,570,"G"],"W7-01":[465.0,400.0,"G"],"W7-02":[465.0,430.0,"G"],"W7-03":[465.0,460.0,"G"],"W7-04":[465.0,472.0,"G"],"W7-05":[465.0,493.3,"G"],"W7-06":[465.0,520.0,"G"],"W7-07":[465.0,546.7,"G"],"W7-08":[465,570,"G"],"LC-01":[32,570,"G"],"SC2_FOOT":[97,570,"G"],"BX1-01":[585.0,570.0,"G"],"SC2_TOP":[97,555,"M"],"MZZ-01":[97,750,"M"],"MZZ-02":[105.4,750.0,"M"],"MZZ-03":[132.3,750.0,"M"],"MZZ-04":[159.2,750.0,"M"],"MZZ-05":[186.2,750.0,"M"],"MZZ-06":[213.1,750.0,"M"],"MZZ-07":[240.0,750.0,"M"],"MZZ-08":[266.9,750.0,"M"],"MZZ-09":[293.8,750.0,"M"],"MZZ-10":[320.8,750.0,"M"],"MZZ-11":[347.7,750.0,"M"],"MZZ-12":[374.6,750.0,"M"],"MZZ-13":[401.5,750.0,"M"],"MZZ-14":[428.5,750.0,"M"],"MZZ-15":[455.4,750.0,"M"],"MZZ-16":[482.3,750.0,"M"],"MZZ-17":[509.2,750.0,"M"],"MZZ-18":[536.2,750.0,"M"],"MZZ-19":[563.1,750.0,"M"],"MZZ-20":[590.0,750.0,"M"],"MZZ-21":[616.9,750.0,"M"],"MZZ-22":[643.8,750.0,"M"],"MZZ-23":[670.8,750.0,"M"],"MZZ-24":[697.7,750.0,"M"],"MZZ-25":[724.6,750.0,"M"],"MZZ-26":[751.5,750.0,"M"]}};
+const WIDX = { DEPOT: 0 }; W.stops.forEach((n, i) => WIDX[n] = i + 1);
+const wLab = n => n === 'DEPOT' ? 'the depot' : W.locs[n].join(', ');
+const wShort = n => W.locs[n].length > 1 ? `${W.locs[n][0]} +${W.locs[n].length - 1}` : W.locs[n][0];
+const wd = (a, b) => W.M[WIDX[a]][WIDX[b]];
+const FACT = [1, 1, 2, 6, 24, 120];
+const DECIDE = {
+  location_order: 'Takes the next location in alphabetical order, wherever it is.',
+  nearest_neighbour: 'Takes the closest stop it still needs.',
+  optimal: 'Takes the stop that leads to the shortest possible finish. It checks every remaining route to know.',
+  sshape: 'Takes the next aisle in its fixed sweep and walks each aisle end to end.',
+  return: 'Takes the next aisle in its fixed sweep, going in and back out the same end.',
+  midpoint: 'Front halves of the aisles first, then the back halves, block by block.',
+  largest_gap: 'Like midpoint, but each aisle is split at its largest empty stretch.',
+  combined: 'Takes the next aisle in its fixed sweep, choosing through or in-and-back per aisle.',
+  rl_agent: 'Scores every stop it still needs with its trained network and takes the highest. It does not check the remaining routes.',
+};
+let wm = 'nearest_neighbour', wk = 0;
+
+function bestFinish(cur, rem) {
+  if (!rem.length) return wd(cur, 'DEPOT');
+  let best = Infinity;
+  rem.forEach(n => { const v = wd(cur, n) + bestFinish(n, rem.filter(x => x !== n)); if (v < best) best = v; });
+  return best;
+}
+function allTours() {
+  const out = [];
+  const go = (seq, rem) => {
+    if (!rem.length) {
+      let t = 0, p = 'DEPOT';
+      seq.forEach(n => { t += wd(p, n); p = n; });
+      out.push({ seq, t: t + wd(p, 'DEPOT') });
+      return;
+    }
+    rem.forEach(n => go([...seq, n], rem.filter(x => x !== n)));
+  };
+  go([], W.stops);
+  return out.sort((a, b) => a.t - b.t);
+}
+const TOURS = allTours();
+
+(function wInit() {
+  $('wlede').textContent = `Order ${W.so_no} (${W.date}) has ${W.n_lines} lines at 5 stops, four on the ground floor and one upstairs. ` +
+    `5 stops can be visited in 5 × 4 × 3 × 2 × 1 = 120 different orders, from ${fmt(TOURS[0].t)} m to ${fmt(TOURS[TOURS.length - 1].t)} m. ` +
+    `No method lists all 120. Each one makes 5 decisions, and every decision removes one factor from the equation. ` +
+    `Step through to see what each method chooses at each decision and why.`;
+  $('wgroups').innerHTML = GROUPS.map(([label, ms]) => `
+    <div class="group"><span class="group-label">${label}</span><div class="tabs" role="tablist">
+      ${ms.map(m => `<button class="tab" role="tab" data-wm="${m}" aria-selected="false">${META[m].short}<span class="d">${fmt(W.methods[m].dist_m)} m</span></button>`).join('')}
+    </div></div>`).join('');
+  document.querySelectorAll('[data-wm]').forEach(b => b.addEventListener('click', () => { wm = b.dataset.wm; wRender(); }));
+  const labels = ['Start', 'Decision 1', 'Decision 2', 'Decision 3', 'Decision 4', 'Decision 5', 'Back at depot'];
+  $('wstep').innerHTML = `<button type="button" id="wprev">◀ Previous</button>` +
+    labels.map((l, i) => `<button type="button" class="dotbtn" data-k="${i}">${i === 0 ? 'Start' : i === 6 ? 'Depot' : i}</button>`).join('') +
+    `<button type="button" id="wnext" class="primary">Next ▶</button>`;
+  $('wprev').addEventListener('click', () => { if (wk > 0) { wk--; wRender(); } });
+  $('wnext').addEventListener('click', () => { if (wk < 6) { wk++; wRender(); } });
+  document.querySelectorAll('#wstep .dotbtn').forEach(b => b.addEventListener('click', () => { wk = Number(b.dataset.k); wRender(); }));
+  $('walk5').addEventListener('keydown', e => {
+    if (e.target.closest('button') && !['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    if (e.key === 'ArrowRight' && wk < 6) { wk++; wRender(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft' && wk > 0) { wk--; wRender(); e.preventDefault(); }
+  });
+})();
+
+function wxy(id) { const n = W.nodes[id] || D.map.nodes[id]; return [n[0] + (n[2] === 'M' ? 880 : 0), n[1], n[2]]; }
+
+function wRender() {
+  const R = W.methods[wm], order = R.order;
+  document.querySelectorAll('[data-wm]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.wm === wm)));
+  document.querySelectorAll('#wstep .dotbtn').forEach(b => b.setAttribute('aria-current', Number(b.dataset.k) === wk ? 'step' : 'false'));
+  $('wprev').disabled = wk === 0; $('wnext').disabled = wk === 6;
+  $('wrule').innerHTML = `<b style="color:var(--fg)">${META[wm].name}:</b> ${DECIDE[wm]}`;
+
+  const visited = order.slice(0, Math.min(wk, 5));
+  const cur = wk === 0 || wk === 6 ? 'DEPOT' : order[wk - 1];
+  const rem = W.stops.filter(n => !visited.includes(n));
+  const walked = R.leg_m.slice(0, wk).reduce((a, b) => a + b, 0);
+
+  // equation tiles
+  let eq = '';
+  [5, 4, 3, 2, 1].forEach((f, i) => {
+    const cls = i < Math.min(wk, 5) ? 'done' : i === wk ? 'now' : '';
+    const cap = i < Math.min(wk, 5) ? `→ ${wShort(order[i])}` : i === wk ? `decision ${i + 1} · now` : `decision ${i + 1}`;
+    eq += (i ? '<span class="x">×</span>' : '') + `<div class="tile ${cls}"><span class="f">${f}</span><span class="c">${cap}</span></div>`;
+  });
+  $('weq').innerHTML = eq;
+  if (wk < 5) {
+    const left = [5, 4, 3, 2, 1].slice(wk);
+    $('wres').innerHTML = `<b>${FACT[5 - wk]}</b>${wk === 0 ? 'possible routes' : 'routes still possible from here'} = ${left.join(' × ')}` +
+      (wk === 4 ? ' · the last stop is forced' : '');
+  } else if (wk === 5) {
+    $('wres').innerHTML = `<b>1</b>route left: all 5 stops picked, the walk back to the depot is automatic`;
+  } else {
+    $('wres').innerHTML = `<b>${fmt(R.dist_m)} m</b>trip complete · ${R.dist_m - TOURS[0].t < .05 ? 'the shortest of the 120 routes' : `+${fmt(100 * (R.dist_m / TOURS[0].t - 1))}% above the shortest route (${fmt(TOURS[0].t)} m)`}`;
+  }
+
+  // map
+  const svg = $('wsvg'); svg.innerHTML = '';
+  const gG = drawBase(svg, 'G', 0, true), gM = drawBase(svg, 'M', 880, true);
+  [['Ground floor', 0], ['Mezzanine', 880]].forEach(([t, x]) => {
+    const e = el('text', { x: x + 4, y: -16, fill: 'var(--muted)', 'font-size': 22, 'font-weight': 600, 'font-family': 'Barlow Condensed, sans-serif', 'letter-spacing': '2' }, svg);
+    e.textContent = t.toUpperCase();
+  });
+  const layer = el('g', {}, svg);
+  const drawLeg = (leg, style) => {
+    for (let i = 1; i < leg.length; i++) {
+      const a = wxy(leg[i - 1]), b = wxy(leg[i]);
+      if (a[2] !== b[2]) continue;
+      const attrs = { x1: a[0], y1: a[1], x2: b[0], y2: b[1], 'stroke-linecap': 'round' };
+      if (style === 'next') Object.assign(attrs, { stroke: 'var(--amber)', 'stroke-width': 7, 'stroke-dasharray': '4 12' });
+      else Object.assign(attrs, { stroke: a[2] === 'G' ? 'var(--red)' : 'var(--blue)', 'stroke-width': 8, opacity: .55 });
+      el('line', attrs, layer);
+    }
+  };
+  R.legs.slice(0, wk).forEach(l => drawLeg(l, 'done'));
+  if (wk < 6) drawLeg(R.legs[wk], 'next');
+  const dp = wxy('DEPOT');
+  el('circle', { cx: dp[0], cy: dp[1], r: 14, fill: 'var(--green)' }, layer);
+  const dt = el('text', { x: dp[0] + 6, y: dp[1] + 36, fill: 'var(--green)', 'font-size': 20, 'font-weight': 600, 'font-family': 'Barlow Condensed, sans-serif' }, layer);
+  dt.textContent = 'DEPOT';
+  const nextStop = wk < 5 ? order[wk] : null;
+  W.stops.forEach(n => {
+    const [x, y, f] = wxy(n);
+    const vi = visited.indexOf(n);
+    const g = el('g', {}, layer);
+    if (vi >= 0) {
+      el('circle', { cx: x, cy: y, r: 17, fill: f === 'G' ? 'var(--red)' : 'var(--blue)', stroke: 'var(--bg)', 'stroke-width': 3 }, g);
+      const t = el('text', { x, y: y + 1, 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: '#fff', 'font-size': 18, 'font-weight': 600, 'font-family': 'IBM Plex Mono, monospace' }, g);
+      t.textContent = vi + 1;
+    } else {
+      el('circle', { cx: x, cy: y, r: n === nextStop ? 20 : 16, fill: n === nextStop ? 'var(--amber)' : 'var(--panel)', stroke: 'var(--amber)', 'stroke-width': 4 }, g);
+    }
+    const lab = el('text', { x: x + 24, y: y + 7, fill: 'var(--fg)', 'font-size': 21, 'font-weight': 500, 'font-family': 'IBM Plex Mono, monospace',
+      'paint-order': 'stroke', stroke: 'var(--bg)', 'stroke-width': 5 }, g);
+    lab.textContent = wShort(n);
+  });
+  const cp = wxy(cur);
+  el('circle', { cx: cp[0], cy: cp[1], r: 10, fill: 'var(--fg)', stroke: 'var(--bg)', 'stroke-width': 4 }, layer);
+
+  // decision card
+  let h = '';
+  if (wk < 5) {
+    const bestNext = Math.min(...rem.map(n => walked + wd(cur, n) + bestFinish(n, rem.filter(x => x !== n))));
+    h += `<span class="eyebrow">Decision ${wk + 1} of 5</span>
+      <h3>At ${wLab(cur)} · ${rem.length} stop${rem.length > 1 ? 's' : ''} still needed → ${rem.length} choice${rem.length > 1 ? 's' : ''}</h3>
+      <div style="overflow-x:auto"><table class="opts"><thead><tr><th>Stop</th><th class="num">From here</th><th class="num">Best trip if next</th></tr></thead><tbody>`;
+    rem.slice().sort((a, b) => wd(cur, a) - wd(cur, b)).forEach(n => {
+      const bf = walked + wd(cur, n) + bestFinish(n, rem.filter(x => x !== n));
+      h += `<tr class="${n === nextStop ? 'pick' : ''}"><td>${wLab(n)}${n.startsWith('MZ') ? ' <span class="muted">(upstairs)</span>' : ''}` +
+        `${n === nextStop ? '<span class="tag ch">chosen</span>' : ''}${bf - bestNext < .05 ? '<span class="tag best">shortest finish</span>' : ''}</td>` +
+        `<td class="num">${fmt(wd(cur, n))} m</td><td class="num">${fmt(bf)} m</td></tr>`;
+    });
+    h += `</tbody></table></div>`;
+    // why
+    const dmin = Math.min(...rem.map(n => wd(cur, n)));
+    const closest = rem.find(n => wd(cur, n) === dmin);
+    let why;
+    if (wm === 'nearest_neighbour') why = `It is the closest stop (${fmt(wd(cur, nextStop))} m).`;
+    else if (wm === 'location_order') why = `${W.locs[nextStop][0]} comes first alphabetically among the stops left.`;
+    else if (wm === 'optimal') why = `Going there next still allows the shortest trip of all 120, ${fmt(TOURS[0].t)} m.`;
+    else if (wm === 'rl_agent') why = `Its trained network gave this stop the highest score.`;
+    else why = `It is the next stop in this rule’s aisle order.`;
+    if (wm !== 'nearest_neighbour' && nextStop !== closest && rem.length > 1)
+      why += wm === 'rl_agent' ? ` The closest stop is ${wShort(closest)} (${fmt(dmin)} m), but the network judged this one better for the whole trip.`
+                               : ` The closest stop is ${wShort(closest)} (${fmt(dmin)} m), but this rule does not look at that.`;
+    const bfChosen = walked + wd(cur, nextStop) + bestFinish(nextStop, rem.filter(x => x !== nextStop));
+    if (rem.length > 1 && bfChosen - bestNext > 0.05)
+      why += ` After this choice the shortest trip still possible is ${fmt(bfChosen)} m, against ${fmt(bestNext)} m with the best choice: ${fmt(bfChosen - bestNext)} m is lost here.`;
+    if (wm === 'optimal' && nextStop !== closest && rem.length > 1) why = why.replace(', but this rule does not look at that', '; skipping it now saves walking later');
+    const legM = R.leg_m[wk], sp = wd(cur, nextStop);
+    if (legM - sp > 0.5) why += ` The rule walks ${fmt(legM)} m to get there, ${fmt(legM - sp)} m more than the shortest path, because it follows its aisle pattern.`;
+    h += `<p class="why">${why}</p>`;
+    h += `<p class="muted">After this move: ${fmt(walked + legM)} m walked, ${rem.length - 1 ? `${FACT[rem.length - 1]} route${FACT[rem.length - 1] > 1 ? 's' : ''} still possible.` : 'only the walk back is left.'}</p>`;
+  } else if (wk === 5) {
+    h += `<span class="eyebrow">No decision left</span><h3>All 5 stops picked at ${wLab(cur)}</h3>
+      <p>The walk back to the depot is automatic: ${fmt(R.leg_m[5])} m${R.leg_stairs[5] ? ', including the stairs down' : ''}.</p>
+      <p class="muted">Walked so far: ${fmt(walked)} m.</p>`;
+  } else {
+    const sameOrder = TOURS.find(t => t.seq.join() === order.join()).t;
+    const rank = TOURS.filter(t => t.t < sameOrder - 0.01).length + 1;   // ties (e.g. a route and its mirror) share a rank
+    h += `<span class="eyebrow">Trip complete</span><h3>${META[wm].name}: ${fmt(R.dist_m)} m</h3>
+      <p>Visit order: ${order.map(wShort).join(' → ')}.</p>
+      <p>Among the 120 possible visit orders, this one ranks <b>#${rank}</b> by length (1 = shortest; a route and its reverse are equally long).</p>
+      ${R.dist_m - sameOrder > .5 ? `<p class="muted">Walking the same visit order by the shortest paths would take ${fmt(sameOrder)} m. The extra ${fmt(R.dist_m - sameOrder)} m comes from the rule’s aisle pattern.</p>` : ''}
+      <p class="muted">Shortest possible: ${fmt(TOURS[0].t)} m · longest: ${fmt(TOURS[TOURS.length - 1].t)} m.</p>`;
+  }
+  $('wcard').innerHTML = h;
+}
+wRender();
+
+let start = 'sshape';
+try { const s = localStorage.getItem('f4-baseline-method'); if (s && D.methods[s]) start = s; } catch (e) {}
+select(start);
+</script>
+
+</body></html>

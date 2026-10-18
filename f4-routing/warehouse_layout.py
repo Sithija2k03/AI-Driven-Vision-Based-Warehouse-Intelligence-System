@@ -5,7 +5,7 @@ Single source of truth for the physical layout. Edit THIS file to correct
 the model; location_mapper.py and build_warehouse_graph.py read from it.
 
 Coordinates are canvas pixels from warehouse_editor_v3 (860 x 780 px
-~ 60 m x 55 m). y grows downward (y=0 is the top/north wall).
+= 40 m x 30 m). y grows downward (y=0 is the top/north wall).
 
 Core idea
 ---------
@@ -79,7 +79,8 @@ STAIR_PENALTY_M = stair_cost_m('')   # older name, kept so earlier scripts still
 EXCLUDED_SECTIONS = {
     'TF', '2F', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF',   # separate 2nd floor
     '1F', '3F',                                        # other floors (Stock Report)
-    'F', 'H', 'Y', 'AG',                               # position unknown
+    'Y', 'AG',                                         # position unknown
+    # F (over E) and H (mezzanine over G-1..12) added 2026-10-18 — now routable
     'OSL', 'NEW',                                      # no fixed location
 }
 
@@ -93,8 +94,8 @@ WALKWAYS = {
     'W1':  ('G', [(170, 0), (170, 362)]),     # B/C rack  |  A
     'W2':  ('G', [(302, 0), (302, 362)]),     # D  |  E
     'W3':  ('G', [(442, 0), (442, 362)]),     # R/Q/P  |  X-3 island (west face)
-    'NX':  ('G', [(442, 0), (642, 0)]),       # path north of X-3 island
-    'W4':  ('G', [(642, 0), (642, 570)]),     # X-3 east / X-6..9  |  O/N/M/L wall
+    'NX':  ('G', [(442, 35), (710, 35)]),     # north of X-3 island, under O-13..17 on the top wall
+    'W4':  ('G', [(642, 35), (642, 570)]),    # X-3 east / X-6..9  |  O/N/M/L wall
     'W5':  ('G', [(152, 362), (152, 570)]),   # G-25..30  |  G-19..24
     'W6':  ('G', [(285, 362), (285, 570)]),   # G-13..18  |  G-1..12
     'W7':  ('G', [(465, 362), (465, 570)]),   # T/U (ground)  |  X-2
@@ -107,10 +108,12 @@ WALKWAYS = {
     'MZS':  ('M', [(385, 340), (385, 0)]),    # over E/R: S
     'MZX5': ('M', [(545, 340), (545, 120)]),  # over X-3: X-5
     'MZV4': ('M', [(232, 340), (250, 470)]),  # over G-13..G-29 rack: V-4 (via SC1)
+    'MZH':  ('M', [(232, 340), (300, 385), (300, 555)]),  # H mezz over G-1..12; links SC1 deck to SC2 deck (MZ2)
     'MZ2':  ('M', [(97, 555), (465, 555)]),   # lower mezz (SC2)
     'MZTU': ('M', [(465, 555), (465, 385)]),  # T/U top row  |  X-4
     'MZZ':  ('M', [(97, 555), (97, 750), (765, 750)]),  # Z over J/K
-    'MZW':  ('M', [(672, 555), (785, 555), (785, 0)]),  # W (via SC3)
+    'MZW':  ('M', [(672, 555), (785, 555), (785, 0)]),  # W (via SC3 only)
+    'MZX5W': ('M', [(785, 180), (620, 180)]),  # from the W mezz to the edge of X-3: X-5 picked from above
 }
 
 # Staircases: ground foot point -> mezzanine top point
@@ -125,10 +128,10 @@ STAIRS = {
 DEPOT_XY   = (0, 362)
 ROUTE_START = ROUTE_END = 'DEPOT'
 
-# Door between X-5 and O-13 leading to the 2nd floor (TF, 2F, AA-AF).
-# Kept in the graph for later, but NOT used for routing while those
-# sections are excluded.
-DOOR_2F_XY = (642, 0)
+# Door to the 2nd floor (TF, 2F, AA-AF), where W3 meets NX at the top-left
+# corner of the X-3 island (Sithija, 2026-10-18). Kept in the graph for
+# later, but NOT used for routing while those sections are excluded.
+DOOR_2F_XY = (442, 35)
 
 # ---------------------------------------------------------------------------
 # RACKS
@@ -158,6 +161,12 @@ RACKS = [
          line=((255, 340), (255, 0)), levels=0, floor='G'),
     dict(id='E',  section='E', slots=(1, 27), pattern='col2', walkway='W2',
          line=((342, 340), (342, 0)), levels=0, floor='G'),
+    # F sits on top of E (like C on B): two racks, F-1..22 above E (levels 3-4)
+    # and F-23..44 above that (levels 5-6), each spread over E's full length.
+    dict(id='F1', section='F', slots=(1, 22), pattern='col2', walkway='W2',
+         line=((342, 340), (342, 0)), levels=2, floor='G'),
+    dict(id='F2', section='F', slots=(23, 44), pattern='col2', walkway='W2',
+         line=((342, 340), (342, 0)), levels=4, floor='G'),
     # ---- Walkway W3: R/Q/P (one line, back of E) | X-3 island --------------
     dict(id='R',  section='R', slots=(1, 18), pattern='col2', walkway='W3',
          line=((390, 185), (390, 0)), levels=0, floor='G'),
@@ -169,11 +178,13 @@ RACKS = [
     dict(id='X3', section='X', slots=(3, 3), pattern='single', walkway='W3',
          line=((545, 120), (545, 120)), levels=0, floor='G',
          extra_access=['W4', 'NX', 'MX']),
+    # ---- Top wall: O-13..17 runs above the X-3 island to the right wall -----
+    #      picked from NX; column 1 (O-13/14) at the left end, by the door
+    dict(id='O_hi', section='O', slots=(13, 17), pattern='col2', walkway='NX',
+         line=((470, 12), (760, 12)), levels=0, floor='G'),
     # ---- Walkway W4: right wall O/N/M/L (no access behind) ----------------
-    dict(id='O_hi', section='O', slots=(13, 17), pattern='col2', walkway='W4',
-         line=((665, 20), (715, 20)), levels=0, floor='G'),
     dict(id='O',  section='O', slots=(1, 12), pattern='col2', walkway='W4',
-         line=((740, 170), (740, 0)), levels=0, floor='G'),
+         line=((740, 170), (740, 40)), levels=0, floor='G'),
     dict(id='N',  section='N', slots=(1, 12), pattern='col2', walkway='W4',
          line=((740, 290), (740, 175)), levels=0, floor='G'),
     dict(id='M',  section='M', slots=(1, 12), pattern='col2', walkway='W4',
@@ -215,10 +226,13 @@ RACKS = [
          line=((257, 300), (257, 40)), levels=0, floor='M'),
     dict(id='V4', section='V', slots=(4, 4), pattern='single', walkway='MZV4',
          line=((250, 470), (250, 470)), levels=0, floor='M'),
+    dict(id='H',  section='H', slots=(1, 10), pattern='col2', walkway='MZH',
+         line=((345, 385), (345, 560)), levels=0, floor='M'),
     dict(id='S',  section='S', slots=(1, 9), pattern='col2', walkway='MZS',
          line=((385, 340), (385, 0)), levels=0, floor='M'),
     dict(id='X5', section='X', slots=(5, 5), pattern='single', walkway='MZX5',
-         line=((545, 180), (545, 180)), levels=0, floor='M'),
+         line=((545, 180), (545, 180)), levels=0, floor='M',
+         extra_access=['MZX5W']),   # also from the W mezzanine (SC3)
     dict(id='X4', section='X', slots=(4, 4), pattern='single', walkway='MZTU',
          line=((532, 472), (532, 472)), levels=0, floor='M'),
     dict(id='T_hi', section='T', slots=(4, 8), pattern='row3', walkway='MZTU',
@@ -249,7 +263,18 @@ ASSUMPTIONS = [
     '(as on the v3 map). G-30 exists in the stock file.',
     'A3: B-36 exists in the stock file (15 SKUs) although B was described as 1-35; '
     'it is kept as the bottom of column 18.',
-    'A4: Mezzanine walkways are approximate straight paths from the stair landing; '
-    'V-4 (on top of the G-13..G-29 rack) is reached via SC1.',
+    'A4: Mezzanine walkways are approximate straight paths from the stair landing. '
+    'The SC1 and SC2 mezzanines are one connected deck (joined over G-1..G-12), so every '
+    'mezzanine location in that area can be reached from either staircase and the router '
+    'uses whichever is shorter. SC3 leads only to W, plus X-5, which can be picked from the '
+    'W mezzanine as well as from the SC1 side (Sithija, 2026-10-18).',
     'A5: T/U top row, T-7/T-8, U-7..U-10 and X-4 are on the mezzanine via SC2.',
+    'A6: F sits on top of E as two racks: F-1..F-22 directly above E (levels 3-4) and '
+    'F-23..F-44 above that (levels 5-6); each runs the full length of E, column 1 at the '
+    'main-aisle end. F-25 and F-29 have no stock.',
+    'A7: H-1..H-10 are on a mezzanine over G-1..G-12; its walkway runs along the west side '
+    'of H (above walkway W6) from the SC1 landing down to the SC2 deck, column 1 at the '
+    'main-aisle end.',
+    'A8: O-13..O-17 run along the top wall from above the X-3 island to the right wall, '
+    'picked from NX; O-13/O-14 at the left end by the 2nd-floor door.',
 ]

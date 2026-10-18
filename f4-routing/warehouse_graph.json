@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Fine Enterprises warehouse — F4 RL routing graph (v2, walkway-based)",
-    "scale": "0.0698 m/px (canvas 860x780 px ~ 60m x 55m)",
+    "scale": "warehouse 40 m x 30 m on an 860x780 px canvas (0.0465 m/px across, 0.0385 m/px down)",
     "route_rule": "Every pick tour starts at DEPOT and returns to DEPOT (handover to checkers).",
     "route_start": "DEPOT",
     "route_end": "DEPOT",
@@ -12,13 +12,14 @@
     "edge_types": {
       "walk": "Walking along a ground-floor walkway between neighbouring stand-points (m)",
       "mezz_walk": "Walking on the mezzanine (m, approximate)",
-      "stair": "Staircase ground <-> mezzanine (fixed 12.0 m penalty)"
+      "stair": "Staircase ground <-> mezzanine (3.5 m per trip, effort factor 1.0)"
     },
-    "stair_penalty_m": 12.0,
-    "node_count": 240,
-    "pick_node_count": 204,
-    "edge_count_undirected": 244,
-    "avg_edge_weight_m": 2.51,
+    "stair_length_m": 3.5,
+    "stair_effort_factor": 1.0,
+    "node_count": 262,
+    "pick_node_count": 222,
+    "edge_count_undirected": 267,
+    "avg_edge_weight_m": 1.42,
     "unreachable_nodes": [],
     "excluded_sections": [
       "1F",
@@ -31,8 +32,6 @@
       "AE",
       "AF",
       "AG",
-      "F",
-      "H",
       "NEW",
       "OSL",
       "TF",
@@ -42,8 +41,11 @@
       "A1: Column 1 of each rack is at the end nearest the main cross aisle (south end in the top cluster, north end in the bottom cluster). Horizontal racks (J, K, Z) start at the west/left end.",
       "A2: G-25..G-30 sit against the left wall facing G-19..G-24 across walkway W5 (as on the v3 map). G-30 exists in the stock file.",
       "A3: B-36 exists in the stock file (15 SKUs) although B was described as 1-35; it is kept as the bottom of column 18.",
-      "A4: Mezzanine walkways are approximate straight paths from the stair landing; V-4 (on top of the G-13..G-29 rack) is reached via SC1.",
-      "A5: T/U top row, T-7/T-8, U-7..U-10 and X-4 are on the mezzanine via SC2."
+      "A4: Mezzanine walkways are approximate straight paths from the stair landing. The SC1 and SC2 mezzanines are one connected deck (joined over G-1..G-12), so every mezzanine location in that area can be reached from either staircase and the router uses whichever is shorter. SC3 leads only to W, plus X-5, which can be picked from the W mezzanine as well as from the SC1 side (Sithija, 2026-10-18).",
+      "A5: T/U top row, T-7/T-8, U-7..U-10 and X-4 are on the mezzanine via SC2.",
+      "A6: F sits on top of E as two racks: F-1..F-22 directly above E (levels 3-4) and F-23..F-44 above that (levels 5-6); each runs the full length of E, column 1 at the main-aisle end. F-25 and F-29 have no stock.",
+      "A7: H-1..H-10 are on a mezzanine over G-1..G-12; its walkway runs along the west side of H (above walkway W6) from the SC1 landing down to the SC2 deck, column 1 at the main-aisle end.",
+      "A8: O-13..O-17 run along the top wall from above the X-3 island to the right wall, picked from NX; O-13/O-14 at the left end by the 2nd-floor door."
     ]
   },
   "nodes": {
@@ -690,6 +692,21 @@
       "node_id": "W2-04",
       "floor": "G",
       "x": 302.0,
+      "y": 15.5,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-21",
+        "F-22",
+        "F-43",
+        "F-44"
+      ]
+    },
+    "W2-05": {
+      "node_id": "W2-05",
+      "floor": "G",
+      "x": 302.0,
       "y": 30.0,
       "walkways": [
         "W2"
@@ -699,8 +716,8 @@
         "D-32"
       ]
     },
-    "W2-05": {
-      "node_id": "W2-05",
+    "W2-06": {
+      "node_id": "W2-06",
       "floor": "G",
       "x": 302.0,
       "y": 36.4,
@@ -712,8 +729,23 @@
         "E-26"
       ]
     },
-    "W2-06": {
-      "node_id": "W2-06",
+    "W2-07": {
+      "node_id": "W2-07",
+      "floor": "G",
+      "x": 302.0,
+      "y": 46.4,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-19",
+        "F-20",
+        "F-41",
+        "F-42"
+      ]
+    },
+    "W2-08": {
+      "node_id": "W2-08",
       "floor": "G",
       "x": 302.0,
       "y": 50.0,
@@ -725,8 +757,8 @@
         "D-30"
       ]
     },
-    "W2-07": {
-      "node_id": "W2-07",
+    "W2-09": {
+      "node_id": "W2-09",
       "floor": "G",
       "x": 302.0,
       "y": 60.7,
@@ -738,8 +770,8 @@
         "E-24"
       ]
     },
-    "W2-08": {
-      "node_id": "W2-08",
+    "W2-10": {
+      "node_id": "W2-10",
       "floor": "G",
       "x": 302.0,
       "y": 70.0,
@@ -751,8 +783,23 @@
         "D-28"
       ]
     },
-    "W2-09": {
-      "node_id": "W2-09",
+    "W2-11": {
+      "node_id": "W2-11",
+      "floor": "G",
+      "x": 302.0,
+      "y": 77.3,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-17",
+        "F-18",
+        "F-39",
+        "F-40"
+      ]
+    },
+    "W2-12": {
+      "node_id": "W2-12",
       "floor": "G",
       "x": 302.0,
       "y": 85.0,
@@ -764,8 +811,8 @@
         "E-22"
       ]
     },
-    "W2-10": {
-      "node_id": "W2-10",
+    "W2-13": {
+      "node_id": "W2-13",
       "floor": "G",
       "x": 302.0,
       "y": 90.0,
@@ -777,8 +824,23 @@
         "D-26"
       ]
     },
-    "W2-11": {
-      "node_id": "W2-11",
+    "W2-14": {
+      "node_id": "W2-14",
+      "floor": "G",
+      "x": 302.0,
+      "y": 108.2,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-15",
+        "F-16",
+        "F-37",
+        "F-38"
+      ]
+    },
+    "W2-15": {
+      "node_id": "W2-15",
       "floor": "G",
       "x": 302.0,
       "y": 109.3,
@@ -790,8 +852,8 @@
         "E-20"
       ]
     },
-    "W2-12": {
-      "node_id": "W2-12",
+    "W2-16": {
+      "node_id": "W2-16",
       "floor": "G",
       "x": 302.0,
       "y": 110.0,
@@ -803,8 +865,8 @@
         "D-24"
       ]
     },
-    "W2-13": {
-      "node_id": "W2-13",
+    "W2-17": {
+      "node_id": "W2-17",
       "floor": "G",
       "x": 302.0,
       "y": 130.0,
@@ -816,8 +878,8 @@
         "D-22"
       ]
     },
-    "W2-14": {
-      "node_id": "W2-14",
+    "W2-18": {
+      "node_id": "W2-18",
       "floor": "G",
       "x": 302.0,
       "y": 133.6,
@@ -829,8 +891,23 @@
         "E-18"
       ]
     },
-    "W2-15": {
-      "node_id": "W2-15",
+    "W2-19": {
+      "node_id": "W2-19",
+      "floor": "G",
+      "x": 302.0,
+      "y": 139.1,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-13",
+        "F-14",
+        "F-35",
+        "F-36"
+      ]
+    },
+    "W2-20": {
+      "node_id": "W2-20",
       "floor": "G",
       "x": 302.0,
       "y": 150.0,
@@ -842,8 +919,8 @@
         "D-20"
       ]
     },
-    "W2-16": {
-      "node_id": "W2-16",
+    "W2-21": {
+      "node_id": "W2-21",
       "floor": "G",
       "x": 302.0,
       "y": 157.9,
@@ -855,8 +932,8 @@
         "E-16"
       ]
     },
-    "W2-17": {
-      "node_id": "W2-17",
+    "W2-22": {
+      "node_id": "W2-22",
       "floor": "G",
       "x": 302.0,
       "y": 170.0,
@@ -865,11 +942,15 @@
       ],
       "pick_slots": [
         "D-17",
-        "D-18"
+        "D-18",
+        "F-11",
+        "F-12",
+        "F-33",
+        "F-34"
       ]
     },
-    "W2-18": {
-      "node_id": "W2-18",
+    "W2-23": {
+      "node_id": "W2-23",
       "floor": "G",
       "x": 302.0,
       "y": 182.1,
@@ -881,8 +962,8 @@
         "E-14"
       ]
     },
-    "W2-19": {
-      "node_id": "W2-19",
+    "W2-24": {
+      "node_id": "W2-24",
       "floor": "G",
       "x": 302.0,
       "y": 190.0,
@@ -894,8 +975,23 @@
         "D-16"
       ]
     },
-    "W2-20": {
-      "node_id": "W2-20",
+    "W2-25": {
+      "node_id": "W2-25",
+      "floor": "G",
+      "x": 302.0,
+      "y": 200.9,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-09",
+        "F-10",
+        "F-31",
+        "F-32"
+      ]
+    },
+    "W2-26": {
+      "node_id": "W2-26",
       "floor": "G",
       "x": 302.0,
       "y": 206.4,
@@ -907,8 +1003,8 @@
         "E-12"
       ]
     },
-    "W2-21": {
-      "node_id": "W2-21",
+    "W2-27": {
+      "node_id": "W2-27",
       "floor": "G",
       "x": 302.0,
       "y": 210.0,
@@ -920,8 +1016,8 @@
         "D-14"
       ]
     },
-    "W2-22": {
-      "node_id": "W2-22",
+    "W2-28": {
+      "node_id": "W2-28",
       "floor": "G",
       "x": 302.0,
       "y": 230.0,
@@ -933,8 +1029,8 @@
         "D-12"
       ]
     },
-    "W2-23": {
-      "node_id": "W2-23",
+    "W2-29": {
+      "node_id": "W2-29",
       "floor": "G",
       "x": 302.0,
       "y": 230.7,
@@ -946,8 +1042,23 @@
         "E-10"
       ]
     },
-    "W2-24": {
-      "node_id": "W2-24",
+    "W2-30": {
+      "node_id": "W2-30",
+      "floor": "G",
+      "x": 302.0,
+      "y": 231.8,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-07",
+        "F-08",
+        "F-29",
+        "F-30"
+      ]
+    },
+    "W2-31": {
+      "node_id": "W2-31",
       "floor": "G",
       "x": 302.0,
       "y": 250.0,
@@ -959,8 +1070,8 @@
         "D-10"
       ]
     },
-    "W2-25": {
-      "node_id": "W2-25",
+    "W2-32": {
+      "node_id": "W2-32",
       "floor": "G",
       "x": 302.0,
       "y": 255.0,
@@ -972,8 +1083,23 @@
         "E-08"
       ]
     },
-    "W2-26": {
-      "node_id": "W2-26",
+    "W2-33": {
+      "node_id": "W2-33",
+      "floor": "G",
+      "x": 302.0,
+      "y": 262.7,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-05",
+        "F-06",
+        "F-27",
+        "F-28"
+      ]
+    },
+    "W2-34": {
+      "node_id": "W2-34",
       "floor": "G",
       "x": 302.0,
       "y": 270.0,
@@ -985,8 +1111,8 @@
         "D-08"
       ]
     },
-    "W2-27": {
-      "node_id": "W2-27",
+    "W2-35": {
+      "node_id": "W2-35",
       "floor": "G",
       "x": 302.0,
       "y": 279.3,
@@ -998,8 +1124,8 @@
         "E-06"
       ]
     },
-    "W2-28": {
-      "node_id": "W2-28",
+    "W2-36": {
+      "node_id": "W2-36",
       "floor": "G",
       "x": 302.0,
       "y": 290.0,
@@ -1011,8 +1137,23 @@
         "D-06"
       ]
     },
-    "W2-29": {
-      "node_id": "W2-29",
+    "W2-37": {
+      "node_id": "W2-37",
+      "floor": "G",
+      "x": 302.0,
+      "y": 293.6,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-03",
+        "F-04",
+        "F-25",
+        "F-26"
+      ]
+    },
+    "W2-38": {
+      "node_id": "W2-38",
       "floor": "G",
       "x": 302.0,
       "y": 303.6,
@@ -1024,8 +1165,8 @@
         "E-04"
       ]
     },
-    "W2-30": {
-      "node_id": "W2-30",
+    "W2-39": {
+      "node_id": "W2-39",
       "floor": "G",
       "x": 302.0,
       "y": 310.0,
@@ -1037,8 +1178,23 @@
         "D-04"
       ]
     },
-    "W2-31": {
-      "node_id": "W2-31",
+    "W2-40": {
+      "node_id": "W2-40",
+      "floor": "G",
+      "x": 302.0,
+      "y": 324.5,
+      "walkways": [
+        "W2"
+      ],
+      "pick_slots": [
+        "F-01",
+        "F-02",
+        "F-23",
+        "F-24"
+      ]
+    },
+    "W2-41": {
+      "node_id": "W2-41",
       "floor": "G",
       "x": 302.0,
       "y": 327.9,
@@ -1050,8 +1206,8 @@
         "E-02"
       ]
     },
-    "W2-32": {
-      "node_id": "W2-32",
+    "W2-42": {
+      "node_id": "W2-42",
       "floor": "G",
       "x": 302.0,
       "y": 330.0,
@@ -1069,8 +1225,7 @@
       "x": 442,
       "y": 0,
       "walkways": [
-        "W3",
-        "NX"
+        "W3"
       ],
       "pick_slots": []
     },
@@ -1099,6 +1254,17 @@
         "R-15",
         "R-16"
       ]
+    },
+    "DOOR_2F": {
+      "node_id": "DOOR_2F",
+      "floor": "G",
+      "x": 442,
+      "y": 35,
+      "walkways": [
+        "W3",
+        "NX"
+      ],
+      "pick_slots": []
     },
     "W3-04": {
       "node_id": "W3-04",
@@ -1282,8 +1448,21 @@
     "NX-01": {
       "node_id": "NX-01",
       "floor": "G",
+      "x": 518.3,
+      "y": 35.0,
+      "walkways": [
+        "NX"
+      ],
+      "pick_slots": [
+        "O-13",
+        "O-14"
+      ]
+    },
+    "NX-02": {
+      "node_id": "NX-02",
+      "floor": "G",
       "x": 545.0,
-      "y": 0.0,
+      "y": 35.0,
       "walkways": [
         "NX"
       ],
@@ -1291,22 +1470,47 @@
         "X-03"
       ]
     },
-    "DOOR_2F": {
-      "node_id": "DOOR_2F",
+    "NX-03": {
+      "node_id": "NX-03",
+      "floor": "G",
+      "x": 615.0,
+      "y": 35.0,
+      "walkways": [
+        "NX"
+      ],
+      "pick_slots": [
+        "O-15",
+        "O-16"
+      ]
+    },
+    "NX-04": {
+      "node_id": "NX-04",
       "floor": "G",
       "x": 642,
-      "y": 0,
+      "y": 35,
       "walkways": [
         "NX",
         "W4"
       ],
       "pick_slots": []
     },
+    "NX-05": {
+      "node_id": "NX-05",
+      "floor": "G",
+      "x": 710,
+      "y": 35,
+      "walkways": [
+        "NX"
+      ],
+      "pick_slots": [
+        "O-17"
+      ]
+    },
     "W4-01": {
       "node_id": "W4-01",
       "floor": "G",
       "x": 642.0,
-      "y": 14.2,
+      "y": 50.8,
       "walkways": [
         "W4"
       ],
@@ -1319,23 +1523,7 @@
       "node_id": "W4-02",
       "floor": "G",
       "x": 642.0,
-      "y": 20.0,
-      "walkways": [
-        "W4"
-      ],
-      "pick_slots": [
-        "O-13",
-        "O-14",
-        "O-15",
-        "O-16",
-        "O-17"
-      ]
-    },
-    "W4-03": {
-      "node_id": "W4-03",
-      "floor": "G",
-      "x": 642.0,
-      "y": 42.5,
+      "y": 72.5,
       "walkways": [
         "W4"
       ],
@@ -1344,11 +1532,11 @@
         "O-10"
       ]
     },
-    "W4-04": {
-      "node_id": "W4-04",
+    "W4-03": {
+      "node_id": "W4-03",
       "floor": "G",
       "x": 642.0,
-      "y": 70.8,
+      "y": 94.2,
       "walkways": [
         "W4"
       ],
@@ -1357,11 +1545,11 @@
         "O-08"
       ]
     },
-    "W4-05": {
-      "node_id": "W4-05",
+    "W4-04": {
+      "node_id": "W4-04",
       "floor": "G",
       "x": 642.0,
-      "y": 99.2,
+      "y": 115.8,
       "walkways": [
         "W4"
       ],
@@ -1370,8 +1558,8 @@
         "O-06"
       ]
     },
-    "W4-06": {
-      "node_id": "W4-06",
+    "W4-05": {
+      "node_id": "W4-05",
       "floor": "G",
       "x": 642.0,
       "y": 120.0,
@@ -1382,11 +1570,11 @@
         "X-03"
       ]
     },
-    "W4-07": {
-      "node_id": "W4-07",
+    "W4-06": {
+      "node_id": "W4-06",
       "floor": "G",
       "x": 642.0,
-      "y": 127.5,
+      "y": 137.5,
       "walkways": [
         "W4"
       ],
@@ -1395,11 +1583,11 @@
         "O-04"
       ]
     },
-    "W4-08": {
-      "node_id": "W4-08",
+    "W4-07": {
+      "node_id": "W4-07",
       "floor": "G",
       "x": 642.0,
-      "y": 155.8,
+      "y": 159.2,
       "walkways": [
         "W4"
       ],
@@ -1408,8 +1596,8 @@
         "O-02"
       ]
     },
-    "W4-09": {
-      "node_id": "W4-09",
+    "W4-08": {
+      "node_id": "W4-08",
       "floor": "G",
       "x": 642.0,
       "y": 184.6,
@@ -1421,8 +1609,8 @@
         "N-12"
       ]
     },
-    "W4-10": {
-      "node_id": "W4-10",
+    "W4-09": {
+      "node_id": "W4-09",
       "floor": "G",
       "x": 642.0,
       "y": 203.8,
@@ -1434,8 +1622,8 @@
         "N-10"
       ]
     },
-    "W4-11": {
-      "node_id": "W4-11",
+    "W4-10": {
+      "node_id": "W4-10",
       "floor": "G",
       "x": 642.0,
       "y": 222.9,
@@ -1447,8 +1635,8 @@
         "N-08"
       ]
     },
-    "W4-12": {
-      "node_id": "W4-12",
+    "W4-11": {
+      "node_id": "W4-11",
       "floor": "G",
       "x": 642.0,
       "y": 242.1,
@@ -1460,8 +1648,8 @@
         "N-06"
       ]
     },
-    "W4-13": {
-      "node_id": "W4-13",
+    "W4-12": {
+      "node_id": "W4-12",
       "floor": "G",
       "x": 642.0,
       "y": 261.2,
@@ -1473,8 +1661,8 @@
         "N-04"
       ]
     },
-    "W4-14": {
-      "node_id": "W4-14",
+    "W4-13": {
+      "node_id": "W4-13",
       "floor": "G",
       "x": 642.0,
       "y": 280.4,
@@ -1486,8 +1674,8 @@
         "N-02"
       ]
     },
-    "W4-15": {
-      "node_id": "W4-15",
+    "W4-14": {
+      "node_id": "W4-14",
       "floor": "G",
       "x": 642.0,
       "y": 306.7,
@@ -1499,8 +1687,8 @@
         "M-12"
       ]
     },
-    "W4-16": {
-      "node_id": "W4-16",
+    "W4-15": {
+      "node_id": "W4-15",
       "floor": "G",
       "x": 642.0,
       "y": 330.0,
@@ -1512,8 +1700,8 @@
         "M-10"
       ]
     },
-    "W4-17": {
-      "node_id": "W4-17",
+    "W4-16": {
+      "node_id": "W4-16",
       "floor": "G",
       "x": 642.0,
       "y": 353.3,
@@ -1525,8 +1713,8 @@
         "M-08"
       ]
     },
-    "W4-18": {
-      "node_id": "W4-18",
+    "W4-17": {
+      "node_id": "W4-17",
       "floor": "G",
       "x": 642.0,
       "y": 376.7,
@@ -1538,8 +1726,8 @@
         "M-06"
       ]
     },
-    "W4-19": {
-      "node_id": "W4-19",
+    "W4-18": {
+      "node_id": "W4-18",
       "floor": "G",
       "x": 642.0,
       "y": 400.0,
@@ -1551,8 +1739,8 @@
         "M-04"
       ]
     },
-    "W4-20": {
-      "node_id": "W4-20",
+    "W4-19": {
+      "node_id": "W4-19",
       "floor": "G",
       "x": 642.0,
       "y": 423.3,
@@ -1564,8 +1752,8 @@
         "M-02"
       ]
     },
-    "W4-21": {
-      "node_id": "W4-21",
+    "W4-20": {
+      "node_id": "W4-20",
       "floor": "G",
       "x": 642.0,
       "y": 449.2,
@@ -1577,8 +1765,8 @@
         "L-12"
       ]
     },
-    "W4-22": {
-      "node_id": "W4-22",
+    "W4-21": {
+      "node_id": "W4-21",
       "floor": "G",
       "x": 642.0,
       "y": 467.5,
@@ -1590,8 +1778,8 @@
         "L-10"
       ]
     },
-    "W4-23": {
-      "node_id": "W4-23",
+    "W4-22": {
+      "node_id": "W4-22",
       "floor": "G",
       "x": 642.0,
       "y": 472.0,
@@ -1605,8 +1793,8 @@
         "X-09"
       ]
     },
-    "W4-24": {
-      "node_id": "W4-24",
+    "W4-23": {
+      "node_id": "W4-23",
       "floor": "G",
       "x": 642.0,
       "y": 485.8,
@@ -1618,8 +1806,8 @@
         "L-08"
       ]
     },
-    "W4-25": {
-      "node_id": "W4-25",
+    "W4-24": {
+      "node_id": "W4-24",
       "floor": "G",
       "x": 642.0,
       "y": 504.2,
@@ -1631,8 +1819,8 @@
         "L-06"
       ]
     },
-    "W4-26": {
-      "node_id": "W4-26",
+    "W4-25": {
+      "node_id": "W4-25",
       "floor": "G",
       "x": 642.0,
       "y": 522.5,
@@ -1644,8 +1832,8 @@
         "L-04"
       ]
     },
-    "W4-27": {
-      "node_id": "W4-27",
+    "W4-26": {
+      "node_id": "W4-26",
       "floor": "G",
       "x": 642.0,
       "y": 540.8,
@@ -1657,8 +1845,8 @@
         "L-02"
       ]
     },
-    "W4-28": {
-      "node_id": "W4-28",
+    "W4-27": {
+      "node_id": "W4-27",
       "floor": "G",
       "x": 642,
       "y": 570,
@@ -2232,7 +2420,8 @@
       "y": 340,
       "walkways": [
         "MZ1",
-        "MZV4"
+        "MZV4",
+        "MZH"
       ],
       "pick_slots": []
     },
@@ -2422,6 +2611,92 @@
       "pick_slots": [
         "V-04"
       ]
+    },
+    "MZH-01": {
+      "node_id": "MZH-01",
+      "floor": "M",
+      "x": 300,
+      "y": 385,
+      "walkways": [
+        "MZH"
+      ],
+      "pick_slots": []
+    },
+    "MZH-02": {
+      "node_id": "MZH-02",
+      "floor": "M",
+      "x": 300.0,
+      "y": 402.5,
+      "walkways": [
+        "MZH"
+      ],
+      "pick_slots": [
+        "H-01",
+        "H-02"
+      ]
+    },
+    "MZH-03": {
+      "node_id": "MZH-03",
+      "floor": "M",
+      "x": 300.0,
+      "y": 437.5,
+      "walkways": [
+        "MZH"
+      ],
+      "pick_slots": [
+        "H-03",
+        "H-04"
+      ]
+    },
+    "MZH-04": {
+      "node_id": "MZH-04",
+      "floor": "M",
+      "x": 300.0,
+      "y": 472.5,
+      "walkways": [
+        "MZH"
+      ],
+      "pick_slots": [
+        "H-05",
+        "H-06"
+      ]
+    },
+    "MZH-05": {
+      "node_id": "MZH-05",
+      "floor": "M",
+      "x": 300.0,
+      "y": 507.5,
+      "walkways": [
+        "MZH"
+      ],
+      "pick_slots": [
+        "H-07",
+        "H-08"
+      ]
+    },
+    "MZH-06": {
+      "node_id": "MZH-06",
+      "floor": "M",
+      "x": 300.0,
+      "y": 542.5,
+      "walkways": [
+        "MZH"
+      ],
+      "pick_slots": [
+        "H-09",
+        "H-10"
+      ]
+    },
+    "MZH-07": {
+      "node_id": "MZH-07",
+      "floor": "M",
+      "x": 300,
+      "y": 555,
+      "walkways": [
+        "MZH",
+        "MZ2"
+      ],
+      "pick_slots": []
     },
     "SC2_TOP": {
       "node_id": "SC2_TOP",
@@ -3036,6 +3311,17 @@
     "MZW-11": {
       "node_id": "MZW-11",
       "floor": "M",
+      "x": 785,
+      "y": 180,
+      "walkways": [
+        "MZW",
+        "MZX5W"
+      ],
+      "pick_slots": []
+    },
+    "MZW-12": {
+      "node_id": "MZW-12",
+      "floor": "M",
       "x": 785.0,
       "y": 150.0,
       "walkways": [
@@ -3046,8 +3332,8 @@
         "W-22"
       ]
     },
-    "MZW-12": {
-      "node_id": "MZW-12",
+    "MZW-13": {
+      "node_id": "MZW-13",
       "floor": "M",
       "x": 785.0,
       "y": 107.1,
@@ -3059,8 +3345,8 @@
         "W-24"
       ]
     },
-    "MZW-13": {
-      "node_id": "MZW-13",
+    "MZW-14": {
+      "node_id": "MZW-14",
       "floor": "M",
       "x": 785.0,
       "y": 64.3,
@@ -3072,8 +3358,8 @@
         "W-26"
       ]
     },
-    "MZW-14": {
-      "node_id": "MZW-14",
+    "MZW-15": {
+      "node_id": "MZW-15",
       "floor": "M",
       "x": 785.0,
       "y": 21.4,
@@ -3084,8 +3370,8 @@
         "W-27"
       ]
     },
-    "MZW-15": {
-      "node_id": "MZW-15",
+    "MZW-16": {
+      "node_id": "MZW-16",
       "floor": "M",
       "x": 785,
       "y": 0,
@@ -3093,6 +3379,18 @@
         "MZW"
       ],
       "pick_slots": []
+    },
+    "MZX5W-01": {
+      "node_id": "MZX5W-01",
+      "floor": "M",
+      "x": 620,
+      "y": 180,
+      "walkways": [
+        "MZX5W"
+      ],
+      "pick_slots": [
+        "X-05"
+      ]
     }
   },
   "edges": [
@@ -3101,77 +3399,77 @@
       "to": "MX-01",
       "type": "walk",
       "walkway": "MX",
-      "weight": 2.23
+      "weight": 1.49
     },
     {
       "from": "MX-01",
       "to": "MX-02",
       "type": "walk",
       "walkway": "MX",
-      "weight": 8.37
+      "weight": 5.58
     },
     {
       "from": "MX-02",
       "to": "MX-03",
       "type": "walk",
       "walkway": "MX",
-      "weight": 1.26
+      "weight": 0.84
     },
     {
       "from": "MX-03",
       "to": "SC1_FOOT",
       "type": "walk",
       "walkway": "MX",
-      "weight": 4.33
+      "weight": 2.88
     },
     {
       "from": "SC1_FOOT",
       "to": "MX-04",
       "type": "walk",
       "walkway": "MX",
-      "weight": 3.7
+      "weight": 2.47
     },
     {
       "from": "MX-04",
       "to": "MX-05",
       "type": "walk",
       "walkway": "MX",
-      "weight": 1.19
+      "weight": 0.79
     },
     {
       "from": "MX-05",
       "to": "MX-06",
       "type": "walk",
       "walkway": "MX",
-      "weight": 9.77
+      "weight": 6.51
     },
     {
       "from": "MX-06",
       "to": "MX-07",
       "type": "walk",
       "walkway": "MX",
-      "weight": 1.6
+      "weight": 1.07
     },
     {
       "from": "MX-07",
       "to": "MX-08",
       "type": "walk",
       "walkway": "MX",
-      "weight": 5.58
+      "weight": 3.72
     },
     {
       "from": "MX-08",
       "to": "MX-09",
       "type": "walk",
       "walkway": "MX",
-      "weight": 6.77
+      "weight": 4.51
     },
     {
       "from": "W1-01",
       "to": "W1-02",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.66
+      "weight": 0.36
     },
     {
       "from": "W1-02",
@@ -3185,98 +3483,98 @@
       "to": "W1-04",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.23
+      "weight": 0.68
     },
     {
       "from": "W1-04",
       "to": "W1-05",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.25
+      "weight": 0.14
     },
     {
       "from": "W1-05",
       "to": "W1-06",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.07
+      "weight": 0.59
     },
     {
       "from": "W1-06",
       "to": "W1-07",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.41
+      "weight": 0.23
     },
     {
       "from": "W1-07",
       "to": "W1-08",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.91
+      "weight": 0.5
     },
     {
       "from": "W1-08",
       "to": "W1-09",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.58
+      "weight": 0.32
     },
     {
       "from": "W1-09",
       "to": "W1-10",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.74
+      "weight": 0.41
     },
     {
       "from": "W1-10",
       "to": "W1-11",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.74
+      "weight": 0.41
     },
     {
       "from": "W1-11",
       "to": "W1-12",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.58
+      "weight": 0.32
     },
     {
       "from": "W1-12",
       "to": "W1-13",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.91
+      "weight": 0.5
     },
     {
       "from": "W1-13",
       "to": "W1-14",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.41
+      "weight": 0.23
     },
     {
       "from": "W1-14",
       "to": "W1-15",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.07
+      "weight": 0.59
     },
     {
       "from": "W1-15",
       "to": "W1-16",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.25
+      "weight": 0.14
     },
     {
       "from": "W1-16",
       "to": "W1-17",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.23
+      "weight": 0.68
     },
     {
       "from": "W1-17",
@@ -3290,7 +3588,7 @@
       "to": "W1-19",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.31
+      "weight": 0.72
     },
     {
       "from": "W1-19",
@@ -3304,98 +3602,98 @@
       "to": "W1-21",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.23
+      "weight": 0.68
     },
     {
       "from": "W1-21",
       "to": "W1-22",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.25
+      "weight": 0.14
     },
     {
       "from": "W1-22",
       "to": "W1-23",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.07
+      "weight": 0.59
     },
     {
       "from": "W1-23",
       "to": "W1-24",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.41
+      "weight": 0.23
     },
     {
       "from": "W1-24",
       "to": "W1-25",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.91
+      "weight": 0.5
     },
     {
       "from": "W1-25",
       "to": "W1-26",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.58
+      "weight": 0.32
     },
     {
       "from": "W1-26",
       "to": "W1-27",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.74
+      "weight": 0.41
     },
     {
       "from": "W1-27",
       "to": "W1-28",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.74
+      "weight": 0.41
     },
     {
       "from": "W1-28",
       "to": "W1-29",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.58
+      "weight": 0.32
     },
     {
       "from": "W1-29",
       "to": "W1-30",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.91
+      "weight": 0.5
     },
     {
       "from": "W1-30",
       "to": "W1-31",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.41
+      "weight": 0.23
     },
     {
       "from": "W1-31",
       "to": "W1-32",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.07
+      "weight": 0.59
     },
     {
       "from": "W1-32",
       "to": "W1-33",
       "type": "walk",
       "walkway": "W1",
-      "weight": 0.25
+      "weight": 0.14
     },
     {
       "from": "W1-33",
       "to": "W1-34",
       "type": "walk",
       "walkway": "W1",
-      "weight": 1.23
+      "weight": 0.68
     },
     {
       "from": "W1-34",
@@ -3409,1400 +3707,1561 @@
       "to": "MX-03",
       "type": "walk",
       "walkway": "W1",
-      "weight": 2.19
+      "weight": 1.21
     },
     {
       "from": "W2-01",
       "to": "W2-02",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.7
+      "weight": 0.38
     },
     {
       "from": "W2-02",
       "to": "W2-03",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.15
+      "weight": 0.1
     },
     {
       "from": "W2-03",
       "to": "W2-04",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.25
+      "weight": 0.13
     },
     {
       "from": "W2-04",
       "to": "W2-05",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.45
+      "weight": 0.56
     },
     {
       "from": "W2-05",
       "to": "W2-06",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.95
+      "weight": 0.25
     },
     {
       "from": "W2-06",
       "to": "W2-07",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.75
+      "weight": 0.38
     },
     {
       "from": "W2-07",
       "to": "W2-08",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.65
+      "weight": 0.14
     },
     {
       "from": "W2-08",
       "to": "W2-09",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.05
+      "weight": 0.41
     },
     {
       "from": "W2-09",
       "to": "W2-10",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.35
+      "weight": 0.36
     },
     {
       "from": "W2-10",
       "to": "W2-11",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.35
+      "weight": 0.28
     },
     {
       "from": "W2-11",
       "to": "W2-12",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.1
+      "weight": 0.3
     },
     {
       "from": "W2-12",
       "to": "W2-13",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.4
+      "weight": 0.19
     },
     {
       "from": "W2-13",
       "to": "W2-14",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.25
+      "weight": 0.7
     },
     {
       "from": "W2-14",
       "to": "W2-15",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.14
+      "weight": 0.1
     },
     {
       "from": "W2-15",
       "to": "W2-16",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.55
+      "weight": 0.1
     },
     {
       "from": "W2-16",
       "to": "W2-17",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.84
+      "weight": 0.77
     },
     {
       "from": "W2-17",
       "to": "W2-18",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.84
+      "weight": 0.14
     },
     {
       "from": "W2-18",
       "to": "W2-19",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.55
+      "weight": 0.21
     },
     {
       "from": "W2-19",
       "to": "W2-20",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.14
+      "weight": 0.42
     },
     {
       "from": "W2-20",
       "to": "W2-21",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.25
+      "weight": 0.3
     },
     {
       "from": "W2-21",
       "to": "W2-22",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.4
+      "weight": 0.47
     },
     {
       "from": "W2-22",
       "to": "W2-23",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.1
+      "weight": 0.47
     },
     {
       "from": "W2-23",
       "to": "W2-24",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.35
+      "weight": 0.3
     },
     {
       "from": "W2-24",
       "to": "W2-25",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.35
+      "weight": 0.42
     },
     {
       "from": "W2-25",
       "to": "W2-26",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.05
+      "weight": 0.21
     },
     {
       "from": "W2-26",
       "to": "W2-27",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.65
+      "weight": 0.14
     },
     {
       "from": "W2-27",
       "to": "W2-28",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.75
+      "weight": 0.77
     },
     {
       "from": "W2-28",
       "to": "W2-29",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.95
+      "weight": 0.1
     },
     {
       "from": "W2-29",
       "to": "W2-30",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.45
+      "weight": 0.1
     },
     {
       "from": "W2-30",
       "to": "W2-31",
       "type": "walk",
       "walkway": "W2",
-      "weight": 1.25
+      "weight": 0.7
     },
     {
       "from": "W2-31",
       "to": "W2-32",
       "type": "walk",
       "walkway": "W2",
-      "weight": 0.15
+      "weight": 0.19
     },
     {
       "from": "W2-32",
+      "to": "W2-33",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.3
+    },
+    {
+      "from": "W2-33",
+      "to": "W2-34",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.28
+    },
+    {
+      "from": "W2-34",
+      "to": "W2-35",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.36
+    },
+    {
+      "from": "W2-35",
+      "to": "W2-36",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.41
+    },
+    {
+      "from": "W2-36",
+      "to": "W2-37",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.14
+    },
+    {
+      "from": "W2-37",
+      "to": "W2-38",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.38
+    },
+    {
+      "from": "W2-38",
+      "to": "W2-39",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.25
+    },
+    {
+      "from": "W2-39",
+      "to": "W2-40",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.56
+    },
+    {
+      "from": "W2-40",
+      "to": "W2-41",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.13
+    },
+    {
+      "from": "W2-41",
+      "to": "W2-42",
+      "type": "walk",
+      "walkway": "W2",
+      "weight": 0.1
+    },
+    {
+      "from": "W2-42",
       "to": "MX-05",
       "type": "walk",
       "walkway": "W2",
-      "weight": 2.23
+      "weight": 1.23
     },
     {
       "from": "W3-01",
       "to": "W3-02",
       "type": "walk",
       "walkway": "W3",
-      "weight": 0.72
+      "weight": 0.4
     },
     {
       "from": "W3-02",
       "to": "W3-03",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.43
+      "weight": 0.79
     },
     {
       "from": "W3-03",
+      "to": "DOOR_2F",
+      "type": "walk",
+      "walkway": "W3",
+      "weight": 0.16
+    },
+    {
+      "from": "DOOR_2F",
       "to": "W3-04",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.44
+      "weight": 0.63
     },
     {
       "from": "W3-04",
       "to": "W3-05",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.43
+      "weight": 0.79
     },
     {
       "from": "W3-05",
       "to": "W3-06",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.44
+      "weight": 0.79
     },
     {
       "from": "W3-06",
       "to": "W3-07",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.44
+      "weight": 0.79
     },
     {
       "from": "W3-07",
       "to": "W3-08",
       "type": "walk",
       "walkway": "W3",
-      "weight": 0.48
+      "weight": 0.27
     },
     {
       "from": "W3-08",
       "to": "W3-09",
       "type": "walk",
       "walkway": "W3",
-      "weight": 0.95
+      "weight": 0.52
     },
     {
       "from": "W3-09",
       "to": "W3-10",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.44
+      "weight": 0.79
     },
     {
       "from": "W3-10",
       "to": "W3-11",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.43
+      "weight": 0.79
     },
     {
       "from": "W3-11",
       "to": "W3-12",
       "type": "walk",
       "walkway": "W3",
-      "weight": 2.29
+      "weight": 1.26
     },
     {
       "from": "W3-12",
       "to": "W3-13",
       "type": "walk",
       "walkway": "W3",
-      "weight": 2.44
+      "weight": 1.35
     },
     {
       "from": "W3-13",
       "to": "W3-14",
       "type": "walk",
       "walkway": "W3",
-      "weight": 2.18
+      "weight": 1.2
     },
     {
       "from": "W3-14",
       "to": "W3-15",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.21
+      "weight": 0.67
     },
     {
       "from": "W3-15",
       "to": "W3-16",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.23
+      "weight": 0.68
     },
     {
       "from": "W3-16",
       "to": "W3-17",
       "type": "walk",
       "walkway": "W3",
-      "weight": 1.21
+      "weight": 0.67
     },
     {
       "from": "W3-17",
       "to": "MX-06",
       "type": "walk",
       "walkway": "W3",
-      "weight": 2.5
-    },
-    {
-      "from": "W3-01",
-      "to": "NX-01",
-      "type": "walk",
-      "walkway": "NX",
-      "weight": 7.19
-    },
-    {
-      "from": "NX-01",
-      "to": "DOOR_2F",
-      "type": "walk",
-      "walkway": "NX",
-      "weight": 6.77
+      "weight": 1.38
     },
     {
       "from": "DOOR_2F",
+      "to": "NX-01",
+      "type": "walk",
+      "walkway": "NX",
+      "weight": 3.55
+    },
+    {
+      "from": "NX-01",
+      "to": "NX-02",
+      "type": "walk",
+      "walkway": "NX",
+      "weight": 1.24
+    },
+    {
+      "from": "NX-02",
+      "to": "NX-03",
+      "type": "walk",
+      "walkway": "NX",
+      "weight": 3.26
+    },
+    {
+      "from": "NX-03",
+      "to": "NX-04",
+      "type": "walk",
+      "walkway": "NX",
+      "weight": 1.26
+    },
+    {
+      "from": "NX-04",
+      "to": "NX-05",
+      "type": "walk",
+      "walkway": "NX",
+      "weight": 3.16
+    },
+    {
+      "from": "NX-04",
       "to": "W4-01",
       "type": "walk",
       "walkway": "W4",
-      "weight": 0.99
+      "weight": 0.61
     },
     {
       "from": "W4-01",
       "to": "W4-02",
       "type": "walk",
       "walkway": "W4",
-      "weight": 0.4
+      "weight": 0.83
     },
     {
       "from": "W4-02",
       "to": "W4-03",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.57
+      "weight": 0.83
     },
     {
       "from": "W4-03",
       "to": "W4-04",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.97
+      "weight": 0.83
     },
     {
       "from": "W4-04",
       "to": "W4-05",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.98
+      "weight": 0.16
     },
     {
       "from": "W4-05",
       "to": "W4-06",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.45
+      "weight": 0.67
     },
     {
       "from": "W4-06",
       "to": "W4-07",
       "type": "walk",
       "walkway": "W4",
-      "weight": 0.52
+      "weight": 0.83
     },
     {
       "from": "W4-07",
       "to": "W4-08",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.97
+      "weight": 0.98
     },
     {
       "from": "W4-08",
       "to": "W4-09",
       "type": "walk",
       "walkway": "W4",
-      "weight": 2.01
+      "weight": 0.74
     },
     {
       "from": "W4-09",
       "to": "W4-10",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.34
+      "weight": 0.73
     },
     {
       "from": "W4-10",
       "to": "W4-11",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.33
+      "weight": 0.74
     },
     {
       "from": "W4-11",
       "to": "W4-12",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.34
+      "weight": 0.73
     },
     {
       "from": "W4-12",
       "to": "W4-13",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.33
+      "weight": 0.74
     },
     {
       "from": "W4-13",
       "to": "W4-14",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.34
+      "weight": 1.01
     },
     {
       "from": "W4-14",
       "to": "W4-15",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.83
+      "weight": 0.9
     },
     {
       "from": "W4-15",
       "to": "W4-16",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.63
+      "weight": 0.9
     },
     {
       "from": "W4-16",
-      "to": "W4-17",
-      "type": "walk",
-      "walkway": "W4",
-      "weight": 1.63
-    },
-    {
-      "from": "W4-17",
       "to": "MX-09",
       "type": "walk",
       "walkway": "W4",
-      "weight": 0.61
+      "weight": 0.33
     },
     {
       "from": "MX-09",
+      "to": "W4-17",
+      "type": "walk",
+      "walkway": "W4",
+      "weight": 0.57
+    },
+    {
+      "from": "W4-17",
       "to": "W4-18",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.03
+      "weight": 0.9
     },
     {
       "from": "W4-18",
       "to": "W4-19",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.63
+      "weight": 0.9
     },
     {
       "from": "W4-19",
       "to": "W4-20",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.63
+      "weight": 1.0
     },
     {
       "from": "W4-20",
       "to": "W4-21",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.81
+      "weight": 0.7
     },
     {
       "from": "W4-21",
       "to": "W4-22",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.28
+      "weight": 0.17
     },
     {
       "from": "W4-22",
       "to": "W4-23",
       "type": "walk",
       "walkway": "W4",
-      "weight": 0.31
+      "weight": 0.53
     },
     {
       "from": "W4-23",
       "to": "W4-24",
       "type": "walk",
       "walkway": "W4",
-      "weight": 0.96
+      "weight": 0.71
     },
     {
       "from": "W4-24",
       "to": "W4-25",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.28
+      "weight": 0.7
     },
     {
       "from": "W4-25",
       "to": "W4-26",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.28
+      "weight": 0.7
     },
     {
       "from": "W4-26",
       "to": "W4-27",
       "type": "walk",
       "walkway": "W4",
-      "weight": 1.28
-    },
-    {
-      "from": "W4-27",
-      "to": "W4-28",
-      "type": "walk",
-      "walkway": "W4",
-      "weight": 2.04
+      "weight": 1.12
     },
     {
       "from": "MX-02",
       "to": "W5-01",
       "type": "walk",
       "walkway": "W5",
-      "weight": 3.64
+      "weight": 2.01
     },
     {
       "from": "W5-01",
       "to": "W5-02",
       "type": "walk",
       "walkway": "W5",
-      "weight": 1.33
+      "weight": 0.73
     },
     {
       "from": "W5-02",
       "to": "W5-03",
       "type": "walk",
       "walkway": "W5",
-      "weight": 2.73
+      "weight": 1.51
     },
     {
       "from": "W5-03",
       "to": "W5-04",
       "type": "walk",
       "walkway": "W5",
-      "weight": 0.52
+      "weight": 0.29
     },
     {
       "from": "W5-04",
       "to": "W5-05",
       "type": "walk",
       "walkway": "W5",
-      "weight": 3.26
+      "weight": 1.8
     },
     {
       "from": "W5-05",
       "to": "W5-06",
       "type": "walk",
       "walkway": "W5",
-      "weight": 0.29
+      "weight": 0.16
     },
     {
       "from": "W5-06",
       "to": "W5-07",
       "type": "walk",
       "walkway": "W5",
-      "weight": 2.73
+      "weight": 1.51
     },
     {
       "from": "MX-04",
       "to": "W6-01",
       "type": "walk",
       "walkway": "W6",
-      "weight": 2.62
+      "weight": 1.45
     },
     {
       "from": "W6-01",
       "to": "W6-02",
       "type": "walk",
       "walkway": "W6",
-      "weight": 2.04
+      "weight": 1.12
     },
     {
       "from": "W6-02",
       "to": "W6-03",
       "type": "walk",
       "walkway": "W6",
-      "weight": 0.31
+      "weight": 0.17
     },
     {
       "from": "W6-03",
       "to": "W6-04",
       "type": "walk",
       "walkway": "W6",
-      "weight": 1.72
+      "weight": 0.95
     },
     {
       "from": "W6-04",
       "to": "W6-05",
       "type": "walk",
       "walkway": "W6",
-      "weight": 1.54
+      "weight": 0.85
     },
     {
       "from": "W6-05",
       "to": "W6-06",
       "type": "walk",
       "walkway": "W6",
-      "weight": 0.5
+      "weight": 0.27
     },
     {
       "from": "W6-06",
       "to": "W6-07",
       "type": "walk",
       "walkway": "W6",
-      "weight": 2.03
+      "weight": 1.12
     },
     {
       "from": "W6-07",
       "to": "W6-08",
       "type": "walk",
       "walkway": "W6",
-      "weight": 0.73
+      "weight": 0.4
     },
     {
       "from": "W6-08",
       "to": "W6-09",
       "type": "walk",
       "walkway": "W6",
-      "weight": 1.3
+      "weight": 0.72
     },
     {
       "from": "W6-09",
       "to": "W6-10",
       "type": "walk",
       "walkway": "W6",
-      "weight": 1.72
+      "weight": 0.95
     },
     {
       "from": "MX-07",
       "to": "W7-01",
       "type": "walk",
       "walkway": "W7",
-      "weight": 2.65
+      "weight": 1.46
     },
     {
       "from": "W7-01",
       "to": "W7-02",
       "type": "walk",
       "walkway": "W7",
-      "weight": 2.09
+      "weight": 1.15
     },
     {
       "from": "W7-02",
       "to": "W7-03",
       "type": "walk",
       "walkway": "W7",
-      "weight": 2.09
+      "weight": 1.15
     },
     {
       "from": "W7-03",
       "to": "W7-04",
       "type": "walk",
       "walkway": "W7",
-      "weight": 0.84
+      "weight": 0.46
     },
     {
       "from": "W7-04",
       "to": "W7-05",
       "type": "walk",
       "walkway": "W7",
-      "weight": 1.49
+      "weight": 0.82
     },
     {
       "from": "W7-05",
       "to": "W7-06",
       "type": "walk",
       "walkway": "W7",
-      "weight": 1.86
+      "weight": 1.03
     },
     {
       "from": "W7-06",
       "to": "W7-07",
       "type": "walk",
       "walkway": "W7",
-      "weight": 1.86
+      "weight": 1.03
     },
     {
       "from": "W7-07",
       "to": "W7-08",
       "type": "walk",
       "walkway": "W7",
-      "weight": 1.63
+      "weight": 0.9
     },
     {
       "from": "MX-01",
       "to": "LC-01",
       "type": "walk",
       "walkway": "LC",
-      "weight": 14.51
+      "weight": 8.0
     },
     {
       "from": "LC-01",
       "to": "LC-02",
       "type": "walk",
       "walkway": "LC",
-      "weight": 2.67
+      "weight": 1.47
     },
     {
       "from": "LC-02",
       "to": "LC-03",
       "type": "walk",
       "walkway": "LC",
-      "weight": 2.56
+      "weight": 1.41
     },
     {
       "from": "LC-03",
       "to": "LC-04",
       "type": "walk",
       "walkway": "LC",
-      "weight": 2.56
+      "weight": 1.41
     },
     {
       "from": "LC-04",
       "to": "LC-05",
       "type": "walk",
       "walkway": "LC",
-      "weight": 2.32
+      "weight": 1.28
     },
     {
       "from": "LC-01",
       "to": "SC2_FOOT",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 4.53
+      "weight": 3.02
     },
     {
       "from": "SC2_FOOT",
       "to": "W5-07",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 3.84
+      "weight": 2.56
     },
     {
       "from": "W5-07",
       "to": "W6-10",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 9.28
+      "weight": 6.19
     },
     {
       "from": "W6-10",
       "to": "W7-08",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 12.56
+      "weight": 8.37
     },
     {
       "from": "W7-08",
       "to": "BX1-01",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 8.37
+      "weight": 5.58
     },
     {
       "from": "BX1-01",
-      "to": "W4-28",
+      "to": "W4-27",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 3.98
+      "weight": 2.65
     },
     {
-      "from": "W4-28",
+      "from": "W4-27",
       "to": "SC3_FOOT",
       "type": "walk",
       "walkway": "BX1",
-      "weight": 2.09
+      "weight": 1.4
     },
     {
       "from": "LC-05",
       "to": "BX2-01",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.81
+      "weight": 2.54
     },
     {
       "from": "BX2-01",
       "to": "BX2-02",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.0
     },
     {
       "from": "BX2-02",
       "to": "BX2-03",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.0
     },
     {
       "from": "BX2-03",
       "to": "BX2-04",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.0
     },
     {
       "from": "BX2-04",
       "to": "BX2-05",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.01
     },
     {
       "from": "BX2-05",
       "to": "BX2-06",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.0
     },
     {
       "from": "BX2-06",
       "to": "BX2-07",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.0
     },
     {
       "from": "BX2-07",
       "to": "BX2-08",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 3.01
+      "weight": 2.0
     },
     {
       "from": "BX2-08",
       "to": "BX2-09",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 5.92
+      "weight": 3.95
     },
     {
       "from": "BX2-09",
       "to": "BX2-10",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 8.14
+      "weight": 5.43
     },
     {
       "from": "BX2-10",
       "to": "BX2-11",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 8.14
+      "weight": 5.43
     },
     {
       "from": "BX2-11",
       "to": "BX2-12",
       "type": "walk",
       "walkway": "BX2",
-      "weight": 4.07
+      "weight": 2.71
     },
     {
       "from": "SC1_TOP",
       "to": "MZ1-01",
       "type": "mezz_walk",
       "walkway": "MZ1",
-      "weight": 1.74
+      "weight": 1.16
     },
     {
       "from": "MZ1-01",
       "to": "MZ1-02",
       "type": "mezz_walk",
       "walkway": "MZ1",
-      "weight": 8.93
+      "weight": 5.95
     },
     {
       "from": "MZ1-02",
       "to": "MZ1-03",
       "type": "mezz_walk",
       "walkway": "MZ1",
-      "weight": 11.16
+      "weight": 7.44
     },
     {
       "from": "MZ1-01",
       "to": "MZV-01",
       "type": "mezz_walk",
       "walkway": "MZV",
-      "weight": 5.81
+      "weight": 3.2
     },
     {
       "from": "MZV-01",
       "to": "MZV-02",
       "type": "mezz_walk",
       "walkway": "MZV",
-      "weight": 6.05
+      "weight": 3.33
     },
     {
       "from": "MZV-02",
       "to": "MZV-03",
       "type": "mezz_walk",
       "walkway": "MZV",
-      "weight": 6.05
+      "weight": 3.33
     },
     {
       "from": "MZV-03",
       "to": "MZV-04",
       "type": "mezz_walk",
       "walkway": "MZV",
-      "weight": 5.81
+      "weight": 3.2
     },
     {
       "from": "MZ1-02",
       "to": "MZS-01",
       "type": "mezz_walk",
       "walkway": "MZS",
-      "weight": 2.37
+      "weight": 1.31
     },
     {
       "from": "MZS-01",
       "to": "MZS-02",
       "type": "mezz_walk",
       "walkway": "MZS",
-      "weight": 4.74
+      "weight": 2.62
     },
     {
       "from": "MZS-02",
       "to": "MZS-03",
       "type": "mezz_walk",
       "walkway": "MZS",
-      "weight": 4.74
+      "weight": 2.62
     },
     {
       "from": "MZS-03",
       "to": "MZS-04",
       "type": "mezz_walk",
       "walkway": "MZS",
-      "weight": 4.74
+      "weight": 2.62
     },
     {
       "from": "MZS-04",
       "to": "MZS-05",
       "type": "mezz_walk",
       "walkway": "MZS",
-      "weight": 4.74
+      "weight": 2.62
     },
     {
       "from": "MZS-05",
       "to": "MZS-06",
       "type": "mezz_walk",
       "walkway": "MZS",
-      "weight": 2.37
+      "weight": 1.31
     },
     {
       "from": "MZ1-03",
       "to": "MZX5-01",
       "type": "mezz_walk",
       "walkway": "MZX5",
-      "weight": 11.16
+      "weight": 6.15
     },
     {
       "from": "MZX5-01",
       "to": "MZX5-02",
       "type": "mezz_walk",
       "walkway": "MZX5",
-      "weight": 4.19
+      "weight": 2.31
     },
     {
       "from": "SC1_TOP",
       "to": "MZV4-01",
       "type": "mezz_walk",
       "walkway": "MZV4",
-      "weight": 9.16
+      "weight": 5.07
+    },
+    {
+      "from": "SC1_TOP",
+      "to": "MZH-01",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 3.61
+    },
+    {
+      "from": "MZH-01",
+      "to": "MZH-02",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 0.67
+    },
+    {
+      "from": "MZH-02",
+      "to": "MZH-03",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 1.35
+    },
+    {
+      "from": "MZH-03",
+      "to": "MZH-04",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 1.35
+    },
+    {
+      "from": "MZH-04",
+      "to": "MZH-05",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 1.35
+    },
+    {
+      "from": "MZH-05",
+      "to": "MZH-06",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 1.35
+    },
+    {
+      "from": "MZH-06",
+      "to": "MZH-07",
+      "type": "mezz_walk",
+      "walkway": "MZH",
+      "weight": 0.48
     },
     {
       "from": "SC2_TOP",
+      "to": "MZH-07",
+      "type": "mezz_walk",
+      "walkway": "MZ2",
+      "weight": 9.44
+    },
+    {
+      "from": "MZH-07",
       "to": "MZ2-01",
       "type": "mezz_walk",
       "walkway": "MZ2",
-      "weight": 25.67
+      "weight": 7.67
     },
     {
       "from": "MZ2-01",
       "to": "MZTU-01",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 0.58
+      "weight": 0.32
     },
     {
       "from": "MZTU-01",
       "to": "MZTU-02",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 1.86
+      "weight": 1.03
     },
     {
       "from": "MZTU-02",
       "to": "MZTU-03",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 1.86
+      "weight": 1.03
     },
     {
       "from": "MZTU-03",
       "to": "MZTU-04",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 1.49
+      "weight": 0.82
     },
     {
       "from": "MZTU-04",
       "to": "MZTU-05",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 0.84
+      "weight": 0.46
     },
     {
       "from": "MZTU-05",
       "to": "MZTU-06",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 2.09
+      "weight": 1.15
     },
     {
       "from": "MZTU-06",
       "to": "MZTU-07",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 2.09
+      "weight": 1.15
     },
     {
       "from": "MZTU-07",
       "to": "MZTU-08",
       "type": "mezz_walk",
       "walkway": "MZTU",
-      "weight": 1.05
+      "weight": 0.58
     },
     {
       "from": "SC2_TOP",
       "to": "MZZ-01",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 13.6
+      "weight": 7.5
     },
     {
       "from": "MZZ-01",
       "to": "MZZ-02",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 0.59
+      "weight": 0.39
     },
     {
       "from": "MZZ-02",
       "to": "MZZ-03",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-03",
       "to": "MZZ-04",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-04",
       "to": "MZZ-05",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.26
     },
     {
       "from": "MZZ-05",
       "to": "MZZ-06",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-06",
       "to": "MZZ-07",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-07",
       "to": "MZZ-08",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-08",
       "to": "MZZ-09",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-09",
       "to": "MZZ-10",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.26
     },
     {
       "from": "MZZ-10",
       "to": "MZZ-11",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-11",
       "to": "MZZ-12",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-12",
       "to": "MZZ-13",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-13",
       "to": "MZZ-14",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.26
     },
     {
       "from": "MZZ-14",
       "to": "MZZ-15",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-15",
       "to": "MZZ-16",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-16",
       "to": "MZZ-17",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-17",
       "to": "MZZ-18",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.26
     },
     {
       "from": "MZZ-18",
       "to": "MZZ-19",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-19",
       "to": "MZZ-20",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-20",
       "to": "MZZ-21",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-21",
       "to": "MZZ-22",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-22",
       "to": "MZZ-23",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.26
     },
     {
       "from": "MZZ-23",
       "to": "MZZ-24",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-24",
       "to": "MZZ-25",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-25",
       "to": "MZZ-26",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 1.88
+      "weight": 1.25
     },
     {
       "from": "MZZ-26",
       "to": "MZZ-27",
       "type": "mezz_walk",
       "walkway": "MZZ",
-      "weight": 0.94
+      "weight": 0.63
     },
     {
       "from": "SC3_TOP",
       "to": "MZW-01",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 7.88
+      "weight": 5.26
     },
     {
       "from": "MZW-01",
       "to": "MZW-02",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 1.35
+      "weight": 0.74
     },
     {
       "from": "MZW-02",
       "to": "MZW-03",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-03",
       "to": "MZW-04",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-04",
       "to": "MZW-05",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-05",
       "to": "MZW-06",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-06",
       "to": "MZW-07",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-07",
       "to": "MZW-08",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-08",
       "to": "MZW-09",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-09",
       "to": "MZW-10",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-10",
       "to": "MZW-11",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 0.5
     },
     {
       "from": "MZW-11",
       "to": "MZW-12",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.15
     },
     {
       "from": "MZW-12",
       "to": "MZW-13",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-13",
       "to": "MZW-14",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 2.99
+      "weight": 1.65
     },
     {
       "from": "MZW-14",
       "to": "MZW-15",
       "type": "mezz_walk",
       "walkway": "MZW",
-      "weight": 1.49
+      "weight": 1.65
+    },
+    {
+      "from": "MZW-15",
+      "to": "MZW-16",
+      "type": "mezz_walk",
+      "walkway": "MZW",
+      "weight": 0.82
+    },
+    {
+      "from": "MZW-11",
+      "to": "MZX5W-01",
+      "type": "mezz_walk",
+      "walkway": "MZX5W",
+      "weight": 7.67
     },
     {
       "from": "SC1_FOOT",
       "to": "SC1_TOP",
       "type": "stair",
       "staircase": "SC1",
-      "weight": 12.0
+      "weight": 3.5
     },
     {
       "from": "SC2_FOOT",
       "to": "SC2_TOP",
       "type": "stair",
       "staircase": "SC2",
-      "weight": 12.0
+      "weight": 3.5
     },
     {
       "from": "SC3_FOOT",
       "to": "SC3_TOP",
       "type": "stair",
       "staircase": "SC3",
-      "weight": 12.0
+      "weight": 3.5
     }
   ],
   "slots": {
@@ -6741,7 +7200,7 @@
         330.0
       ],
       "pick_nodes": [
-        "W2-32"
+        "W2-42"
       ]
     },
     "D-02": {
@@ -6760,7 +7219,7 @@
         330.0
       ],
       "pick_nodes": [
-        "W2-32"
+        "W2-42"
       ]
     },
     "D-03": {
@@ -6779,7 +7238,7 @@
         310.0
       ],
       "pick_nodes": [
-        "W2-30"
+        "W2-39"
       ]
     },
     "D-04": {
@@ -6798,7 +7257,7 @@
         310.0
       ],
       "pick_nodes": [
-        "W2-30"
+        "W2-39"
       ]
     },
     "D-05": {
@@ -6817,7 +7276,7 @@
         290.0
       ],
       "pick_nodes": [
-        "W2-28"
+        "W2-36"
       ]
     },
     "D-06": {
@@ -6836,7 +7295,7 @@
         290.0
       ],
       "pick_nodes": [
-        "W2-28"
+        "W2-36"
       ]
     },
     "D-07": {
@@ -6855,7 +7314,7 @@
         270.0
       ],
       "pick_nodes": [
-        "W2-26"
+        "W2-34"
       ]
     },
     "D-08": {
@@ -6874,7 +7333,7 @@
         270.0
       ],
       "pick_nodes": [
-        "W2-26"
+        "W2-34"
       ]
     },
     "D-09": {
@@ -6893,7 +7352,7 @@
         250.0
       ],
       "pick_nodes": [
-        "W2-24"
+        "W2-31"
       ]
     },
     "D-10": {
@@ -6912,7 +7371,7 @@
         250.0
       ],
       "pick_nodes": [
-        "W2-24"
+        "W2-31"
       ]
     },
     "D-11": {
@@ -6931,7 +7390,7 @@
         230.0
       ],
       "pick_nodes": [
-        "W2-22"
+        "W2-28"
       ]
     },
     "D-12": {
@@ -6950,7 +7409,7 @@
         230.0
       ],
       "pick_nodes": [
-        "W2-22"
+        "W2-28"
       ]
     },
     "D-13": {
@@ -6969,7 +7428,7 @@
         210.0
       ],
       "pick_nodes": [
-        "W2-21"
+        "W2-27"
       ]
     },
     "D-14": {
@@ -6988,7 +7447,7 @@
         210.0
       ],
       "pick_nodes": [
-        "W2-21"
+        "W2-27"
       ]
     },
     "D-15": {
@@ -7007,7 +7466,7 @@
         190.0
       ],
       "pick_nodes": [
-        "W2-19"
+        "W2-24"
       ]
     },
     "D-16": {
@@ -7026,7 +7485,7 @@
         190.0
       ],
       "pick_nodes": [
-        "W2-19"
+        "W2-24"
       ]
     },
     "D-17": {
@@ -7045,7 +7504,7 @@
         170.0
       ],
       "pick_nodes": [
-        "W2-17"
+        "W2-22"
       ]
     },
     "D-18": {
@@ -7064,7 +7523,7 @@
         170.0
       ],
       "pick_nodes": [
-        "W2-17"
+        "W2-22"
       ]
     },
     "D-19": {
@@ -7083,7 +7542,7 @@
         150.0
       ],
       "pick_nodes": [
-        "W2-15"
+        "W2-20"
       ]
     },
     "D-20": {
@@ -7102,7 +7561,7 @@
         150.0
       ],
       "pick_nodes": [
-        "W2-15"
+        "W2-20"
       ]
     },
     "D-21": {
@@ -7121,7 +7580,7 @@
         130.0
       ],
       "pick_nodes": [
-        "W2-13"
+        "W2-17"
       ]
     },
     "D-22": {
@@ -7140,7 +7599,7 @@
         130.0
       ],
       "pick_nodes": [
-        "W2-13"
+        "W2-17"
       ]
     },
     "D-23": {
@@ -7159,7 +7618,7 @@
         110.0
       ],
       "pick_nodes": [
-        "W2-12"
+        "W2-16"
       ]
     },
     "D-24": {
@@ -7178,7 +7637,7 @@
         110.0
       ],
       "pick_nodes": [
-        "W2-12"
+        "W2-16"
       ]
     },
     "D-25": {
@@ -7197,7 +7656,7 @@
         90.0
       ],
       "pick_nodes": [
-        "W2-10"
+        "W2-13"
       ]
     },
     "D-26": {
@@ -7216,7 +7675,7 @@
         90.0
       ],
       "pick_nodes": [
-        "W2-10"
+        "W2-13"
       ]
     },
     "D-27": {
@@ -7235,7 +7694,7 @@
         70.0
       ],
       "pick_nodes": [
-        "W2-08"
+        "W2-10"
       ]
     },
     "D-28": {
@@ -7254,7 +7713,7 @@
         70.0
       ],
       "pick_nodes": [
-        "W2-08"
+        "W2-10"
       ]
     },
     "D-29": {
@@ -7273,7 +7732,7 @@
         50.0
       ],
       "pick_nodes": [
-        "W2-06"
+        "W2-08"
       ]
     },
     "D-30": {
@@ -7292,7 +7751,7 @@
         50.0
       ],
       "pick_nodes": [
-        "W2-06"
+        "W2-08"
       ]
     },
     "D-31": {
@@ -7311,7 +7770,7 @@
         30.0
       ],
       "pick_nodes": [
-        "W2-04"
+        "W2-05"
       ]
     },
     "D-32": {
@@ -7330,7 +7789,7 @@
         30.0
       ],
       "pick_nodes": [
-        "W2-04"
+        "W2-05"
       ]
     },
     "D-33": {
@@ -7368,7 +7827,7 @@
         327.9
       ],
       "pick_nodes": [
-        "W2-31"
+        "W2-41"
       ]
     },
     "E-02": {
@@ -7387,7 +7846,7 @@
         327.9
       ],
       "pick_nodes": [
-        "W2-31"
+        "W2-41"
       ]
     },
     "E-03": {
@@ -7406,7 +7865,7 @@
         303.6
       ],
       "pick_nodes": [
-        "W2-29"
+        "W2-38"
       ]
     },
     "E-04": {
@@ -7425,7 +7884,7 @@
         303.6
       ],
       "pick_nodes": [
-        "W2-29"
+        "W2-38"
       ]
     },
     "E-05": {
@@ -7444,7 +7903,7 @@
         279.3
       ],
       "pick_nodes": [
-        "W2-27"
+        "W2-35"
       ]
     },
     "E-06": {
@@ -7463,7 +7922,7 @@
         279.3
       ],
       "pick_nodes": [
-        "W2-27"
+        "W2-35"
       ]
     },
     "E-07": {
@@ -7482,7 +7941,7 @@
         255.0
       ],
       "pick_nodes": [
-        "W2-25"
+        "W2-32"
       ]
     },
     "E-08": {
@@ -7501,7 +7960,7 @@
         255.0
       ],
       "pick_nodes": [
-        "W2-25"
+        "W2-32"
       ]
     },
     "E-09": {
@@ -7520,7 +7979,7 @@
         230.7
       ],
       "pick_nodes": [
-        "W2-23"
+        "W2-29"
       ]
     },
     "E-10": {
@@ -7539,7 +7998,7 @@
         230.7
       ],
       "pick_nodes": [
-        "W2-23"
+        "W2-29"
       ]
     },
     "E-11": {
@@ -7558,7 +8017,7 @@
         206.4
       ],
       "pick_nodes": [
-        "W2-20"
+        "W2-26"
       ]
     },
     "E-12": {
@@ -7577,7 +8036,7 @@
         206.4
       ],
       "pick_nodes": [
-        "W2-20"
+        "W2-26"
       ]
     },
     "E-13": {
@@ -7596,7 +8055,7 @@
         182.1
       ],
       "pick_nodes": [
-        "W2-18"
+        "W2-23"
       ]
     },
     "E-14": {
@@ -7615,7 +8074,7 @@
         182.1
       ],
       "pick_nodes": [
-        "W2-18"
+        "W2-23"
       ]
     },
     "E-15": {
@@ -7634,7 +8093,7 @@
         157.9
       ],
       "pick_nodes": [
-        "W2-16"
+        "W2-21"
       ]
     },
     "E-16": {
@@ -7653,7 +8112,7 @@
         157.9
       ],
       "pick_nodes": [
-        "W2-16"
+        "W2-21"
       ]
     },
     "E-17": {
@@ -7672,7 +8131,7 @@
         133.6
       ],
       "pick_nodes": [
-        "W2-14"
+        "W2-18"
       ]
     },
     "E-18": {
@@ -7691,7 +8150,7 @@
         133.6
       ],
       "pick_nodes": [
-        "W2-14"
+        "W2-18"
       ]
     },
     "E-19": {
@@ -7710,7 +8169,7 @@
         109.3
       ],
       "pick_nodes": [
-        "W2-11"
+        "W2-15"
       ]
     },
     "E-20": {
@@ -7729,7 +8188,7 @@
         109.3
       ],
       "pick_nodes": [
-        "W2-11"
+        "W2-15"
       ]
     },
     "E-21": {
@@ -7748,7 +8207,7 @@
         85.0
       ],
       "pick_nodes": [
-        "W2-09"
+        "W2-12"
       ]
     },
     "E-22": {
@@ -7767,7 +8226,7 @@
         85.0
       ],
       "pick_nodes": [
-        "W2-09"
+        "W2-12"
       ]
     },
     "E-23": {
@@ -7786,7 +8245,7 @@
         60.7
       ],
       "pick_nodes": [
-        "W2-07"
+        "W2-09"
       ]
     },
     "E-24": {
@@ -7805,7 +8264,7 @@
         60.7
       ],
       "pick_nodes": [
-        "W2-07"
+        "W2-09"
       ]
     },
     "E-25": {
@@ -7824,7 +8283,7 @@
         36.4
       ],
       "pick_nodes": [
-        "W2-05"
+        "W2-06"
       ]
     },
     "E-26": {
@@ -7843,7 +8302,7 @@
         36.4
       ],
       "pick_nodes": [
-        "W2-05"
+        "W2-06"
       ]
     },
     "E-27": {
@@ -7863,6 +8322,842 @@
       ],
       "pick_nodes": [
         "W2-03"
+      ]
+    },
+    "F-01": {
+      "section": "F",
+      "slot": 1,
+      "code": "F-01",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 1,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        324.5
+      ],
+      "pick_nodes": [
+        "W2-40"
+      ]
+    },
+    "F-02": {
+      "section": "F",
+      "slot": 2,
+      "code": "F-02",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 1,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        324.5
+      ],
+      "pick_nodes": [
+        "W2-40"
+      ]
+    },
+    "F-03": {
+      "section": "F",
+      "slot": 3,
+      "code": "F-03",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 2,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        293.6
+      ],
+      "pick_nodes": [
+        "W2-37"
+      ]
+    },
+    "F-04": {
+      "section": "F",
+      "slot": 4,
+      "code": "F-04",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 2,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        293.6
+      ],
+      "pick_nodes": [
+        "W2-37"
+      ]
+    },
+    "F-05": {
+      "section": "F",
+      "slot": 5,
+      "code": "F-05",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 3,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        262.7
+      ],
+      "pick_nodes": [
+        "W2-33"
+      ]
+    },
+    "F-06": {
+      "section": "F",
+      "slot": 6,
+      "code": "F-06",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 3,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        262.7
+      ],
+      "pick_nodes": [
+        "W2-33"
+      ]
+    },
+    "F-07": {
+      "section": "F",
+      "slot": 7,
+      "code": "F-07",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 4,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        231.8
+      ],
+      "pick_nodes": [
+        "W2-30"
+      ]
+    },
+    "F-08": {
+      "section": "F",
+      "slot": 8,
+      "code": "F-08",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 4,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        231.8
+      ],
+      "pick_nodes": [
+        "W2-30"
+      ]
+    },
+    "F-09": {
+      "section": "F",
+      "slot": 9,
+      "code": "F-09",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 5,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        200.9
+      ],
+      "pick_nodes": [
+        "W2-25"
+      ]
+    },
+    "F-10": {
+      "section": "F",
+      "slot": 10,
+      "code": "F-10",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 5,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        200.9
+      ],
+      "pick_nodes": [
+        "W2-25"
+      ]
+    },
+    "F-11": {
+      "section": "F",
+      "slot": 11,
+      "code": "F-11",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 6,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        170.0
+      ],
+      "pick_nodes": [
+        "W2-22"
+      ]
+    },
+    "F-12": {
+      "section": "F",
+      "slot": 12,
+      "code": "F-12",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 6,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        170.0
+      ],
+      "pick_nodes": [
+        "W2-22"
+      ]
+    },
+    "F-13": {
+      "section": "F",
+      "slot": 13,
+      "code": "F-13",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 7,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        139.1
+      ],
+      "pick_nodes": [
+        "W2-19"
+      ]
+    },
+    "F-14": {
+      "section": "F",
+      "slot": 14,
+      "code": "F-14",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 7,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        139.1
+      ],
+      "pick_nodes": [
+        "W2-19"
+      ]
+    },
+    "F-15": {
+      "section": "F",
+      "slot": 15,
+      "code": "F-15",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 8,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        108.2
+      ],
+      "pick_nodes": [
+        "W2-14"
+      ]
+    },
+    "F-16": {
+      "section": "F",
+      "slot": 16,
+      "code": "F-16",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 8,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        108.2
+      ],
+      "pick_nodes": [
+        "W2-14"
+      ]
+    },
+    "F-17": {
+      "section": "F",
+      "slot": 17,
+      "code": "F-17",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 9,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        77.3
+      ],
+      "pick_nodes": [
+        "W2-11"
+      ]
+    },
+    "F-18": {
+      "section": "F",
+      "slot": 18,
+      "code": "F-18",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 9,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        77.3
+      ],
+      "pick_nodes": [
+        "W2-11"
+      ]
+    },
+    "F-19": {
+      "section": "F",
+      "slot": 19,
+      "code": "F-19",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 10,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        46.4
+      ],
+      "pick_nodes": [
+        "W2-07"
+      ]
+    },
+    "F-20": {
+      "section": "F",
+      "slot": 20,
+      "code": "F-20",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 10,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        46.4
+      ],
+      "pick_nodes": [
+        "W2-07"
+      ]
+    },
+    "F-21": {
+      "section": "F",
+      "slot": 21,
+      "code": "F-21",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 11,
+      "level": 3,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        15.5
+      ],
+      "pick_nodes": [
+        "W2-04"
+      ]
+    },
+    "F-22": {
+      "section": "F",
+      "slot": 22,
+      "code": "F-22",
+      "rack_id": "F1",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 11,
+      "level": 4,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        15.5
+      ],
+      "pick_nodes": [
+        "W2-04"
+      ]
+    },
+    "F-23": {
+      "section": "F",
+      "slot": 23,
+      "code": "F-23",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 1,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        324.5
+      ],
+      "pick_nodes": [
+        "W2-40"
+      ]
+    },
+    "F-24": {
+      "section": "F",
+      "slot": 24,
+      "code": "F-24",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 1,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        324.5
+      ],
+      "pick_nodes": [
+        "W2-40"
+      ]
+    },
+    "F-25": {
+      "section": "F",
+      "slot": 25,
+      "code": "F-25",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 2,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        293.6
+      ],
+      "pick_nodes": [
+        "W2-37"
+      ]
+    },
+    "F-26": {
+      "section": "F",
+      "slot": 26,
+      "code": "F-26",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 2,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        293.6
+      ],
+      "pick_nodes": [
+        "W2-37"
+      ]
+    },
+    "F-27": {
+      "section": "F",
+      "slot": 27,
+      "code": "F-27",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 3,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        262.7
+      ],
+      "pick_nodes": [
+        "W2-33"
+      ]
+    },
+    "F-28": {
+      "section": "F",
+      "slot": 28,
+      "code": "F-28",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 3,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        262.7
+      ],
+      "pick_nodes": [
+        "W2-33"
+      ]
+    },
+    "F-29": {
+      "section": "F",
+      "slot": 29,
+      "code": "F-29",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 4,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        231.8
+      ],
+      "pick_nodes": [
+        "W2-30"
+      ]
+    },
+    "F-30": {
+      "section": "F",
+      "slot": 30,
+      "code": "F-30",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 4,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        231.8
+      ],
+      "pick_nodes": [
+        "W2-30"
+      ]
+    },
+    "F-31": {
+      "section": "F",
+      "slot": 31,
+      "code": "F-31",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 5,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        200.9
+      ],
+      "pick_nodes": [
+        "W2-25"
+      ]
+    },
+    "F-32": {
+      "section": "F",
+      "slot": 32,
+      "code": "F-32",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 5,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        200.9
+      ],
+      "pick_nodes": [
+        "W2-25"
+      ]
+    },
+    "F-33": {
+      "section": "F",
+      "slot": 33,
+      "code": "F-33",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 6,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        170.0
+      ],
+      "pick_nodes": [
+        "W2-22"
+      ]
+    },
+    "F-34": {
+      "section": "F",
+      "slot": 34,
+      "code": "F-34",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 6,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        170.0
+      ],
+      "pick_nodes": [
+        "W2-22"
+      ]
+    },
+    "F-35": {
+      "section": "F",
+      "slot": 35,
+      "code": "F-35",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 7,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        139.1
+      ],
+      "pick_nodes": [
+        "W2-19"
+      ]
+    },
+    "F-36": {
+      "section": "F",
+      "slot": 36,
+      "code": "F-36",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 7,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        139.1
+      ],
+      "pick_nodes": [
+        "W2-19"
+      ]
+    },
+    "F-37": {
+      "section": "F",
+      "slot": 37,
+      "code": "F-37",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 8,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        108.2
+      ],
+      "pick_nodes": [
+        "W2-14"
+      ]
+    },
+    "F-38": {
+      "section": "F",
+      "slot": 38,
+      "code": "F-38",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 8,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        108.2
+      ],
+      "pick_nodes": [
+        "W2-14"
+      ]
+    },
+    "F-39": {
+      "section": "F",
+      "slot": 39,
+      "code": "F-39",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 9,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        77.3
+      ],
+      "pick_nodes": [
+        "W2-11"
+      ]
+    },
+    "F-40": {
+      "section": "F",
+      "slot": 40,
+      "code": "F-40",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 9,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        77.3
+      ],
+      "pick_nodes": [
+        "W2-11"
+      ]
+    },
+    "F-41": {
+      "section": "F",
+      "slot": 41,
+      "code": "F-41",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 10,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        46.4
+      ],
+      "pick_nodes": [
+        "W2-07"
+      ]
+    },
+    "F-42": {
+      "section": "F",
+      "slot": 42,
+      "code": "F-42",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 10,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        46.4
+      ],
+      "pick_nodes": [
+        "W2-07"
+      ]
+    },
+    "F-43": {
+      "section": "F",
+      "slot": 43,
+      "code": "F-43",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 11,
+      "level": 5,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        15.5
+      ],
+      "pick_nodes": [
+        "W2-04"
+      ]
+    },
+    "F-44": {
+      "section": "F",
+      "slot": 44,
+      "code": "F-44",
+      "rack_id": "F2",
+      "pattern": "col2",
+      "floor": "G",
+      "column": 11,
+      "level": 6,
+      "n_cols": 11,
+      "walkway": "W2",
+      "slot_xy": [
+        342.0,
+        15.5
+      ],
+      "pick_nodes": [
+        "W2-04"
       ]
     },
     "R-01": {
@@ -8414,8 +9709,8 @@
       ],
       "pick_nodes": [
         "W3-08",
-        "W4-06",
-        "NX-01",
+        "W4-05",
+        "NX-02",
         "MX-08"
       ]
     },
@@ -8429,13 +9724,13 @@
       "column": 1,
       "level": 1,
       "n_cols": 3,
-      "walkway": "W4",
+      "walkway": "NX",
       "slot_xy": [
-        673.3,
-        20.0
+        518.3,
+        12.0
       ],
       "pick_nodes": [
-        "W4-02"
+        "NX-01"
       ]
     },
     "O-14": {
@@ -8448,13 +9743,13 @@
       "column": 1,
       "level": 2,
       "n_cols": 3,
-      "walkway": "W4",
+      "walkway": "NX",
       "slot_xy": [
-        673.3,
-        20.0
+        518.3,
+        12.0
       ],
       "pick_nodes": [
-        "W4-02"
+        "NX-01"
       ]
     },
     "O-15": {
@@ -8467,13 +9762,13 @@
       "column": 2,
       "level": 1,
       "n_cols": 3,
-      "walkway": "W4",
+      "walkway": "NX",
       "slot_xy": [
-        690.0,
-        20.0
+        615.0,
+        12.0
       ],
       "pick_nodes": [
-        "W4-02"
+        "NX-03"
       ]
     },
     "O-16": {
@@ -8486,13 +9781,13 @@
       "column": 2,
       "level": 2,
       "n_cols": 3,
-      "walkway": "W4",
+      "walkway": "NX",
       "slot_xy": [
-        690.0,
-        20.0
+        615.0,
+        12.0
       ],
       "pick_nodes": [
-        "W4-02"
+        "NX-03"
       ]
     },
     "O-17": {
@@ -8505,13 +9800,13 @@
       "column": 3,
       "level": 1,
       "n_cols": 3,
-      "walkway": "W4",
+      "walkway": "NX",
       "slot_xy": [
-        706.7,
-        20.0
+        711.7,
+        12.0
       ],
       "pick_nodes": [
-        "W4-02"
+        "NX-05"
       ]
     },
     "O-01": {
@@ -8527,10 +9822,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        155.8
+        159.2
       ],
       "pick_nodes": [
-        "W4-08"
+        "W4-07"
       ]
     },
     "O-02": {
@@ -8546,10 +9841,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        155.8
+        159.2
       ],
       "pick_nodes": [
-        "W4-08"
+        "W4-07"
       ]
     },
     "O-03": {
@@ -8565,10 +9860,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        127.5
+        137.5
       ],
       "pick_nodes": [
-        "W4-07"
+        "W4-06"
       ]
     },
     "O-04": {
@@ -8584,10 +9879,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        127.5
+        137.5
       ],
       "pick_nodes": [
-        "W4-07"
+        "W4-06"
       ]
     },
     "O-05": {
@@ -8603,10 +9898,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        99.2
+        115.8
       ],
       "pick_nodes": [
-        "W4-05"
+        "W4-04"
       ]
     },
     "O-06": {
@@ -8622,10 +9917,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        99.2
+        115.8
       ],
       "pick_nodes": [
-        "W4-05"
+        "W4-04"
       ]
     },
     "O-07": {
@@ -8641,10 +9936,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        70.8
+        94.2
       ],
       "pick_nodes": [
-        "W4-04"
+        "W4-03"
       ]
     },
     "O-08": {
@@ -8660,10 +9955,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        70.8
+        94.2
       ],
       "pick_nodes": [
-        "W4-04"
+        "W4-03"
       ]
     },
     "O-09": {
@@ -8679,10 +9974,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        42.5
+        72.5
       ],
       "pick_nodes": [
-        "W4-03"
+        "W4-02"
       ]
     },
     "O-10": {
@@ -8698,10 +9993,10 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        42.5
+        72.5
       ],
       "pick_nodes": [
-        "W4-03"
+        "W4-02"
       ]
     },
     "O-11": {
@@ -8717,7 +10012,7 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        14.2
+        50.8
       ],
       "pick_nodes": [
         "W4-01"
@@ -8736,7 +10031,7 @@
       "walkway": "W4",
       "slot_xy": [
         740.0,
-        14.2
+        50.8
       ],
       "pick_nodes": [
         "W4-01"
@@ -8758,7 +10053,7 @@
         280.4
       ],
       "pick_nodes": [
-        "W4-14"
+        "W4-13"
       ]
     },
     "N-02": {
@@ -8777,7 +10072,7 @@
         280.4
       ],
       "pick_nodes": [
-        "W4-14"
+        "W4-13"
       ]
     },
     "N-03": {
@@ -8796,7 +10091,7 @@
         261.2
       ],
       "pick_nodes": [
-        "W4-13"
+        "W4-12"
       ]
     },
     "N-04": {
@@ -8815,7 +10110,7 @@
         261.2
       ],
       "pick_nodes": [
-        "W4-13"
+        "W4-12"
       ]
     },
     "N-05": {
@@ -8834,7 +10129,7 @@
         242.1
       ],
       "pick_nodes": [
-        "W4-12"
+        "W4-11"
       ]
     },
     "N-06": {
@@ -8853,7 +10148,7 @@
         242.1
       ],
       "pick_nodes": [
-        "W4-12"
+        "W4-11"
       ]
     },
     "N-07": {
@@ -8872,7 +10167,7 @@
         222.9
       ],
       "pick_nodes": [
-        "W4-11"
+        "W4-10"
       ]
     },
     "N-08": {
@@ -8891,7 +10186,7 @@
         222.9
       ],
       "pick_nodes": [
-        "W4-11"
+        "W4-10"
       ]
     },
     "N-09": {
@@ -8910,7 +10205,7 @@
         203.8
       ],
       "pick_nodes": [
-        "W4-10"
+        "W4-09"
       ]
     },
     "N-10": {
@@ -8929,7 +10224,7 @@
         203.8
       ],
       "pick_nodes": [
-        "W4-10"
+        "W4-09"
       ]
     },
     "N-11": {
@@ -8948,7 +10243,7 @@
         184.6
       ],
       "pick_nodes": [
-        "W4-09"
+        "W4-08"
       ]
     },
     "N-12": {
@@ -8967,7 +10262,7 @@
         184.6
       ],
       "pick_nodes": [
-        "W4-09"
+        "W4-08"
       ]
     },
     "M-01": {
@@ -8986,7 +10281,7 @@
         423.3
       ],
       "pick_nodes": [
-        "W4-20"
+        "W4-19"
       ]
     },
     "M-02": {
@@ -9005,7 +10300,7 @@
         423.3
       ],
       "pick_nodes": [
-        "W4-20"
+        "W4-19"
       ]
     },
     "M-03": {
@@ -9024,7 +10319,7 @@
         400.0
       ],
       "pick_nodes": [
-        "W4-19"
+        "W4-18"
       ]
     },
     "M-04": {
@@ -9043,7 +10338,7 @@
         400.0
       ],
       "pick_nodes": [
-        "W4-19"
+        "W4-18"
       ]
     },
     "M-05": {
@@ -9062,7 +10357,7 @@
         376.7
       ],
       "pick_nodes": [
-        "W4-18"
+        "W4-17"
       ]
     },
     "M-06": {
@@ -9081,7 +10376,7 @@
         376.7
       ],
       "pick_nodes": [
-        "W4-18"
+        "W4-17"
       ]
     },
     "M-07": {
@@ -9100,7 +10395,7 @@
         353.3
       ],
       "pick_nodes": [
-        "W4-17"
+        "W4-16"
       ]
     },
     "M-08": {
@@ -9119,7 +10414,7 @@
         353.3
       ],
       "pick_nodes": [
-        "W4-17"
+        "W4-16"
       ]
     },
     "M-09": {
@@ -9138,7 +10433,7 @@
         330.0
       ],
       "pick_nodes": [
-        "W4-16"
+        "W4-15"
       ]
     },
     "M-10": {
@@ -9157,7 +10452,7 @@
         330.0
       ],
       "pick_nodes": [
-        "W4-16"
+        "W4-15"
       ]
     },
     "M-11": {
@@ -9176,7 +10471,7 @@
         306.7
       ],
       "pick_nodes": [
-        "W4-15"
+        "W4-14"
       ]
     },
     "M-12": {
@@ -9195,7 +10490,7 @@
         306.7
       ],
       "pick_nodes": [
-        "W4-15"
+        "W4-14"
       ]
     },
     "L-01": {
@@ -9214,7 +10509,7 @@
         540.8
       ],
       "pick_nodes": [
-        "W4-27"
+        "W4-26"
       ]
     },
     "L-02": {
@@ -9233,7 +10528,7 @@
         540.8
       ],
       "pick_nodes": [
-        "W4-27"
+        "W4-26"
       ]
     },
     "L-03": {
@@ -9252,7 +10547,7 @@
         522.5
       ],
       "pick_nodes": [
-        "W4-26"
+        "W4-25"
       ]
     },
     "L-04": {
@@ -9271,7 +10566,7 @@
         522.5
       ],
       "pick_nodes": [
-        "W4-26"
+        "W4-25"
       ]
     },
     "L-05": {
@@ -9290,7 +10585,7 @@
         504.2
       ],
       "pick_nodes": [
-        "W4-25"
+        "W4-24"
       ]
     },
     "L-06": {
@@ -9309,7 +10604,7 @@
         504.2
       ],
       "pick_nodes": [
-        "W4-25"
+        "W4-24"
       ]
     },
     "L-07": {
@@ -9328,7 +10623,7 @@
         485.8
       ],
       "pick_nodes": [
-        "W4-24"
+        "W4-23"
       ]
     },
     "L-08": {
@@ -9347,7 +10642,7 @@
         485.8
       ],
       "pick_nodes": [
-        "W4-24"
+        "W4-23"
       ]
     },
     "L-09": {
@@ -9366,7 +10661,7 @@
         467.5
       ],
       "pick_nodes": [
-        "W4-22"
+        "W4-21"
       ]
     },
     "L-10": {
@@ -9385,7 +10680,7 @@
         467.5
       ],
       "pick_nodes": [
-        "W4-22"
+        "W4-21"
       ]
     },
     "L-11": {
@@ -9404,7 +10699,7 @@
         449.2
       ],
       "pick_nodes": [
-        "W4-21"
+        "W4-20"
       ]
     },
     "L-12": {
@@ -9423,7 +10718,7 @@
         449.2
       ],
       "pick_nodes": [
-        "W4-21"
+        "W4-20"
       ]
     },
     "X-06": {
@@ -9442,7 +10737,7 @@
         472.0
       ],
       "pick_nodes": [
-        "W4-23"
+        "W4-22"
       ]
     },
     "X-07": {
@@ -9461,7 +10756,7 @@
         472.0
       ],
       "pick_nodes": [
-        "W4-23"
+        "W4-22"
       ]
     },
     "X-08": {
@@ -9480,7 +10775,7 @@
         472.0
       ],
       "pick_nodes": [
-        "W4-23"
+        "W4-22"
       ]
     },
     "X-09": {
@@ -9499,7 +10794,7 @@
         472.0
       ],
       "pick_nodes": [
-        "W4-23"
+        "W4-22"
       ]
     },
     "X-01": {
@@ -10813,6 +12108,196 @@
         "MZV4-01"
       ]
     },
+    "H-01": {
+      "section": "H",
+      "slot": 1,
+      "code": "H-01",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 1,
+      "level": 1,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        402.5
+      ],
+      "pick_nodes": [
+        "MZH-02"
+      ]
+    },
+    "H-02": {
+      "section": "H",
+      "slot": 2,
+      "code": "H-02",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 1,
+      "level": 2,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        402.5
+      ],
+      "pick_nodes": [
+        "MZH-02"
+      ]
+    },
+    "H-03": {
+      "section": "H",
+      "slot": 3,
+      "code": "H-03",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 2,
+      "level": 1,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        437.5
+      ],
+      "pick_nodes": [
+        "MZH-03"
+      ]
+    },
+    "H-04": {
+      "section": "H",
+      "slot": 4,
+      "code": "H-04",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 2,
+      "level": 2,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        437.5
+      ],
+      "pick_nodes": [
+        "MZH-03"
+      ]
+    },
+    "H-05": {
+      "section": "H",
+      "slot": 5,
+      "code": "H-05",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 3,
+      "level": 1,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        472.5
+      ],
+      "pick_nodes": [
+        "MZH-04"
+      ]
+    },
+    "H-06": {
+      "section": "H",
+      "slot": 6,
+      "code": "H-06",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 3,
+      "level": 2,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        472.5
+      ],
+      "pick_nodes": [
+        "MZH-04"
+      ]
+    },
+    "H-07": {
+      "section": "H",
+      "slot": 7,
+      "code": "H-07",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 4,
+      "level": 1,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        507.5
+      ],
+      "pick_nodes": [
+        "MZH-05"
+      ]
+    },
+    "H-08": {
+      "section": "H",
+      "slot": 8,
+      "code": "H-08",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 4,
+      "level": 2,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        507.5
+      ],
+      "pick_nodes": [
+        "MZH-05"
+      ]
+    },
+    "H-09": {
+      "section": "H",
+      "slot": 9,
+      "code": "H-09",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 5,
+      "level": 1,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        542.5
+      ],
+      "pick_nodes": [
+        "MZH-06"
+      ]
+    },
+    "H-10": {
+      "section": "H",
+      "slot": 10,
+      "code": "H-10",
+      "rack_id": "H",
+      "pattern": "col2",
+      "floor": "M",
+      "column": 5,
+      "level": 2,
+      "n_cols": 5,
+      "walkway": "MZH",
+      "slot_xy": [
+        345.0,
+        542.5
+      ],
+      "pick_nodes": [
+        "MZH-06"
+      ]
+    },
     "S-01": {
       "section": "S",
       "slot": 1,
@@ -11000,7 +12485,8 @@
         180.0
       ],
       "pick_nodes": [
-        "MZX5-01"
+        "MZX5-01",
+        "MZX5W-01"
       ]
     },
     "X-04": {
@@ -11646,7 +13132,7 @@
         150.0
       ],
       "pick_nodes": [
-        "MZW-11"
+        "MZW-12"
       ]
     },
     "W-22": {
@@ -11665,7 +13151,7 @@
         150.0
       ],
       "pick_nodes": [
-        "MZW-11"
+        "MZW-12"
       ]
     },
     "W-23": {
@@ -11684,7 +13170,7 @@
         107.1
       ],
       "pick_nodes": [
-        "MZW-12"
+        "MZW-13"
       ]
     },
     "W-24": {
@@ -11703,7 +13189,7 @@
         107.1
       ],
       "pick_nodes": [
-        "MZW-12"
+        "MZW-13"
       ]
     },
     "W-25": {
@@ -11722,7 +13208,7 @@
         64.3
       ],
       "pick_nodes": [
-        "MZW-13"
+        "MZW-14"
       ]
     },
     "W-26": {
@@ -11741,7 +13227,7 @@
         64.3
       ],
       "pick_nodes": [
-        "MZW-13"
+        "MZW-14"
       ]
     },
     "W-27": {
@@ -11760,7 +13246,7 @@
         21.4
       ],
       "pick_nodes": [
-        "MZW-14"
+        "MZW-15"
       ]
     },
     "Z-01": {

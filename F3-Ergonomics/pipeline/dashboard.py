@@ -19,6 +19,7 @@ SOURCE_DIRS   = [
     r"D:\F3-Project\data\crops",          # additional per-person crops
     # frames/ excluded: contains full-scene CCTV frames, not individual person crops
 ]
+ANNOTATED_FRAMES_DIR = r"D:\F3-Project\outputs\annotated_frames"
 YOLO_MODEL    = r"D:\F3-Project\models\yolo11m-pose.pt"
 
 sys.path.insert(0, PIPELINE_DIR)
@@ -94,6 +95,8 @@ st.markdown("""
     font-size: 0.7rem; font-weight: 700;
     color: white; letter-spacing: 0.04em;
     display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 2px;
+    box-sizing: border-box;
 }
 .conf-green { background: #00C853; }
 .conf-amber { background: #FFB300; }
@@ -162,14 +165,7 @@ def load_yolo():
 
 # ── Discover unique workers across all source dirs ────────────────────────────
 def discover_workers():
-    """
-    Returns dict: { worker_id: [img_path, img_path, ...] }
-    Scans ALL source dirs and MERGES frames for workers that appear in multiple
-    sources — so a worker in both worker-crops AND frames contributes all their
-    frames to the pool. Worst-frame selection then picks the highest-risk one.
-    Duplicate paths (same file in two sources) are deduplicated by filename.
-    """
-    worker_map = {}   # { wid: { filename: full_path } }
+    worker_map = {}
 
     for src in SOURCE_DIRS:
         base = Path(src)
@@ -185,12 +181,20 @@ def discover_workers():
             if wid not in worker_map:
                 worker_map[wid] = {}
             for p in imgs:
-                # Key by filename so duplicate frames don't run twice
                 worker_map[wid][p.name] = str(p)
 
-    # Flatten to sorted list of paths per worker
+    # ── Flat annotated frames — each file = one worker ────────────────────────
+    ann_base = Path(ANNOTATED_FRAMES_DIR)
+    if ann_base.exists():
+        for fpath in sorted(list(ann_base.glob("*.jpg")) + list(ann_base.glob("*.png"))):
+            stem = fpath.stem                                        # frame_001
+            wid  = stem.replace("frame_", "Frame-").replace("_", "-")  # Frame-001
+            if wid not in worker_map:
+                worker_map[wid] = {}
+            worker_map[wid][fpath.name] = str(fpath)
+
     def sort_key(k):
-        parts = k.replace("Worker-", "")
+        parts = k.replace("Worker-", "").replace("Frame-", "")
         return int(parts) if parts.isdigit() else 999
 
     return {
@@ -213,7 +217,8 @@ def score_all_frames(worker_id: str, img_paths: list):
 
     for img_path in img_paths:
         try:
-            r = run_pipeline(img_path, worker_id)
+            # scene_aware: retries at lower conf if YOLO misses at 0.30
+            r = run_pipeline_scene_aware(img_path, worker_id)
             if r is None:
                 all_scores.append((img_path, None, "ERROR"))
                 continue
@@ -308,6 +313,150 @@ def run_pipeline(img_path: str, worker_id: str):
         "demo_gen_conf": demo["gender_conf"],
         "demo_status":   demo["status"],
     }
+
+# ── Multi-person scene frame scoring ──────────────────────────────────────────
+# Lower conf threshold for full CCTV scenes — figures are small & partially occluded
+SCENE_DET_CONF = 0.15   # used by score_frame_multi_person (vs 0.30 for tight crops)
+
+def score_frame_multi_person(frame_path: str, frame_id: str):
+    """
+    Detects ALL persons in a full CCTV scene frame.
+    Uses a lower detection confidence (SCENE_DET_CONF = 0.15) because warehouse
+    CCTV figures are small, partially occluded, and shot at wide angle.
+    Crops each detected person, runs full N1→N2→N3 pipeline on each crop.
+    Returns list of per-person result dicts.
+    """
+    import tempfile, os
+    model  = load_yolo()
+    img    = Image.open(frame_path).convert("RGB")
+    # conf=SCENE_DET_CONF so we catch small/occluded workers in wide-angle scenes
+    yolo_results = model(frame_path, verbose=False, conf=SCENE_DET_CONF)
+
+    persons = []
+    person_idx = 0  # sequential index across only class-0 detections
+
+    for box in yolo_results[0].boxes:
+        if int(box.cls[0]) != 0:          # class 0 = person
+            continue
+        det_conf = float(box.conf[0])
+        x1, y1, x2, y2 = [int(v) for v in box.xyxy[0]]
+
+        # Skip crops that are too small to be useful (< 20×20 px)
+        if (x2 - x1) < 20 or (y2 - y1) < 20:
+            continue
+
+        person_idx += 1
+
+        # Crop person from the full scene
+        crop = img.crop((x1, y1, x2, y2))
+
+        # Upscale small crops so YOLO inside run_hybrid() can detect at default conf
+        MIN_CROP_W, MIN_CROP_H = 256, 320
+        cw, ch = crop.size
+        if cw < MIN_CROP_W or ch < MIN_CROP_H:
+            scale = max(MIN_CROP_W / max(cw, 1), MIN_CROP_H / max(ch, 1))
+            crop = crop.resize((int(cw * scale), int(ch * scale)), Image.LANCZOS)
+
+        crop_path = os.path.join(
+            tempfile.gettempdir(), f"f3_crop_{frame_id}_p{person_idx}.jpg"
+        )
+        crop.save(crop_path)
+
+        worker_id = f"{frame_id}-P{person_idx}"   # e.g. Frame-001-P1
+        try:
+            r = run_pipeline(crop_path, worker_id)
+            if r:
+                r["worker_id"]    = worker_id
+                r["det_conf"]     = det_conf      # override with scene-level conf
+                r["crop_bbox"]    = (x1, y1, x2, y2)
+                r["person_index"] = person_idx
+                r["source_frame"] = frame_path
+                persons.append(r)
+            else:
+                # run_pipeline returned None — pose not detected in crop; skip silently
+                pass
+        except Exception as e:
+            persons.append({
+                "worker_id":       worker_id,
+                "img_path":        crop_path,
+                "color":           "GREEN",
+                "composite":       0.0,
+                "det_conf":        det_conf,
+                "angles":          {},
+                "joint_scores":    {},
+                "frozen_zones":    [],
+                "filter_reason":   "Pipeline error",
+                "frame_count":     1,
+                "all_frame_scores": [],
+                "error":           str(e),
+                "demo_age":        "N/A",
+                "demo_gender":     "N/A",
+                "demo_age_conf":   0.0,
+                "demo_gen_conf":   0.0,
+                "demo_status":     "no detection",
+                "source_frame":    frame_path,
+                "person_index":    person_idx,
+            })
+
+    return persons
+
+
+# ── Single-frame pipeline with scene-aware fallback ───────────────────────────
+def run_pipeline_scene_aware(img_path: str, worker_id: str):
+    """
+    Like run_pipeline() but for full CCTV scene images (Worker-N/Frame-XXXX).
+    If run_hybrid() finds no person at default conf (0.30), retries YOLO at
+    SCENE_DET_CONF (0.15) then crops the best detection and runs the pipeline
+    on that crop.  Returns the result dict or None.
+    """
+    import tempfile, os
+
+    # First attempt: standard pipeline on the full image
+    r = run_pipeline(img_path, worker_id)
+    if r is not None:
+        return r
+
+    # Second attempt: low-conf YOLO on the scene → crop best person → pipeline
+    model        = load_yolo()
+    img          = Image.open(img_path).convert("RGB")
+    yolo_results = model(img_path, verbose=False, conf=SCENE_DET_CONF)
+
+    best_box  = None
+    best_conf = 0.0
+    for box in yolo_results[0].boxes:
+        if int(box.cls[0]) != 0:
+            continue
+        c = float(box.conf[0])
+        x1, y1, x2, y2 = [int(v) for v in box.xyxy[0]]
+        if (x2 - x1) < 20 or (y2 - y1) < 20:
+            continue
+        if c > best_conf:
+            best_conf = c
+            best_box  = box
+
+    if best_box is None:
+        return None   # genuinely no person found even at low threshold
+
+    x1, y1, x2, y2 = [int(v) for v in best_box.xyxy[0]]
+    crop      = img.crop((x1, y1, x2, y2))
+
+    # Upscale small crops so YOLO inside run_hybrid() can detect at default conf
+    MIN_CROP_W, MIN_CROP_H = 256, 320
+    cw, ch = crop.size
+    if cw < MIN_CROP_W or ch < MIN_CROP_H:
+        scale = max(MIN_CROP_W / max(cw, 1), MIN_CROP_H / max(ch, 1))
+        crop = crop.resize((int(cw * scale), int(ch * scale)), Image.LANCZOS)
+
+    crop_path = os.path.join(
+        tempfile.gettempdir(), f"f3_scene_crop_{worker_id.replace('/', '_')}.jpg"
+    )
+    crop.save(crop_path)
+
+    r = run_pipeline(crop_path, worker_id)
+    if r is not None:
+        r["det_conf"]  = best_conf   # use scene-level detection confidence
+        r["crop_bbox"] = (x1, y1, x2, y2)
+    return r
 
 
 # ── Advisory text ─────────────────────────────────────────────────────────────
@@ -536,6 +685,7 @@ def load_all_workers():
     """
     For each worker, scores ALL frames and selects the one with the
     highest composite risk score (worst posture observed).
+    For annotated frames (Frame-NNN), detects ALL persons and scores each.
     Falls back gracefully for workers with only 1 frame or failed detections.
     """
     wmap    = discover_workers()
@@ -547,52 +697,77 @@ def load_all_workers():
     for i, (wid, img_paths) in enumerate(wmap.items()):
         progress.progress(
             (i + 1) / total,
-            text=f"Scoring {wid} ({len(img_paths)} frame{'s' if len(img_paths)>1 else ''})…"
+            text=f"Processing {wid} ({i+1}/{total})…",
         )
+
         try:
-            r = score_all_frames(wid, img_paths)
-            if r:
-                results.append(r)
+            if wid.startswith("Frame-"):
+                persons = score_frame_multi_person(img_paths[0], wid)
+                if persons:
+                    results.extend(persons)
+                else:
+                    results.append({
+                        "worker_id":        wid,
+                        "img_path":         img_paths[0],
+                        "color":            "GREEN",
+                        "composite":        0.0,
+                        "det_conf":         0.0,
+                        "angles":           {},
+                        "joint_scores":     {},
+                        "frozen_zones":     [],
+                        "filter_reason":    "No person detected in frame",
+                        "frame_count":      1,
+                        "all_frame_scores": [],
+                        "error":            "YOLO found no person in this frame",
+                        "demo_age":         "N/A",
+                        "demo_gender":      "N/A",
+                        "demo_age_conf":    0.0,
+                        "demo_gen_conf":    0.0,
+                        "demo_status":      "no detection",
+                    })
             else:
-                # All frames failed detection — show as GREEN/0.0 (undetected ≠ risky)
-                results.append({
-                    "worker_id":       wid,
-                    "img_path":        img_paths[0],
-                    "color":           "GREEN",
-                    "composite":       0.0,
-                    "det_conf":        0.0,
-                    "angles":          {},
-                    "joint_scores":    {},
-                    "frozen_zones":    [],
-                    "filter_reason":   "No pose detected in any frame",
-                    "frame_count":     len(img_paths),
-                    "all_frame_scores": [(p, None, "ERROR") for p in img_paths],
-                    "error":           "YOLO found no person across all frames",
-                    "demo_age":        "N/A",
-                    "demo_gender":     "N/A",
-                    "demo_age_conf":   0.0,
-                    "demo_gen_conf":   0.0,
-                    "demo_status":     "no detection",
-                })
+                r = score_all_frames(wid, img_paths)
+                if r:
+                    results.append(r)
+                else:
+                    results.append({
+                        "worker_id":        wid,
+                        "img_path":         img_paths[0],
+                        "color":            "GREEN",
+                        "composite":        0.0,
+                        "det_conf":         0.0,
+                        "angles":           {},
+                        "joint_scores":     {},
+                        "frozen_zones":     [],
+                        "filter_reason":    "No pose detected in any frame",
+                        "frame_count":      len(img_paths),
+                        "all_frame_scores": [(p, None, "ERROR") for p in img_paths],
+                        "error":            "YOLO found no person across all frames",
+                        "demo_age":         "N/A",
+                        "demo_gender":      "N/A",
+                        "demo_age_conf":    0.0,
+                        "demo_gen_conf":    0.0,
+                        "demo_status":      "no detection",
+                    })
         except Exception as e:
             results.append({
-                "worker_id":       wid,
-                "img_path":        img_paths[0],
-                "color":           "GREEN",
-                "composite":       0.0,
-                "det_conf":        0.0,
-                "angles":          {},
-                "joint_scores":    {},
-                "frozen_zones":    [],
-                "filter_reason":   "Pipeline error",
-                "frame_count":     len(img_paths),
+                "worker_id":        wid,
+                "img_path":         img_paths[0],
+                "color":            "GREEN",
+                "composite":        0.0,
+                "det_conf":         0.0,
+                "angles":           {},
+                "joint_scores":     {},
+                "frozen_zones":     [],
+                "filter_reason":    "Pipeline error",
+                "frame_count":      len(img_paths),
                 "all_frame_scores": [],
-                "error":           str(e),
-                "demo_age":        "N/A",
-                "demo_gender":     "N/A",
-                "demo_age_conf":   0.0,
-                "demo_gen_conf":   0.0,
-                "demo_status":     "no detection",
+                "error":            str(e),
+                "demo_age":         "N/A",
+                "demo_gender":      "N/A",
+                "demo_age_conf":    0.0,
+                "demo_gen_conf":    0.0,
+                "demo_status":      "no detection",
             })
 
     progress.empty()
@@ -753,9 +928,12 @@ if page == "📊 Overview":
                     # Single HTML block = guaranteed uniform size
                     st.markdown(f"""
                     <div class="wcard-outer {cc}">
-                        <div class="{cconf} conf-bar">
+                        <div style="width:100%;padding:5px 8px;background:{ch};color:#fff;
+                                    font-size:0.72rem;font-weight:700;letter-spacing:0.03em;
+                                    display:flex;justify-content:space-between;flex-wrap:wrap;
+                                    box-sizing:border-box;border-radius:10px 10px 0 0;">
                             <span>{color}</span>
-                            <span>conf {det_conf:.2f}</span>
+                            <span>conf {det_conf:.2f} &middot; {score:.1f}/10</span>
                         </div>
                         <div class="wcard-img-wrap">{img_tag}</div>
                         <div class="wcard-footer">
@@ -1104,7 +1282,7 @@ elif page == "ℹ️ About":
     ### Data Sources (priority order)
     1. `data/worker-crops/` — manually curated tight crops
     2. `data/crops/` — auto-cropped from YOLO detections
-    3. `data/frames/` — raw extracted video frames
+    3. `outputs/annotated_frames/` — full CCTV scene frames (multi-person detection)
 
     ---
 

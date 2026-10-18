@@ -1,0 +1,457 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>F3 Model Selection Rationale</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+/* Layout: header → metric tiles → comparison table → verdict */
+:root {
+  --bg:        #0D1117;
+  --surface:   #161B22;
+  --border:    #30363D;
+  --fg:        #E6EDF3;
+  --muted:     #8B949E;
+  --green:     #3FB950;
+  --amber:     #D29922;
+  --red:       #F85149;
+  --blue:      #58A6FF;
+  --purple:    #BC8CFF;
+  --accent:    #58A6FF;
+  --ff-head:   'IBM Plex Sans', system-ui, sans-serif;
+  --ff-mono:   'IBM Plex Mono', monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:      #F6F8FA;
+    --surface: #FFFFFF;
+    --border:  #D0D7DE;
+    --fg:      #1F2328;
+    --muted:   #656D76;
+    --green:   #1A7F37;
+    --amber:   #9A6700;
+    --red:     #CF222E;
+    --blue:    #0969DA;
+    --purple:  #8250DF;
+    --accent:  #0969DA;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg:      #F6F8FA;
+  --surface: #FFFFFF;
+  --border:  #D0D7DE;
+  --fg:      #1F2328;
+  --muted:   #656D76;
+  --green:   #1A7F37;
+  --amber:   #9A6700;
+  --red:     #CF222E;
+  --blue:    #0969DA;
+  --purple:  #8250DF;
+  --accent:  #0969DA;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--ff-head);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-left:  max(16px, env(safe-area-inset-left,  0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 48px 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.header-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+  margin-bottom: 8px;
+}
+.subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 60ch;
+  margin-bottom: 40px;
+}
+.subtitle strong { color: var(--fg); }
+
+/* ── Metric tiles ── */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 40px;
+}
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.tile-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-family: var(--ff-mono);
+}
+.tile-value {
+  font-size: 1.55rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.tile-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.c-green  { color: var(--green); }
+.c-amber  { color: var(--amber); }
+.c-red    { color: var(--red); }
+.c-blue   { color: var(--blue); }
+.c-purple { color: var(--purple); }
+
+/* ── Section title ── */
+.sec-title {
+  font-size: 0.72rem;
+  font-family: var(--ff-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Comparison table ── */
+.table-wrap { overflow-x: auto; margin-bottom: 40px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  min-width: 620px;
+}
+thead th {
+  background: var(--surface);
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+thead th:first-child { border-radius: 8px 0 0 0; }
+thead th:last-child  { border-radius: 0 8px 0 0; }
+.th-chosen {
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--accent);
+}
+tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--surface) 60%, var(--bg)); }
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  min-width: 0;
+}
+tbody td:first-child {
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.col-chosen { background: color-mix(in srgb, var(--accent) 6%, transparent) !important; }
+
+.chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--ff-mono);
+  white-space: nowrap;
+}
+.chip-green  { background: color-mix(in srgb, var(--green)  18%, transparent); color: var(--green);  border: 1px solid color-mix(in srgb, var(--green)  35%, transparent); }
+.chip-amber  { background: color-mix(in srgb, var(--amber)  18%, transparent); color: var(--amber);  border: 1px solid color-mix(in srgb, var(--amber)  35%, transparent); }
+.chip-red    { background: color-mix(in srgb, var(--red)    18%, transparent); color: var(--red);    border: 1px solid color-mix(in srgb, var(--red)    35%, transparent); }
+.chip-blue   { background: color-mix(in srgb, var(--blue)   18%, transparent); color: var(--blue);   border: 1px solid color-mix(in srgb, var(--blue)   35%, transparent); }
+.chip-muted  { background: color-mix(in srgb, var(--muted)  12%, transparent); color: var(--muted);  border: 1px solid color-mix(in srgb, var(--muted)  25%, transparent); }
+
+/* ── Why hybrid ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+.card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+.card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+.card p strong { color: var(--fg); }
+
+/* ── Verdict banner ── */
+.verdict {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.verdict-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 2px; }
+.verdict h2   { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+.verdict p    { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+.verdict p strong { color: var(--fg); }
+
+/* ── Footer ── */
+footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+}
+</style>
+
+<div class="header-eyebrow">J26-DS-352 · F3 Module · Model Selection</div>
+<h1>Why YOLOv11-Pose + MediaPipe?</h1>
+<p class="subtitle">
+  Benchmark-driven rationale for the hybrid pose estimation architecture used in
+  <strong>Skeleton-Based Demographic Profiling &amp; Ergonomic Composite Risk</strong> —
+  Warehouse Intelligence System, SLIIT.
+</p>
+
+<!-- ── Metric tiles ── -->
+<div class="tiles">
+  <div class="tile">
+    <div class="tile-label">Chosen Model</div>
+    <div class="tile-value c-blue">YOLOv11m</div>
+    <div class="tile-sub">+ MediaPipe Hybrid</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Det. Confidence</div>
+    <div class="tile-value c-green">0.644</div>
+    <div class="tile-sub">Highest across all 4 models</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Detection Rate</div>
+    <div class="tile-value c-green">63.1%</div>
+    <div class="tile-sub">vs 56.6% YOLOv8m · 122 frames</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">KP Confidence</div>
+    <div class="tile-value c-green">0.634</div>
+    <div class="tile-sub">Pose support confirmed</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Throughput</div>
+    <div class="tile-value c-amber">2.29 FPS</div>
+    <div class="tile-sub">436 ms/frame · warehouse CCTV</div>
+  </div>
+  <div class="tile">
+    <div class="tile-label">Pose Support</div>
+    <div class="tile-value c-purple">v8 + v11</div>
+    <div class="tile-sub">v9 &amp; v10 have no KP output</div>
+  </div>
+</div>
+
+<!-- ── Model comparison table ── -->
+<div class="sec-title">Head-to-Head: Benchmarked on 122 Real Warehouse CCTV Frames</div>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>YOLOv8m-Pose</th>
+      <th>YOLOv9s</th>
+      <th>YOLOv10s</th>
+      <th class="th-chosen">YOLOv11m-Pose ✓</th>
+      <th>MediaPipe (standalone)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pose support</td>
+      <td><span class="chip chip-green">Yes</span></td>
+      <td><span class="chip chip-red">No</span></td>
+      <td><span class="chip chip-red">No</span></td>
+      <td class="col-chosen"><span class="chip chip-green">Yes</span></td>
+      <td><span class="chip chip-green">Yes</span></td>
+    </tr>
+    <tr>
+      <td>Detection rate (122 frames)</td>
+      <td>56.56%</td>
+      <td>63.93%</td>
+      <td>52.46%</td>
+      <td class="col-chosen"><strong>63.11%</strong></td>
+      <td>N/A (single person)</td>
+    </tr>
+    <tr>
+      <td>Persons detected</td>
+      <td>91</td>
+      <td>124</td>
+      <td>171 ⚠️</td>
+      <td class="col-chosen">86</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Avg detection confidence</td>
+      <td>0.5801</td>
+      <td>0.5832</td>
+      <td>0.5550</td>
+      <td class="col-chosen"><strong>0.6437</strong> <span class="chip chip-green">Highest</span></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Avg keypoint confidence</td>
+      <td>0.6330</td>
+      <td><span class="chip chip-red">N/A</span></td>
+      <td><span class="chip chip-red">N/A</span></td>
+      <td class="col-chosen"><strong>0.6338</strong></td>
+      <td>~0.70+ (single person)</td>
+    </tr>
+    <tr>
+      <td>Avg inference time</td>
+      <td>467.08 ms</td>
+      <td>168.36 ms</td>
+      <td>206.36 ms</td>
+      <td class="col-chosen">436.53 ms</td>
+      <td>~300–500 ms (CPU)</td>
+    </tr>
+    <tr>
+      <td>Throughput (FPS)</td>
+      <td>2.14</td>
+      <td>5.94</td>
+      <td>4.85</td>
+      <td class="col-chosen">2.29</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Heel / foot keypoints</td>
+      <td><span class="chip chip-red">No</span></td>
+      <td><span class="chip chip-red">No</span></td>
+      <td><span class="chip chip-red">No</span></td>
+      <td class="col-chosen"><span class="chip chip-red">No</span></td>
+      <td><span class="chip chip-green">Yes (33-pt)</span></td>
+    </tr>
+    <tr>
+      <td>Multi-person scene</td>
+      <td><span class="chip chip-green">Yes</span></td>
+      <td><span class="chip chip-green">Yes</span></td>
+      <td><span class="chip chip-green">Yes</span></td>
+      <td class="col-chosen"><span class="chip chip-green">Yes</span></td>
+      <td><span class="chip chip-red">No</span></td>
+    </tr>
+    <tr>
+      <td>False positives risk</td>
+      <td><span class="chip chip-amber">Low</span></td>
+      <td><span class="chip chip-amber">Medium</span></td>
+      <td><span class="chip chip-red">High (171 detections!)</span></td>
+      <td class="col-chosen"><span class="chip chip-green">Low</span></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Architecture</td>
+      <td>CSP + decoupled head</td>
+      <td>GELAN + PGI</td>
+      <td>Dual-label assign.</td>
+      <td class="col-chosen">C3k2 + C2PSA attention</td>
+      <td>BlazePose CNN</td>
+    </tr>
+    <tr>
+      <td>Final F3 role</td>
+      <td><span class="chip chip-muted">Superseded</span></td>
+      <td><span class="chip chip-muted">No pose — excluded</span></td>
+      <td><span class="chip chip-muted">No pose — excluded</span></td>
+      <td class="col-chosen"><span class="chip chip-blue">Primary detector</span></td>
+      <td><span class="chip chip-purple">Fusion complement</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ── Why hybrid ── -->
+<div class="sec-title">Why the Hybrid Architecture?</div>
+<div class="cards">
+  <div class="card">
+    <div class="card-icon">🎯</div>
+    <h3>YOLOv11 detects, MediaPipe refines</h3>
+    <p>YOLOv11-Pose handles <strong>multi-person detection</strong> in a wide-angle CCTV scene. MediaPipe then runs on each cropped person to add <strong>16 extra landmarks</strong> (heel, foot toe, face mesh points) that YOLO's COCO skeleton omits entirely.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">🦶</div>
+    <h3>Heel &amp; foot landmarks for ergonomics</h3>
+    <p>Accurate <strong>ankle dorsiflexion, knee valgus, and foot progression angle</strong> require heel and toe keypoints. These exist only in MediaPipe's 33-point BlazePose schema — not in YOLO's 17-point COCO output. Omitting them would make lower-body ergonomic scoring impossible.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">🏭</div>
+    <h3>CCTV occlusion is unavoidable</h3>
+    <p>In real warehouse footage, workers are <strong>partially hidden</strong> by racking, forklifts, and each other. When YOLO keypoints fall below confidence threshold, the 3-zone freeze-state system holds the last valid posture per body region rather than corrupting the score — something MediaPipe alone cannot provide across a scene.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">⚡</div>
+    <h3>v9 &amp; v10 eliminated immediately</h3>
+    <p>YOLOv9s and YOLOv10s showed <strong>no keypoint output</strong> in benchmarks — they are detection-only models without a pose head. They cannot be used for skeleton extraction, and are therefore disqualified from F3 regardless of their detection rate or speed figures.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">📐</div>
+    <h3>Why not MediaPipe alone?</h3>
+    <p>MediaPipe is a <strong>single-person model</strong>: it cannot detect or separate multiple workers in a scene frame. It also fails at the viewing distances typical of warehouse CCTV (3–10 m). It contributes landmark richness; it cannot substitute for YOLO's scene-level detection.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon">🔬</div>
+    <h3>YOLOv11 beats v8 on real data</h3>
+    <p>Against the same 122 CCTV frames, YOLOv11m-pose achieved <strong>detection confidence 0.644 vs 0.580</strong> for v8m — a +10.9% quality improvement. YOLOv11 also detected at a higher rate (63.1% vs 56.6%) while producing <strong>fewer but more reliable</strong> bounding boxes, reducing false positives in crowded warehouse scenes.</p>
+  </div>
+</div>
+
+<!-- ── Verdict ── -->
+<div class="verdict">
+  <div class="verdict-icon">✅</div>
+  <div>
+    <h2>Final Architecture Verdict</h2>
+    <p>
+      <strong>YOLOv11m-Pose</strong> is the strongest pose-capable detector across all four candidates benchmarked on 122 real warehouse CCTV frames.
+      YOLOv9s and YOLOv10s were immediately disqualified — no keypoint output. Against YOLOv8m-pose, YOLOv11m delivers higher detection confidence (0.644 vs 0.580), better detection rate (63.1% vs 56.6%), and comparable keypoint confidence (0.634 vs 0.633) with no disadvantage.
+      <strong>MediaPipe</strong> is not a replacement but a complement: its 33-point BlazePose schema provides the heel, toe,
+      and foot landmarks that YOLO's COCO-17 schema cannot supply, enabling accurate lower-body ergonomic angles.
+      The hybrid is the <strong>minimum viable architecture</strong> to meet F3's ergonomic scoring requirements
+      in a real warehouse CCTV context — neither model alone is sufficient.
+    </p>
+  </div>
+</div>
+
+<footer>
+  <span>F3 · Warehouse Intelligence System · J26-DS-352 · SLIIT</span>
+  <span>Sithija Basnayake · October 2026</span>
+</footer>
+
+</body></html>

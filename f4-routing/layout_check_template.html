@@ -66,6 +66,13 @@ table.spot th,table.spot td{text-align:left;padding:6px 8px;border-bottom:1px so
 table.spot th{font:600 .8rem var(--display);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 table.spot td.m{font-family:var(--mono);font-size:.8rem;white-space:nowrap;font-variant-numeric:tabular-nums}
 .note{font-size:.85rem;color:var(--muted)}
+.note code,.note b{color:var(--ink)}
+.route-pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:600 .9rem var(--display)}
+.route-pick select{font:500 .85rem var(--mono);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 8px;min-width:0;max-width:100%}
+.route-pick button{font:600 1rem var(--display);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:3px 10px;cursor:pointer}
+.route-total{font:600 1.4rem var(--display)}
+.route-total small{font:500 .85rem var(--mono);color:var(--muted);margin-left:10px}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
 </style>
 
 <div class="wrap">
@@ -104,6 +111,21 @@ table.spot td.m{font-family:var(--mono);font-size:.8rem;white-space:nowrap;font-
   </section>
 
   <section>
+    <h2>Walking distances <span class="tag">how routes are costed</span></h2>
+    <p class="note">Each walkway is a line on the map canvas. The canvas outline is the warehouse wall, set to <b id="dsize"></b>, so one pixel is <b id="dscale"></b>. A walkway's length in metres follows from that, unless you have entered a measured length for it. A staircase trip, up or down, is <b id="dstair"></b> m, the same as walking that far: it is part of the path, not a punishment. Pick two points to see the shortest walk between them and exactly which walkways it uses; it is also drawn on the floor plan above. Clicking a blue dot on the plan sets it as the destination.</p>
+    <div class="route-pick">
+      <label for="r-from">From</label><select id="r-from"></select>
+      <button type="button" id="r-swap" aria-label="Swap from and to">⇄</button>
+      <label for="r-to">To</label><select id="r-to"></select>
+    </div>
+    <div class="route-total" id="r-total"></div>
+    <div class="frame"><table class="spot" id="r-steps"></table></div>
+    <h3>Walkway lengths</h3>
+    <p class="note">To correct a distance, measure the walkway end to end on the floor and add it to <code>WALKWAY_LENGTH_M</code> in <code>warehouse_layout.py</code> (for example <code>{'W1': 24.0}</code>); every step along that walkway is stretched or shrunk to match. Stair length is <code>STAIR_LENGTH_M</code>; a different length for one staircase goes in <code>STAIR_LENGTH_BY_STAIR</code>. Then rerun build_warehouse_graph.py, build_distance_matrix.py, baselines.py and train_ppo.py.</p>
+    <div class="frame"><table class="spot" id="w-table"></table></div>
+  </section>
+
+  <section>
     <h2>Rack faces <span class="tag">front view</span></h2>
     <p class="note">Each grid is a rack face as the picker sees it from the walkway. Column 1 is on the left (assumption A1). Level 1 is the bottom row. Yellow cells are C slots sitting above B. The blue line under each column is the stand-point the picker uses, and the small number in a cell is how many SKUs are stored there.</p>
     <div class="bar" id="wbar" role="group" aria-label="Walkway"></div>
@@ -111,8 +133,8 @@ table.spot td.m{font-family:var(--mono);font-size:.8rem;white-space:nowrap;font-
   </section>
 
   <section>
-    <h2>Floor spot check <span class="tag">15 random SKUs · spot_check.csv</span></h2>
-    <p class="note">Find each location on the floor and check that the slot above, below, beside and across the walkway matches. If all 15 match, the mapping can be trusted for training.</p>
+    <h2>Floor spot check <span class="tag">15 random SKUs · verified on the floor</span></h2>
+    <p class="note">Each location was found on the floor and the slots above, below, beside and across the walkway were checked. All 15 matched (Y), so the mapping is validated for training.</p>
     <div class="frame"><table class="spot" id="spot"></table></div>
   </section>
 </div>
@@ -156,8 +178,10 @@ function drawPlan(floor) {
       'stroke-width': 5, 'stroke-dasharray': '10 6', 'stroke-linecap': 'round'}, svg);
     const [x, y] = w.pts[w.pts.length - 1];
     const t = el('text', {x: x + 6, y: y - 6, 'font-size': 12, 'font-weight': 700}, svg);
-    t.style.fill = 'var(--muted)'; t.textContent = id;
+    const wl = (D.walkway_table || []).find(r => r.walkway === id);
+    t.style.fill = 'var(--muted)'; t.textContent = wl ? `${id} · ${wl.used_m} m` : id;
   });
+  drawRoute(svg, floor);
   Object.entries(D.stairs).forEach(([id, s]) => {
     const [x, y] = floor === 'G' ? s.foot : s.top;
     el('rect', {x: x - 9, y: y - 9, width: 18, height: 18, rx: 3, fill: 'var(--mezz)'}, svg);
@@ -173,16 +197,101 @@ function drawPlan(floor) {
     const c = el('circle', {cx: n.x, cy: n.y, r: 4.5, fill: 'var(--stop)', class: 'stopdot', tabindex: 0,
       style: 'cursor:pointer'}, svg);
     el('title', {}, c).textContent = `${n.id}: ${n.slots.join(', ')}`;
-    const show = () => $('info').innerHTML = `<b>${esc(n.id)}</b> — reaches ${esc(n.slots.join(', '))}`;
+    const show = () => {
+      $('info').innerHTML = `<b>${esc(n.id)}</b> — reaches ${esc(n.slots.join(', '))}`;
+      if ($('r-to')) { $('r-to').value = n.id; updateRoute(); }
+    };
     c.addEventListener('click', show);
     c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
   });
 }
+let FLOOR = 'G';
 ['G', 'M'].forEach(f => $('fl-' + f).addEventListener('click', () => {
   ['G', 'M'].forEach(g => $('fl-' + g).setAttribute('aria-pressed', g === f));
-  drawPlan(f);
+  FLOOR = f; drawPlan(f);
 }));
-drawPlan('G');
+
+// ── Walking distances ────────────────────────────────────────
+const NODE = Object.fromEntries(D.nodes.map(n => [n.id, n]));
+const ADJ = {};
+D.edges.forEach(([a, b, w, type, via]) => {
+  (ADJ[a] = ADJ[a] || []).push([b, w, type, via]);
+  (ADJ[b] = ADJ[b] || []).push([a, w, type, via]);
+});
+function shortest(src, dst) {
+  const dist = {[src]: 0}, prev = {}, done = new Set();
+  while (true) {
+    let u = null, best = Infinity;
+    for (const k in dist) if (!done.has(k) && dist[k] < best) { best = dist[k]; u = k; }
+    if (u === null || u === dst) break;
+    done.add(u);
+    for (const [v, w, type, via] of ADJ[u] || []) {
+      const nd = dist[u] + w;
+      if (nd < (dist[v] ?? Infinity) - 1e-9) { dist[v] = nd; prev[v] = [u, w, type, via]; }
+    }
+  }
+  if (dist[dst] === undefined) return null;
+  const steps = []; let cur = dst;
+  while (cur !== src) { const [p, w, type, via] = prev[cur]; steps.unshift({from: p, to: cur, w, type, via}); cur = p; }
+  return {total: dist[dst], steps};
+}
+let ROUTE = null;
+function drawRoute(svg, floor) {
+  if (!ROUTE) return;
+  ROUTE.steps.forEach(s => {
+    const a = NODE[s.from], b = NODE[s.to];
+    if (!a || !b || s.type === 'stair' || a.floor !== floor || b.floor !== floor) return;
+    el('line', {x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: 'var(--ink)', 'stroke-width': 4.5, 'stroke-linecap': 'round'}, svg);
+  });
+  [[ROUTE.from, 'From'], [ROUTE.to, 'To']].forEach(([id, lab]) => {
+    const n = NODE[id];
+    if (!n || n.floor !== floor) return;
+    el('circle', {cx: n.x, cy: n.y, r: 9, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 3}, svg);
+    const t = el('text', {x: n.x + 12, y: n.y + 18, 'font-size': 12, 'font-weight': 700}, svg);
+    t.style.fill = 'var(--ink)'; t.textContent = lab;
+  });
+}
+function updateRoute() {
+  const from = $('r-from').value, to = $('r-to').value;
+  const r = shortest(from, to);
+  if (!r) { $('r-total').textContent = 'No route found'; return; }
+  ROUTE = {...r, from, to};
+  const stairs = r.steps.filter(s => s.type === 'stair').length;
+  $('r-total').innerHTML = `${r.total.toFixed(2)} m <small>${esc(from)} → ${esc(to)} · ${stairs} staircase trip${stairs === 1 ? '' : 's'} · round trip ${(2 * r.total).toFixed(1)} m</small>`;
+  const groups = [];
+  r.steps.forEach(s => {
+    const g = groups[groups.length - 1];
+    if (g && g.via === s.via && s.type !== 'stair' && g.type !== 'stair') { g.to = s.to; g.w += s.w; g.n += 1; }
+    else groups.push({...s, n: 1});
+  });
+  $('r-steps').innerHTML = '<thead><tr><th>Part</th><th>Along</th><th>From</th><th>To</th><th>Metres</th></tr></thead><tbody>' +
+    groups.map((g, i) => `<tr><td class="m">${i + 1}</td><td>${g.type === 'stair' ? 'Staircase ' + esc(g.via) : 'Walkway ' + esc(g.via)}</td>` +
+      `<td class="m">${esc(g.from)}</td><td class="m">${esc(g.to)}</td><td class="m num">${g.w.toFixed(2)}</td></tr>`).join('') +
+    `<tr><td></td><td><b>Total</b></td><td></td><td></td><td class="m num"><b>${r.total.toFixed(2)}</b></td></tr></tbody>`;
+  drawPlan(FLOOR);
+}
+(function initDistances() {
+  const ds = D.distance_settings;
+  $('dsize').textContent = `${ds.width_m} m × ${ds.depth_m} m`;
+  $('dscale').textContent = `${ds.scale_x} m across and ${ds.scale_y} m down`;
+  const by = Object.entries(ds.stair_by_stair || {}).map(([k, v]) => `${k} ${v} m`).join(', ');
+  $('dstair').textContent = ds.stair_penalty_m + (by ? ` (overrides: ${by})` : '');
+  const ids = D.nodes.filter(n => n.slots.length || n.id === 'DEPOT').map(n => n.id)
+    .sort((a, b) => a === 'DEPOT' ? -1 : b === 'DEPOT' ? 1 : a.localeCompare(b, undefined, {numeric: true}));
+  const opts = ids.map(id => `<option value="${esc(id)}">${esc(id)}${NODE[id].slots.length ? ' — ' + esc(NODE[id].slots.slice(0, 3).join(', ')) + (NODE[id].slots.length > 3 ? '…' : '') : ''}</option>`).join('');
+  $('r-from').innerHTML = opts; $('r-to').innerHTML = opts;
+  $('r-from').value = 'DEPOT';
+  const far = ids.filter(i => i !== 'DEPOT').map(i => [i, shortest('DEPOT', i)]).filter(x => x[1])
+    .sort((a, b) => b[1].total - a[1].total)[0];
+  $('r-to').value = far ? far[0] : ids[1];
+  ['r-from', 'r-to'].forEach(id => $(id).addEventListener('change', updateRoute));
+  $('r-swap').addEventListener('click', () => { const f = $('r-from').value; $('r-from').value = $('r-to').value; $('r-to').value = f; updateRoute(); });
+  $('w-table').innerHTML = '<thead><tr><th>Walkway</th><th>Floor</th><th>Canvas length (px)</th><th>Model length (m)</th><th>Measured (m)</th><th>Used (m)</th></tr></thead><tbody>' +
+    D.walkway_table.map(r => `<tr><td class="m">${esc(r.walkway)}</td><td>${r.floor === 'G' ? 'Ground' : 'Mezzanine'}</td>` +
+      `<td class="m num">${r.length_px}</td><td class="m num">${r.model_m.toFixed(2)}</td>` +
+      `<td class="m num">${r.measured_m == null ? '—' : r.measured_m.toFixed(2)}</td><td class="m num"><b>${r.used_m.toFixed(2)}</b></td></tr>`).join('') + '</tbody>';
+  updateRoute();
+})();
 
 // ── Rack faces ────────────────────────────────────────────────
 const walkways = [...new Set(D.faces.map(f => f.walkway))];
@@ -217,7 +326,7 @@ drawFaces(walkways[0]);
 
 // ── Spot check ────────────────────────────────────────────────
 const cols = [['location', 'Location'], ['item', 'Item'], ['stand_point', 'Stand-point'], ['below', 'Below'],
-  ['above', 'Above'], ['prev_col_same_level', 'Prev column'], ['next_col_same_level', 'Next column'], ['across_walkway', 'Across walkway']];
+  ['above', 'Above'], ['prev_col_same_level', 'Prev column'], ['next_col_same_level', 'Next column'], ['across_walkway', 'Across walkway'], ['matches_floor (Y/N)', 'On floor']];
 $('spot').innerHTML = '<thead><tr>' + cols.map(c => `<th>${c[1]}</th>`).join('') + '</tr></thead><tbody>' +
   D.spot.map(r => '<tr>' + cols.map(([k]) => `<td class="${k === 'item' ? '' : 'm'}">${esc(r[k])}</td>`).join('') + '</tr>').join('') + '</tbody>';
 </script>

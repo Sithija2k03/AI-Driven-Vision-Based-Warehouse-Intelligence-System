@@ -8,7 +8,7 @@ Nodes = places a picker can stand (pick stops, junctions, stair feet/tops,
 Route rule: every pick tour starts at DEPOT and returns to DEPOT.
 DOOR_2F (to the 2nd floor) is kept for later but unused for now.
 Edges = walking between neighbouring stand-points along a walkway
-        (weight in metres) + staircase edges (fixed penalty).
+        (weight in metres) + staircase edges (stair length in metres).
 
 Run:  python build_warehouse_graph.py
 """
@@ -33,7 +33,8 @@ def run(output_path='warehouse_graph.json'):
     graph = {
         'metadata': {
             'description': 'Fine Enterprises warehouse — F4 RL routing graph (v2, walkway-based)',
-            'scale': f'{L.SCALE_M_PER_PX:.4f} m/px (canvas 860x780 px ~ 60m x 55m)',
+            'scale': f'warehouse {L.WAREHOUSE_WIDTH_M:g} m x {L.WAREHOUSE_DEPTH_M:g} m on an 860x780 px canvas '
+                     f'({L.SCALE_X_M_PER_PX:.4f} m/px across, {L.SCALE_Y_M_PER_PX:.4f} m/px down)',
             'route_rule': 'Every pick tour starts at DEPOT and returns to DEPOT (handover to checkers).',
             'route_start': L.ROUTE_START, 'route_end': L.ROUTE_END,
             'inactive_nodes': {'DOOR_2F': 'Door to 2nd floor (TF, 2F, AA-AF) - unused while those sections are excluded'},
@@ -41,9 +42,9 @@ def run(output_path='warehouse_graph.json'):
             'edge_types': {
                 'walk': 'Walking along a ground-floor walkway between neighbouring stand-points (m)',
                 'mezz_walk': 'Walking on the mezzanine (m, approximate)',
-                'stair': f'Staircase ground <-> mezzanine (fixed {L.STAIR_PENALTY_M} m penalty)',
+                'stair': f'Staircase ground <-> mezzanine ({L.STAIR_LENGTH_M} m per trip, effort factor {L.STAIR_EFFORT_FACTOR})',
             },
-            'stair_penalty_m': L.STAIR_PENALTY_M,
+            'stair_length_m': L.STAIR_LENGTH_M, 'stair_effort_factor': L.STAIR_EFFORT_FACTOR,
             'node_count': len(nodes),
             'pick_node_count': len(pick_nodes),
             'edge_count_undirected': len(edges),

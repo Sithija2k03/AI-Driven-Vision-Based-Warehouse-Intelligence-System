@@ -4,12 +4,12 @@ F4 Order Preparation (v2) — Fine Enterprises WIS
 Turns the September sales order export into clean pick orders that only
 use locations on the finalized warehouse map.
 
-Input : Sep_Sales_Orders_Stock_Report.xlsx (any sheet name)
+Input : Sales_Orders_Accessories_June_-_Present.csv (or an .xlsx export, any sheet name)
           sales order lines — one row per order line,
           with Item Code added by XLOOKUP ("Not Found" when it failed)
         item_locations_real.json (from location_mapper.py)
 
-Rules (agreed with Sithija, 2026-10-12)
+Rules
   * ON-MAP line : item's Stock Report location is on the finalized map.
   * OFF-MAP line: item is in an excluded section, has no location, or
                   cannot be identified.
@@ -47,7 +47,7 @@ from collections import Counter, defaultdict
 
 import openpyxl
 
-ORDERS_FILE = 'Sep_Sales_Orders_Stock_Report.xlsx'
+ORDERS_FILE = 'Sales_Orders_Accessories_June_-_Present.csv'   # .csv or .xlsx
 ORDERS_SHEET = 'FE_ListofSalesOrderVouchers'
 MAX_OFF_SHARE = 0.50     # remove an order when off-map lines are >= this share
 
@@ -84,34 +84,58 @@ def fix_date(v):
     if isinstance(v, dt.datetime):          # Excel read DD-MM as MM-DD
         return dt.date(v.year, v.day, v.month)
     if isinstance(v, str) and v.strip():
-        return dt.datetime.strptime(v.strip(), '%d-%m-%Y').date()
+        for fmt in ('%d-%m-%Y', '%d/%m/%Y'):
+            try:
+                return dt.datetime.strptime(v.strip(), fmt).date()
+            except ValueError:
+                pass
     return None
 
 
+ALIASES = {'so': ['Vch/Bill No.', 'SO Number'], 'date': ['Date'], 'type': ['Type', 'Delivery Type'],
+           'code': ['Item Code'], 'name': ['Item Details'], 'qty': ['Qty.'], 'unit': ['Unit']}
+
+
+def _rows(path, sheet):
+    """Yield (header, rows) from a CSV export or an Excel workbook."""
+    if path.lower().endswith('.csv'):
+        f = open(path, encoding='utf-8-sig', newline='')
+        rd = csv.reader(f)
+        return next(rd), rd
+    ws = find_sheet(path, sheet, ['Item Code', 'Qty.'])
+    it = ws.iter_rows(values_only=True)
+    return next(it), it
+
+
 def read_orders(path, sheet):
-    ws = find_sheet(path, sheet, ['Vch/Bill No.', 'Item Code', 'Qty.'])
-    rows = ws.iter_rows(values_only=True)
-    head = [re.sub(r'\s+', ' ', str(h or '')).strip() for h in next(rows)]
-    c = {h: i for i, h in enumerate(head)}
+    head, rows = _rows(path, sheet)
+    head = [re.sub(r'\s+', ' ', str(h or '')).strip() for h in head]
+    c = {}
+    for k, names in ALIASES.items():
+        hit = next((head.index(n) for n in names if n in head), None)
+        if hit is None and k != 'unit':
+            raise SystemExit(f'Column for {k} not found. Expected one of {names}; file has {head}')
+        c[k] = hit
     orders = {}
     for r in rows:
-        vch = r[c['Vch/Bill No.']]
+        r = list(r)
+        vch = r[c['so']]
         if not vch:
             continue
         o = orders.get(vch)
         if o is None:
             o = orders[vch] = {'so_no': vch, 'series': str(vch).split('/')[0], 'date': None,
                                'delivery_type': None, 'lines': []}
-        if r[c['Date']] and o['date'] is None:
-            o['date'] = fix_date(r[c['Date']])
-            o['delivery_type'] = r[c['Type']]
+        if r[c['date']] and o['date'] is None:
+            o['date'] = fix_date(r[c['date']])
+            o['delivery_type'] = r[c['type']]
         try:
-            qty = float(r[c['Qty.']] or 0)
+            qty = float(str(r[c['qty']] or 0).replace(',', ''))
         except (TypeError, ValueError):
             qty = 0.0
-        o['lines'].append({'code_so': str(r[c['Item Code']] or '').strip(),
-                           'item_name_so': str(r[c['Item Details']] or '').strip(),
-                           'qty': qty, 'unit': r[c['Unit']]})
+        o['lines'].append({'code_so': str(r[c['code']] or '').strip(),
+                           'item_name_so': str(r[c['name']] or '').strip(),
+                           'qty': qty, 'unit': (r[c['unit']] if c['unit'] is not None else '') or 'Pcs'})
     return list(orders.values())
 
 

@@ -27,8 +27,50 @@ Numbering patterns (confirmed by Sithija, 2026-10-11)
   single: a single bin / unit (X-1, X-2, X-4, X-5, V-4)
 """
 
-SCALE_M_PER_PX = 60 / 860     # ~0.07 m per px
-STAIR_PENALTY_M = 12.0        # walking cost of one staircase trip
+# ---------------------------------------------------------------------------
+# DISTANCES — how metres are worked out, and how to correct them
+# ---------------------------------------------------------------------------
+# 1. Every walkway below is a line drawn on the 860 x 780 px map canvas,
+#    whose outer box is the warehouse boundary. The real size of that box
+#    is WAREHOUSE_WIDTH_M (left-right, 860 px) x WAREHOUSE_DEPTH_M
+#    (top-bottom, 780 px), so a left-right px and a top-bottom px can be
+#    different lengths. A walkway's length in metres follows from that.
+# 2. Walking between two stand-points = the length of walkway between them.
+#    Moving from one walkway to another happens only where they meet.
+# 3. A staircase is an ordinary part of the path, measured like a walkway:
+#    going up or down once = STAIR_LENGTH_M metres (about 3.5 m on the floor,
+#    Sithija 2026-10-16). There is no extra punishment for using it; it is
+#    the only way to the mezzanine. STAIR_EFFORT_FACTOR can later make a metre
+#    of stairs count more than a metre of flat floor (1.0 = same).
+#
+# To correct a distance, measure it on the floor and enter it here:
+#   * WALKWAY_LENGTH_M  — the real end-to-end length of a walkway in metres.
+#     Every step along that walkway is stretched or shrunk to match.
+#     Example: {'W1': 24.0, 'MX': 46.5}
+#   * STAIR_LENGTH_BY_STAIR — a different length for one staircase.
+#     Example: {'SC3': 4.0}
+# Then rerun: build_warehouse_graph.py → build_distance_matrix.py →
+# baselines.py → train_ppo.py (distances changed, so the agent retrains).
+# The Layout Check page lists every walkway's model length and override.
+# ---------------------------------------------------------------------------
+CANVAS_W_PX, CANVAS_H_PX = 860, 780
+WAREHOUSE_WIDTH_M = 40.0      # left wall to right wall (Sithija, 2026-10-16)
+WAREHOUSE_DEPTH_M = 30.0      # top wall to bottom wall
+SCALE_X_M_PER_PX = WAREHOUSE_WIDTH_M / CANVAS_W_PX    # ~0.047 m per px
+SCALE_Y_M_PER_PX = WAREHOUSE_DEPTH_M / CANVAS_H_PX    # ~0.038 m per px
+SCALE_M_PER_PX = SCALE_X_M_PER_PX                     # kept for older scripts
+STAIR_LENGTH_M = 3.5          # one trip up or down a staircase, metres
+STAIR_EFFORT_FACTOR = 1.0     # 1.0 = a stair metre costs the same as a floor metre
+WALKWAY_LENGTH_M = {}         # measured walkway lengths in metres, e.g. {'W1': 24.0}
+STAIR_LENGTH_BY_STAIR = {}    # per-staircase length in metres, e.g. {'SC3': 4.0}
+
+
+def stair_cost_m(name):
+    """Cost of one trip on staircase `name`, in metres."""
+    return round(STAIR_LENGTH_BY_STAIR.get(name, STAIR_LENGTH_M) * STAIR_EFFORT_FACTOR, 2)
+
+
+STAIR_PENALTY_M = stair_cost_m('')   # older name, kept so earlier scripts still run
 
 # ---------------------------------------------------------------------------
 # Sections deliberately left out of routing for now (separate 2nd floor or

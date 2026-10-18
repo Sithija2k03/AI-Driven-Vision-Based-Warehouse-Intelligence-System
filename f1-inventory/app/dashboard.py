@@ -178,7 +178,8 @@ with st.sidebar:
     st.markdown('<div class="brand"><div class="brand-logo">F1</div><div><div class="brand-name">Inventory Verification'
                 '</div><div class="brand-sub">Warehouse Intelligence System</div></div></div>', unsafe_allow_html=True)
     st.markdown('<div class="side-label">Menu</div>', unsafe_allow_html=True)
-    page = st.radio("Menu", ["📊  Overview", "🎥  Live check", "🗺️  Camera coverage"], label_visibility="collapsed")
+    page = st.radio("Menu", ["📊  Overview", "🎥  Live check", "▶️  Live replay", "🗺️  Camera coverage"],
+                    label_visibility="collapsed")
     st.markdown('<div class="side-label">Settings</div>', unsafe_allow_html=True)
     with st.expander("Model files"):
         weights = st.text_input("Detector", fe.DEFAULTS["weights"])
@@ -472,4 +473,10 @@ def page_coverage():
                     st.info("No rows for this camera in configs/camera_coverage.csv.")
 
 
-{"📊  Overview": page_overview, "🎥  Live check": page_live, "🗺️  Camera coverage": page_coverage}[page]()
+def page_over_time():
+    from overtime import page_overtime
+    page_overtime(page_head, kpi_row, show_image)
+
+
+{"📊  Overview": page_overview, "🎥  Live check": page_live, "▶️  Live replay": page_over_time,
+ "🗺️  Camera coverage": page_coverage}[page]()

@@ -188,7 +188,8 @@ function drawPlan(floor) {
     const t = el('text', {x: x + 12, y: y + 4, 'font-size': 12, 'font-weight': 700}, svg);
     t.style.fill = 'var(--mezz)'; t.textContent = id;
   });
-  if (floor === 'G') [['DEPOT · start & end', 0, 362, true], ['Door to 2F · not used', 642, 0, false]].forEach(([n, x, y, on]) => {
+  const dep = D.depot || [0, 362], door = D.door || [642, 0];
+  if (floor === 'G') [['DEPOT · start & end', dep[0], dep[1], true], ['Door to 2F · not used', door[0], door[1], false]].forEach(([n, x, y, on]) => {
     el('circle', {cx: x, cy: y, r: on ? 10 : 7, fill: on ? 'var(--ok)' : 'var(--muted)', opacity: on ? 1 : .6}, svg);
     const t = el('text', {x: x + (on ? -4 : 12), y: y + (on ? 28 : -10), 'font-size': on ? 14 : 12, 'font-weight': 700}, svg);
     t.style.fill = on ? 'var(--ok)' : 'var(--muted)'; t.textContent = n;

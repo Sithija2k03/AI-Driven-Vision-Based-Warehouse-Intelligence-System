@@ -5,7 +5,7 @@ One episode = one pick trip: start at the DEPOT, visit every stop of one
 order, return to the DEPOT. At each step the agent picks the next
 stand-point to walk to.
 
-  Action      : Discrete(N) — index of a pick stand-point (N = 204)
+  Action      : Discrete(N) — index of a pick stand-point (N = pick stand-points in distance_matrix.json, 221 with F and H)
                 Only stand-points the order still needs are allowed
                 (action_masks(), used by MaskablePPO). A slot reachable from
                 several stand-points (X-3 island) can be picked from any of them.

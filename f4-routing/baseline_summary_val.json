@@ -1,0 +1,344 @@
+{
+ "test_set": "orders_val.json",
+ "methods": [
+  "location_order",
+  "sshape",
+  "return",
+  "midpoint",
+  "largest_gap",
+  "combined",
+  "nearest_neighbour",
+  "optimal"
+ ],
+ "all": {
+  "orders": 2274,
+  "mean_stops": 4.34,
+  "mean_m": {
+   "location_order": 114.6,
+   "sshape": 115.9,
+   "return": 114.3,
+   "midpoint": 121.8,
+   "largest_gap": 120.0,
+   "combined": 109.3,
+   "nearest_neighbour": 107.8,
+   "optimal": 104.8
+  },
+  "total_km": {
+   "location_order": 260.53,
+   "sshape": 263.51,
+   "return": 259.98,
+   "midpoint": 277.01,
+   "largest_gap": 272.87,
+   "combined": 248.47,
+   "nearest_neighbour": 245.16,
+   "optimal": 238.38
+  },
+  "pct_above_optimal": {
+   "location_order": 9.3,
+   "sshape": 10.5,
+   "return": 9.1,
+   "midpoint": 16.2,
+   "largest_gap": 14.5,
+   "combined": 4.2,
+   "nearest_neighbour": 2.8,
+   "optimal": 0.0
+  },
+  "mean_stair_trips": {
+   "location_order": 1.42,
+   "sshape": 1.19,
+   "return": 1.19,
+   "midpoint": 1.24,
+   "largest_gap": 1.22,
+   "combined": 1.19,
+   "nearest_neighbour": 1.29,
+   "optimal": 1.23
+  },
+  "orders_beating_nearest_neighbour": {
+   "location_order": 84,
+   "sshape": 125,
+   "return": 113,
+   "midpoint": 70,
+   "largest_gap": 72,
+   "combined": 235,
+   "nearest_neighbour": 0,
+   "optimal": 466
+  }
+ },
+ "by_order_size": {
+  "1": {
+   "orders": 695,
+   "mean_stops": 1,
+   "mean_m": {
+    "location_order": 56.5,
+    "sshape": 60.5,
+    "return": 56.5,
+    "midpoint": 58.8,
+    "largest_gap": 58.8,
+    "combined": 56.5,
+    "nearest_neighbour": 56.5,
+    "optimal": 56.5
+   },
+   "total_km": {
+    "location_order": 39.29,
+    "sshape": 42.05,
+    "return": 39.29,
+    "midpoint": 40.89,
+    "largest_gap": 40.89,
+    "combined": 39.29,
+    "nearest_neighbour": 39.29,
+    "optimal": 39.29
+   },
+   "pct_above_optimal": {
+    "location_order": 0.0,
+    "sshape": 7.0,
+    "return": 0.0,
+    "midpoint": 4.1,
+    "largest_gap": 4.1,
+    "combined": 0.0,
+    "nearest_neighbour": 0.0,
+    "optimal": 0.0
+   },
+   "mean_stair_trips": {
+    "location_order": 0.6,
+    "sshape": 0.6,
+    "return": 0.6,
+    "midpoint": 0.6,
+    "largest_gap": 0.6,
+    "combined": 0.6,
+    "nearest_neighbour": 0.6,
+    "optimal": 0.6
+   },
+   "orders_beating_nearest_neighbour": {
+    "location_order": 0,
+    "sshape": 0,
+    "return": 0,
+    "midpoint": 0,
+    "largest_gap": 0,
+    "combined": 0,
+    "nearest_neighbour": 0,
+    "optimal": 0
+   }
+  },
+  "2-3": {
+   "orders": 514,
+   "mean_stops": 1.78,
+   "mean_m": {
+    "location_order": 73.1,
+    "sshape": 78.1,
+    "return": 73.8,
+    "midpoint": 77.4,
+    "largest_gap": 77.3,
+    "combined": 73.1,
+    "nearest_neighbour": 73.0,
+    "optimal": 72.7
+   },
+   "total_km": {
+    "location_order": 37.6,
+    "sshape": 40.15,
+    "return": 37.95,
+    "midpoint": 39.79,
+    "largest_gap": 39.74,
+    "combined": 37.58,
+    "nearest_neighbour": 37.55,
+    "optimal": 37.36
+   },
+   "pct_above_optimal": {
+    "location_order": 0.6,
+    "sshape": 7.5,
+    "return": 1.6,
+    "midpoint": 6.5,
+    "largest_gap": 6.4,
+    "combined": 0.6,
+    "nearest_neighbour": 0.5,
+    "optimal": 0.0
+   },
+   "mean_stair_trips": {
+    "location_order": 0.76,
+    "sshape": 0.76,
+    "return": 0.76,
+    "midpoint": 0.76,
+    "largest_gap": 0.76,
+    "combined": 0.76,
+    "nearest_neighbour": 0.76,
+    "optimal": 0.75
+   },
+   "orders_beating_nearest_neighbour": {
+    "location_order": 11,
+    "sshape": 7,
+    "return": 13,
+    "midpoint": 8,
+    "largest_gap": 8,
+    "combined": 13,
+    "nearest_neighbour": 0,
+    "optimal": 16
+   }
+  },
+  "4-7": {
+   "orders": 387,
+   "mean_stops": 3.36,
+   "mean_m": {
+    "location_order": 106.2,
+    "sshape": 111.6,
+    "return": 107.8,
+    "midpoint": 114.0,
+    "largest_gap": 112.8,
+    "combined": 104.8,
+    "nearest_neighbour": 104.4,
+    "optimal": 102.8
+   },
+   "total_km": {
+    "location_order": 41.1,
+    "sshape": 43.21,
+    "return": 41.73,
+    "midpoint": 44.12,
+    "largest_gap": 43.67,
+    "combined": 40.57,
+    "nearest_neighbour": 40.41,
+    "optimal": 39.77
+   },
+   "pct_above_optimal": {
+    "location_order": 3.3,
+    "sshape": 8.6,
+    "return": 4.9,
+    "midpoint": 10.9,
+    "largest_gap": 9.8,
+    "combined": 2.0,
+    "nearest_neighbour": 1.6,
+    "optimal": 0.0
+   },
+   "mean_stair_trips": {
+    "location_order": 1.31,
+    "sshape": 1.26,
+    "return": 1.26,
+    "midpoint": 1.27,
+    "largest_gap": 1.27,
+    "combined": 1.26,
+    "nearest_neighbour": 1.31,
+    "optimal": 1.27
+   },
+   "orders_beating_nearest_neighbour": {
+    "location_order": 24,
+    "sshape": 24,
+    "return": 23,
+    "midpoint": 17,
+    "largest_gap": 17,
+    "combined": 43,
+    "nearest_neighbour": 0,
+    "optimal": 64
+   }
+  },
+  "8-15": {
+   "orders": 314,
+   "mean_stops": 6.88,
+   "mean_m": {
+    "location_order": 169.8,
+    "sshape": 170.1,
+    "return": 169.6,
+    "midpoint": 179.8,
+    "largest_gap": 177.1,
+    "combined": 160.6,
+    "nearest_neighbour": 158.1,
+    "optimal": 152.4
+   },
+   "total_km": {
+    "location_order": 53.32,
+    "sshape": 53.41,
+    "return": 53.27,
+    "midpoint": 56.46,
+    "largest_gap": 55.59,
+    "combined": 50.44,
+    "nearest_neighbour": 49.63,
+    "optimal": 47.84
+   },
+   "pct_above_optimal": {
+    "location_order": 11.5,
+    "sshape": 11.6,
+    "return": 11.4,
+    "midpoint": 18.0,
+    "largest_gap": 16.2,
+    "combined": 5.4,
+    "nearest_neighbour": 3.7,
+    "optimal": 0.0
+   },
+   "mean_stair_trips": {
+    "location_order": 2.2,
+    "sshape": 1.82,
+    "return": 1.82,
+    "midpoint": 1.88,
+    "largest_gap": 1.86,
+    "combined": 1.82,
+    "nearest_neighbour": 2.06,
+    "optimal": 1.89
+   },
+   "orders_beating_nearest_neighbour": {
+    "location_order": 27,
+    "sshape": 38,
+    "return": 40,
+    "midpoint": 23,
+    "largest_gap": 23,
+    "combined": 78,
+    "nearest_neighbour": 0,
+    "optimal": 145
+   }
+  },
+  "16+": {
+   "orders": 364,
+   "mean_stops": 13.16,
+   "mean_m": {
+    "location_order": 245.1,
+    "sshape": 232.7,
+    "return": 241.0,
+    "midpoint": 263.1,
+    "largest_gap": 255.4,
+    "combined": 221.4,
+    "nearest_neighbour": 215.1,
+    "optimal": 203.6
+   },
+   "total_km": {
+    "location_order": 89.22,
+    "sshape": 84.69,
+    "return": 87.73,
+    "midpoint": 95.76,
+    "largest_gap": 92.97,
+    "combined": 80.57,
+    "nearest_neighbour": 78.28,
+    "optimal": 74.12
+   },
+   "pct_above_optimal": {
+    "location_order": 20.4,
+    "sshape": 14.3,
+    "return": 18.4,
+    "midpoint": 29.2,
+    "largest_gap": 25.4,
+    "combined": 8.7,
+    "nearest_neighbour": 5.6,
+    "optimal": 0.0
+   },
+   "mean_stair_trips": {
+    "location_order": 3.38,
+    "sshape": 2.29,
+    "return": 2.29,
+    "midpoint": 2.54,
+    "largest_gap": 2.46,
+    "combined": 2.29,
+    "nearest_neighbour": 2.7,
+    "optimal": 2.51
+   },
+   "orders_beating_nearest_neighbour": {
+    "location_order": 22,
+    "sshape": 56,
+    "return": 37,
+    "midpoint": 22,
+    "largest_gap": 24,
+    "combined": 101,
+    "nearest_neighbour": 0,
+    "optimal": 241
+   }
+  }
+ },
+ "optimal_solver": {
+  "exact (Held-Karp)": 2064,
+  "OR-Tools guided local search": 210,
+  "improved by another method": 0
+ }
+}

@@ -1,0 +1,7 @@
+data/frames/
+data/annotated/
+data/crops/
+data/raw-cctv/
+*.pt
+__pycache__/
+*.pyc

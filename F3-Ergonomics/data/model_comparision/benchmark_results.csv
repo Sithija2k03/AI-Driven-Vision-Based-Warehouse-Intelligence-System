@@ -1,0 +1,5 @@
+model,model_file,pose_support,frames_processed,detection_rate_pct,total_persons,avg_det_confidence,avg_kp_confidence,avg_inference_ms,throughput_fps,
+YOLOv8m-pose,yolov8m-pose.pt,Yes,122,56.56,91,0.5801,0.633,467.08,2.14,
+YOLOv9s,yolov9s.pt,No,122,63.93,124,0.5832,N/A,168.36,5.94,
+YOLOv10s,yolov10s.pt,No,122,52.46,171,0.555,N/A,206.36,4.85,
+YOLOv11m-pose,yolo11m-pose.pt,Yes,122,63.11,86,0.6437,0.6338,436.53,2.29,

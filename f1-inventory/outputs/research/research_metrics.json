@@ -1,0 +1,313 @@
+{
+  "E1_reliability_signals": {
+    "n_cells": 304,
+    "n_unreliable": 124,
+    "signals": {
+      "trust (ours: occlusion-aware)": {
+        "auc": 0.669,
+        "ci95": [
+          0.604,
+          0.737
+        ],
+        "spearman_with_recall": 0.351
+      },
+      "detector confidence (baseline)": {
+        "auc": 0.763,
+        "ci95": [
+          0.712,
+          0.814
+        ],
+        "spearman_with_recall": 0.633
+      },
+      "brightness (lighting)": {
+        "auc": 0.232,
+        "ci95": [
+          0.173,
+          0.296
+        ],
+        "spearman_with_recall": -0.36
+      },
+      "crowding (box overlap)": {
+        "auc": 0.421,
+        "ci95": [
+          0.355,
+          0.487
+        ],
+        "spearman_with_recall": 0.11
+      },
+      "combined: trust + brightness (leave-one-camera-out)": {
+        "auc": 0.713,
+        "ci95": [
+          0.647,
+          0.777
+        ]
+      },
+      "combined: trust + confidence (leave-one-camera-out)": {
+        "auc": 0.669,
+        "ci95": [
+          0.612,
+          0.732
+        ]
+      },
+      "combined: all four (leave-one-camera-out)": {
+        "auc": 0.681,
+        "ci95": [
+          0.617,
+          0.744
+        ]
+      },
+      "combined: all except trust (leave-one-camera-out)": {
+        "auc": 0.705,
+        "ci95": [
+          0.641,
+          0.766
+        ]
+      },
+      "position (top of frame = far)": {
+        "auc": 0.709,
+        "ci95": [
+          0.654,
+          0.764
+        ]
+      },
+      "box size (small = far)": {
+        "auc": 0.693,
+        "ci95": [
+          0.631,
+          0.752
+        ]
+      }
+    },
+    "trust_vs_confidence": {
+      "auc_difference": -0.093,
+      "ci95": [
+        -0.181,
+        -0.008
+      ],
+      "share_of_resamples_where_first_is_better": 0.018
+    },
+    "lighting": {
+      "mean_recall_darkest_quarter": 0.626,
+      "mean_recall_brightest_quarter": 0.381
+    },
+    "brightness_vs_row_spearman": -0.47,
+    "auc_per_camera": {
+      "trust (ours: occlusion-aware)": {
+        "location_G_H_b2": 0.53,
+        "location_X_5_b2": 0.485,
+        "location_checkingPart_2_b2": 1.0
+      },
+      "detector confidence (baseline)": {
+        "location_G_H_b2": 0.59,
+        "location_X_5_b2": 0.965,
+        "location_checkingPart_2_b2": 0.657
+      },
+      "brightness (lighting)": {
+        "location_G_H_b2": 0.309,
+        "location_X_5_b2": 0.314,
+        "location_checkingPart_2_b2": 0.036
+      },
+      "crowding (box overlap)": {
+        "location_G_H_b2": 0.338,
+        "location_X_5_b2": 0.285,
+        "location_checkingPart_2_b2": 0.329
+      },
+      "position (top of frame = far)": {
+        "location_G_H_b2": 0.546,
+        "location_X_5_b2": 0.795,
+        "location_checkingPart_2_b2": 0.792
+      },
+      "box size (small = far)": {
+        "location_G_H_b2": 0.6,
+        "location_X_5_b2": 0.744,
+        "location_checkingPart_2_b2": 0.738
+      }
+    },
+    "rank_average_combinations": {
+      "rank-avg: confidence + trust": {
+        "auc": 0.745,
+        "ci95": [
+          0.691,
+          0.803
+        ],
+        "vs_confidence_alone": {
+          "auc_difference": -0.018,
+          "ci95": [
+            -0.066,
+            0.03
+          ],
+          "share_of_resamples_where_first_is_better": 0.226
+        }
+      },
+      "rank-avg: confidence + position": {
+        "auc": 0.778,
+        "ci95": [
+          0.724,
+          0.832
+        ],
+        "vs_confidence_alone": {
+          "auc_difference": 0.014,
+          "ci95": [
+            -0.025,
+            0.055
+          ],
+          "share_of_resamples_where_first_is_better": 0.753
+        }
+      },
+      "rank-avg: confidence + trust + position": {
+        "auc": 0.824,
+        "ci95": [
+          0.779,
+          0.87
+        ],
+        "vs_confidence_alone": {
+          "auc_difference": 0.061,
+          "ci95": [
+            0.025,
+            0.1
+          ],
+          "share_of_resamples_where_first_is_better": 1.0
+        }
+      },
+      "rank-avg: confidence + trust + box size": {
+        "auc": 0.737,
+        "ci95": [
+          0.678,
+          0.796
+        ],
+        "vs_confidence_alone": {
+          "auc_difference": -0.027,
+          "ci95": [
+            -0.073,
+            0.022
+          ],
+          "share_of_resamples_where_first_is_better": 0.128
+        }
+      }
+    }
+  },
+  "E2_count_correction": {
+    "fitted_on": "location_checkingPart_2_b2",
+    "precision": 0.521,
+    "recall": 0.555,
+    "recall_by_level": {
+      "low": 0.572,
+      "medium": 0.625,
+      "high": 0.475
+    },
+    "recall_vs_trust_line": {
+      "intercept": -4.221,
+      "slope": 5.876
+    },
+    "frames": {
+      "n": 24,
+      "raw count": {
+        "mae": 36.54,
+        "mape": 0.173,
+        "bias": -0.149
+      },
+      "global correction": {
+        "mae": 44.77,
+        "mape": 0.208,
+        "bias": -0.202
+      },
+      "occlusion-aware correction": {
+        "mae": 40.58,
+        "mape": 0.189,
+        "bias": -0.181
+      },
+      "trust-calibrated correction": {
+        "mae": 24.95,
+        "mape": 0.106,
+        "bias": -0.012
+      },
+      "occlusion_vs_global": {
+        "mape_reduction": 0.019,
+        "ci95": [
+          0.013,
+          0.024
+        ]
+      },
+      "mape_per_camera": {
+        "location_G_H_b2": {
+          "raw count": 0.276,
+          "global correction": 0.321,
+          "occlusion-aware correction": 0.291,
+          "trust-calibrated correction": 0.094
+        },
+        "location_X_5_b2": {
+          "raw count": 0.069,
+          "global correction": 0.095,
+          "occlusion-aware correction": 0.087,
+          "trust-calibrated correction": 0.118
+        }
+      }
+    },
+    "cells": {
+      "n": 200,
+      "raw count": {
+        "mae": 6.34,
+        "mape": 0.247,
+        "bias": -0.102
+      },
+      "global correction": {
+        "mae": 6.67,
+        "mape": 0.254,
+        "bias": -0.157
+      },
+      "occlusion-aware correction": {
+        "mae": 6.42,
+        "mape": 0.252,
+        "bias": -0.139
+      },
+      "trust-calibrated correction": {
+        "mae": 16.41,
+        "mape": 0.57,
+        "bias": 0.217
+      },
+      "occlusion_vs_global": {
+        "mape_reduction": 0.002,
+        "ci95": [
+          -0.003,
+          0.007
+        ]
+      },
+      "mape_per_camera": {
+        "location_G_H_b2": {
+          "raw count": 0.268,
+          "global correction": 0.311,
+          "occlusion-aware correction": 0.291,
+          "trust-calibrated correction": 0.628
+        },
+        "location_X_5_b2": {
+          "raw count": 0.228,
+          "global correction": 0.204,
+          "occlusion-aware correction": 0.218,
+          "trust-calibrated correction": 0.519
+        }
+      }
+    },
+    "E2b_per_camera_calibration": {
+      "location_G_H_b2": {
+        "raw count": 0.261,
+        "per-camera global correction": 0.043,
+        "per-camera occlusion-aware correction": 0.175
+      },
+      "location_X_5_b2": {
+        "raw count": 0.126,
+        "per-camera global correction": 0.124,
+        "per-camera occlusion-aware correction": 0.132
+      },
+      "location_checkingPart_2_b2": {
+        "raw count": 0.076,
+        "per-camera global correction": 0.023,
+        "per-camera occlusion-aware correction": 0.027
+      },
+      "pooled_mape": {
+        "raw count": 0.15,
+        "per-camera global correction": 0.061,
+        "per-camera occlusion-aware correction": 0.107
+      }
+    }
+  }
+}

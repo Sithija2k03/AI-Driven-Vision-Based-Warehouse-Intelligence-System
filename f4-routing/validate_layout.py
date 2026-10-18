@@ -99,7 +99,7 @@ def main():
         for nid, nd in nodes.items():
             if nd['floor'] != me['floor'] or s['walkway'] not in nd['walkways']:
                 continue
-            if ((nd['x'] - me['x']) ** 2 + (nd['y'] - me['y']) ** 2) ** .5 * L.SCALE_M_PER_PX > 0.8:
+            if WM.seg_m((nd['x'], nd['y']), (me['x'], me['y'])) > 0.8:
                 continue
             opp += [x for x in nd['pick_slots'] if face_key(slots[x]) != face_key(s)]
         opp = sorted(set(opp), key=lambda c: (slots[c]['section'], slots[c]['slot']))
@@ -164,6 +164,14 @@ def main():
         'assumptions': L.ASSUMPTIONS,
         'walkways': {w: {'floor': f, 'pts': p} for w, (f, p) in L.WALKWAYS.items()},
         'stairs': L.STAIRS,
+        'edges': [[e['from'], e['to'], e['weight'], e['type'], e.get('walkway') or e.get('staircase')]
+                  for e in edges],
+        'walkway_table': WM.walkway_table(),
+        'distance_settings': {'scale_m_per_px': round(L.SCALE_M_PER_PX, 4),
+                              'width_m': L.WAREHOUSE_WIDTH_M, 'depth_m': L.WAREHOUSE_DEPTH_M,
+                              'scale_x': round(L.SCALE_X_M_PER_PX, 4), 'scale_y': round(L.SCALE_Y_M_PER_PX, 4),
+                              'stair_penalty_m': L.STAIR_LENGTH_M,
+                              'stair_by_stair': {**L.STAIR_LENGTH_BY_STAIR, **({'effort factor': L.STAIR_EFFORT_FACTOR} if L.STAIR_EFFORT_FACTOR != 1 else {})}},
         'nodes': [{'id': k, 'x': v['x'], 'y': v['y'], 'floor': v['floor'],
                    'slots': v['pick_slots']} for k, v in nodes.items()],
         'outlines': OUTLINES, 'faces': faces, 'spot': rows,

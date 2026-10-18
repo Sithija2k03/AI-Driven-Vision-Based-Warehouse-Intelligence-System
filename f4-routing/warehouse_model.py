@@ -48,6 +48,40 @@ def _arc_pos(pt, pts):
     return None
 
 
+def seg_m(a, b):
+    """Real length in metres of a straight piece of walkway between two canvas points."""
+    return math.hypot((b[0] - a[0]) * L.SCALE_X_M_PER_PX, (b[1] - a[1]) * L.SCALE_Y_M_PER_PX)
+
+
+def _arc_pos_m(pt, pts):
+    """Distance in metres along a polyline to point pt (pt assumed on it)."""
+    acc = 0.0
+    for a, b in zip(pts, pts[1:]):
+        q, d = _project(pt, a, b)
+        if d < 0.6:
+            return acc + seg_m(a, q)
+        acc += seg_m(a, b)
+    return None
+
+
+def walkway_table():
+    """Model length of every walkway and any measured override."""
+    over = getattr(L, 'WALKWAY_LENGTH_M', {})
+    rows = []
+    for w, (floor, pts) in L.WALKWAYS.items():
+        px = sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(pts, pts[1:]))
+        model = round(sum(seg_m(a, b) for a, b in zip(pts, pts[1:])), 2)
+        used = over.get(w, model)
+        rows.append({'walkway': w, 'floor': floor, 'length_px': round(px, 1), 'model_m': model,
+                     'measured_m': over.get(w), 'used_m': used,
+                     'factor': round(used / model, 4) if model else 1.0})
+    return rows
+
+
+def walkway_factors():
+    return {r['walkway']: r['factor'] for r in walkway_table() if r['measured_m'] is not None}
+
+
 def px_to_m(d):
     return round(d * L.SCALE_M_PER_PX, 2)
 
@@ -193,14 +227,21 @@ def build_graph(slot_index):
                     nodes[node_id[key]]['walkways'].append(w)
             cur = node_id[key]
             if prev is not None and prev != cur:
-                d = _arc_pos(xy, wpts) - _arc_pos(prev_xy, wpts)
+                d = _arc_pos_m(xy, wpts) - _arc_pos_m(prev_xy, wpts)
                 edges.append({'from': prev, 'to': cur, 'type': 'walk' if floor == 'G' else 'mezz_walk',
-                              'walkway': w, 'weight': max(0.1, px_to_m(d))})
+                              'walkway': w, 'weight': max(0.1, round(d, 2))})
             prev, prev_xy = cur, xy
+
+    # measured walkway lengths: stretch every edge on that walkway to match
+    for w, f in walkway_factors().items():
+        for e in edges:
+            if e.get('walkway') == w:
+                e['weight'] = round(e['weight'] * f, 2)
 
     for name, st in L.STAIRS.items():
         edges.append({'from': f'{name}_FOOT', 'to': f'{name}_TOP', 'type': 'stair',
-                      'staircase': name, 'weight': L.STAIR_PENALTY_M})
+                      'staircase': name,
+                      'weight': L.stair_cost_m(name)})
 
     # attach slots to stand-points
     for s in slot_index.values():

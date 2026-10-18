@@ -4,3 +4,11 @@ outputs/
 __pycache__/
 *.mp4
 *.zip
+clips/
+frames/
+f2_env/
+proxy_videos/
+*.zip
+*.mp4
+*.pt
+__pycache__/

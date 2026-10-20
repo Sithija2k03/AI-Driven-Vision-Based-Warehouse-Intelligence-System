@@ -27,8 +27,13 @@ sys.path.insert(0, PIPELINE_DIR)
 from confidence_filter   import check_confidence, reset_worker
 from ergonomic_scorer    import compute_risk
 from occlusion_handler   import apply_occlusion_handling, save_report
-from predict_demographic import load_demographic_model, predict_demographic
-from hybrid_pose         import run_hybrid
+try:
+    from predict_demographic import load_demographic_model, predict_demographic
+except Exception:
+    def load_demographic_model(): return None
+    def predict_demographic(model, img_path):
+        return {"age_group": "Unknown", "gender": "Unknown", "confidence": 0.0}
+    from hybrid_pose         import run_hybrid
 
 OCCLUSION_REPORT_DIR = r"D:\F3-Project\pipeline\occlusion_reports"
 
@@ -361,6 +366,9 @@ def score_frame_multi_person(frame_path: str, frame_id: str):
             tempfile.gettempdir(), f"f3_crop_{frame_id}_p{person_idx}.jpg"
         )
         crop.save(crop_path)
+        print(f"[DEBUG] crop saved: {crop_path}, size={crop.size}")
+        result = run_hybrid(crop_path, yolo_model)
+        print(f"[DEBUG] run_hybrid result: {result is not None}, det_conf={result.get('det_conf', 'N/A') if result else 'None'}")
 
         worker_id = f"{frame_id}-P{person_idx}"   # e.g. Frame-001-P1
         try:

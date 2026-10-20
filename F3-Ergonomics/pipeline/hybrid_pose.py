@@ -126,7 +126,7 @@ def run_hybrid(img_path: str, yolo_model) -> dict:
     h, w = img_bgr.shape[:2]
 
     # ── 1. YOLO ──────────────────────────────────────────────────────────────
-    results = yolo_model(img_path, verbose=False)
+    results = yolo_model(img_path, verbose=False, conf=0.10)
     if not results or results[0].keypoints is None:
         return None
     kp_data = results[0].keypoints.data
